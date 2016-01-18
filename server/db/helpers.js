@@ -14,7 +14,7 @@ var helpers = {
        return db.User.create(user);
     })
     .catch(function(error) {
-       console.log('Error adding user to the database', error);
+       console.log('Error adding user to the database ', error);
     })
   },
 
@@ -67,7 +67,7 @@ var helpers = {
                   console.log('Add plant successful');
                 })
                 .catch(function(error) {
-                   console.log('Error adding plant to the database', error);
+                   console.log('Error adding plant to the database ', error);
                 })
             })
         })
@@ -86,7 +86,7 @@ var helpers = {
       return db.Garden.create(garden);
     })
     .catch(function(error) {
-      console.log('Error adding garden to database', error);
+      console.log('Error adding garden to database ', error);
     })
   },
 
@@ -117,17 +117,17 @@ var helpers = {
       console.log('add species successful');
     })
     .catch(function(error) {
-      console.log('Error adding species to database', error);
+      console.log('Error adding species to database ', error);
     })
   },
 
-  addPlantToGarden : function(plant, garden) {
+  addGardenToPlant : function(plant, garden) {
     var plantObj = {};
     return db.Garden.findOne({
       where: {gardenName: garden.gardenName}
     })
     .then(function(gardenResult) {
-      if(gardenResult) {
+      if(!gardenResult) {
         throw ERROR('Garden name does not exist');
       }
       console.log('Garden name exists: ', gardenResult.gardenName);
@@ -137,52 +137,148 @@ var helpers = {
         where: {plantId: plant.plantId}
       })
       .then(function(plantResult) {
-        if(plantResult) {
+        if(!plantResult) {
           throw ERROR('Plant ID does not exist');
         }
         console.log('Plant name exists: ', plantResult);
           return db.Plant.set({
-            gardenId: plantObj.Id
+            gardenId: plantObj.gardenId
           })
         })
         .then(function(addPlantToGardenResult) {
           console.log('Add plant to garden successful');
         })
         .catch(function(error) {
-           console.log('Error adding plant to the database', error);
+           console.log('Error adding plant to the database ', error);
         })
     })
   },
 
-  addUserToGarden : function(user, garden) {
+  //addGardenToUser : function(user, garden) {
 
-  },
+  // }, // future feature
 
   getUser : function(user) {
-
+    return db.User.findOne({
+      where: {username: user.username}
+    })
+    .then(function(userResult) {
+      if(!userResult) {
+        throw ERROR('Username does not exist');
+      }
+      console.log('Username exists: ', userResult.username);
+    })
   },
 
   getGarden : function(garden) {
-
+    gardenObj = {};
+    return db.Garden.findOne({
+      where: {gardenName: garden.gardenName}
+    })
+    .then(function(gardenResult) {
+      if(!gardenResult) {
+        throw ERROR('Garden name does not exist');
+      }
+      console.log('Garden name: ', gardenResult.gardenName);
+      gardenObj.gardenId = gardenResult.gardenId; //TODO: find out gardenId
+      return db.Plant.getOne({
+        where: {idOfGarden: gardenObj.gardenId}
+      })
+      .then(function(plantResult) {
+        if(!plantResult) {
+          throw ERROR('No plants associated with this garden');
+        }
+        console.log('Plants associated with this garden ', plantResult);
+      })
+      .catch(function(error) {
+      console.log('Error, retrieving garden ', error);
+      })
+    })
   },
 
   getSpeciesInfo : function(species) {
-
+    return db.SpeciesInfo.findOne({
+      where: {commonName: species.commonName}
+    })
+    .then(function(specieResult) {
+      if(!specieResult) {
+        throw ERROR('Species does not exist');
+      }
+      console.log('Specie associated with this name ', species.commonName);
+    })
+    .catch(function(error) {
+      console.log('Error, retrieving speciesInfo: ', error);
+    })
   },
 
-  getUserPlants : function(plant, user) {
+  getUserPlants : function(user) {
+    var userId;
+    return db.User.findOne({
+      where: {username: user.username} 
+    })
+    .then(function(userResult) {
+      if(!userResult) {
+        throw ERROR('User does not exist');
+      }
+      console.log('User associated with this plant: ', error);
+      userId = userResult.userId;  //TODO: find out userId
 
+      return db.Plant.findAll({
+        where: {idOfUser: userId}
+      })
+      .then(function(plantsResult) {
+        if(plantsResult) {
+          throw ERROR('Plants do not exists');
+        }
+        console.log('Plants associated with this user ', plantResult);
+      })
+      .catch(function(error) {
+        console.log('Error, retrieving plantsResult: ', error);
+      })
+    })
   },
 
-  getGardenPlants : function(garden, plant) {
+  getGardenPlants : function(garden) {
+    var gardenId;
+    return db.Garden.findOne({
+      where: {gardenName: garden.gardenName} 
+    })
+    .then(function(gardenResult) {
+      if(!gardenResult) {
+        throw ERROR('Garden does not exist');
+      }
+      console.log('Garden associated with this plant: ', gardenResult);
+      gardenId = gardenResult.gardenId; //TODO: find out gardenId
 
-  },
-
-  getGardenUsers : function(garden, user) {
-    
+      return db.Plant.findAll({
+        where: {idOfGarden: gardenId}
+      })
+      .then(function(plantsResult) {
+        if(!plantsResult) {
+          throw ERROR('Plants do not exists');
+        }
+        console.log('Plants associated with this garden ', plantsResult);
+      })
+      .catch(function(error) {
+        console.log('Error, retrieving plantsResult: ', error);
+      })
+    })
   }
 
+  // getGardenUsers : function(garden) {
+
+  // }  // future feature
 
 };
+var lizz = {
+  username: 'lizz',
+  password: 'geetha',
+  email: 'robert',
+  location: 'sf',
+  userPic: 'dics'
+}
+helpers.addUser(lizz);
+helpers.getUser(lizz);
+
 
 module.exports = helpers;
