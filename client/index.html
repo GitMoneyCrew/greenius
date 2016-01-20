@@ -1,0 +1,91 @@
+<!doctype html>
+<html ng-app='greeniusApp'>
+
+<head>
+  <meta charset='utf-8'>
+  <title>Greenius</title> 
+  <meta name='description' content='Greenius is the new, more intellegent, way to plant your garden.'>
+  <!-- CSS -->
+  <link rel='stylesheet' href='./lib/bootstrap/dist/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='./lib/font-awesome/css/font-awesome.css' />
+  <link rel='stylesheet' href='./assets/styles.css' />
+
+  <!-- JS Source -->
+  <script src='./lib/jquery/dist/jquery.min.js'></script>
+  <script src='./lib/angular/angular.min.js'></script>
+  <script src='./lib/angular-animate/angular-animate.min.js'></script>
+  <script src='./lib/angular-ui-router/release/angular-ui-router.min.js'></script>
+  <script src='./lib/angular-bootstrap/ui-bootstrap.min.js'></script>
+  <script src='./lib/angular-route/angular-route.min.js'></script>
+
+</head>
+
+<body>  
+  <div id='wrapper'>
+    <!-- Sidebar -->
+    <div id='sidebar-wrapper'>
+      <ul class='sidebar-nav'>
+        <li class='sidebar-brand'>
+          <img id='profile-image' src='./../assets/robProfilePic.jpg' class='profile-image img-circle'></img><a href='#'> {Robert Cardiff} </a> <!-- TODO: add profile image & username -->
+        </li>
+        <li>
+            <a href='#'>Dashboard</a>
+        </li>
+        <li>
+            <a href='#'>Shortcuts</a>
+        </li>
+        <li>
+            <a href='#'>Overview</a>
+        </li>
+        <li>
+            <a href='#'>Events</a>
+        </li>
+        <li>
+            <a href='#'>About</a>
+        </li>
+        <li>
+            <a href='#'>Services</a>
+        </li>
+        <li>
+            <a href='#'>Contact</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id='page-content-wrapper'>
+      <div class='container-fluid'>
+        <div class='row'>
+          <div class='col-lg-12'>
+            <div id='menu-btn-container'>
+              <a href='#menu-toggle' class='btn btn-default next' id='menu-toggle'>
+                <i class='fa fa-bars'></i>
+              </a>
+            </div>  
+            <div ui-view='indexPage'>{Main content goes here}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  
+  <!-- Angular Stuff-->
+  <script src='./app/main.js'></script>
+  <script src='./app/services/services.js'></script>
+  <script src='./app/auth/authController.js'></script>
+  <script src='./app/browsePlant/browsePlantController.js'></script>
+  <script src='./app/dashboard/dashboardController.js'></script>
+  <script src='./app/myPlants/myPlantsController.js'></script>
+  <script src='./app/plantProfile/plantProfileController.js'></script>
+  <script src='./app/auth/authController.js'></script>
+  <script src='./app/utility.js'></script>
+
+</body>
+
+</html>
+
+
+
