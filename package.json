@@ -2,7 +2,7 @@
   "name": "greenius",
   "version": "1.0.0",
   "description": "A smarter way to plant.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "server/server.js",
@@ -22,31 +22,31 @@
     "url": "https://github.com/GitMoneyCrew/greenius/issues"
   },
   "homepage": "https://github.com/GitMoneyCrew/greenius#readme",
-
   "devDependencies": {
-     "gulp": "^3.8.5",
-     "gulp-if": "^1.2.5",
-     "gulp-jshint": "^1.6.3",
-     "gulp-karma": "0.0.4",
-     "gulp-nodemon": "^1.0.4",
-     "gulp-shell": "^0.2.7",
-     "jshint-stylish": "^0.2.0",
-     "karma": "^0.12.16",
-     "karma-browserify":"4.4.2",
-     "karma-chrome-launcher": "^0.1.4",
-     "karma-cli": "0.0.4",
-     "karma-jasmine": "^0.1.5",
-     "karma-mocha": "^0.1.4",
-     "karma-nested-reporter": "^0.1.1",
-     "karma-nyan-reporter": "0.0.43",
-     "karma-unicorn-reporter": "^0.1.4",
-     "mocha": "^1.20.1"
-   },
+    "gulp": "^3.9.0",
+    "gulp-if": "^1.2.5",
+    "gulp-jshint": "^2.0.0",
+    "gulp-karma": "0.0.4",
+    "gulp-nodemon": "^1.0.5",
+    "gulp-shell": "^0.2.11",
+    "jshint-stylish": "^0.2.0",
+    "karma": "^0.13.0",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-cli": "0.0.4",
+    "karma-jasmine": "^0.3.6",
+    "jasmine-core": "^2.4.1",
+    "karma-nested-reporter": "^0.1.1",
+    "sqlite3": "^3.1.1"
+  },
   "dependencies": {
-     "bcrypt-nodejs": "0.0.3",
-     "body-parser": "^1.4.3",
-     "express": "^4.4.5",
-     "morgan": "^1.1.1",
-     "request": "^2.36.0"
-   }
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.4.3",
+    "bower": "^1.7.2",
+    "express": "^4.4.5",
+    "gulp-sqlite3": "0.0.1",
+    "morgan": "^1.1.1",
+    "pg": "^4.4.3",
+    "request": "^2.36.0",
+    "sequelize": "^3.17.3"
+  }
 }
