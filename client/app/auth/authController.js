@@ -28,6 +28,12 @@ auth.controller('authController', ['$scope', 'Users', function($scope, Plants){
       }
       Users.addUser(userData);
 
+      // Once complete, clear the form (except location)
+      $scope.formData.username = '';
+      $scope.formData.password = '';
+      $scope.formData.email = '';
+      $scope.formData.userPic = '';
+
     };
 
 }]);

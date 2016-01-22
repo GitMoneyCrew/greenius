@@ -67,14 +67,8 @@ services.factory('Users', ['$http', function($http){
       url: 'api/users/addUser',
       data: userObj
     }).then(function(response) {
-
       console.log('SUCCESSFUL POST FOR ADDUSER');
 
-      // Once complete, clear the form (except location)
-      $scope.formData.username = '';
-      $scope.formData.password = '';
-      $scope.formData.email = '';
-      $scope.formData.userPic = '';
     }).catch(function(error) {
       console.log('ERROR FOR ADDUSER', error);
     });
