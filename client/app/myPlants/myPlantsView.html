@@ -1,0 +1,16 @@
+
+<div class='container-fluid'>
+  <div class='row'>
+    <!-- TODO: non-mvp filter search bar -->
+    <form ng-submit='getSpecifcGardenPlants()'>
+      <select placeholder='Filter by Garden:'  ng-model='data.gardenName' >
+        <option value='' disabled selected>Select garden</option>
+        <option ng-repeat='garden in gardenArray' ng-model = 'data.gardenName'>{{garden}}</option>
+      </select>
+      <input type='submit' value = 'Garden me'>
+    </form>
+    <div ng-repeat= 'plant in resultPlants' >
+      <a  ng-click= 'goToPlant(plant.nickname)'>{{plant.nickname}}</a>
+    </div>
+  </div>
+</div>
