@@ -9,7 +9,36 @@ myGarden.controller('myGardenController', ['$scope', 'Plants', '$state', 'Profil
   $scope.count = 0;
   $scope.resultPlants;
 
-  $scope.getSpecifcGardenPlants= function(){
+  $scope.lists = [
+      {
+          label: "To Plant",
+          plants: [
+              {name: "Flower"},
+              {name: "Shrub"},
+              {name: "Tree"}
+          ]
+      },
+      {
+          label: "Garden 1",
+          plants: [
+              {name: "Tree"},
+              {name: "Bush"},
+              {name: "Flower"}
+          ]
+      },
+      {
+          label: "Garden 2",
+          plants: [
+              {name: "Grass"},
+              {name: "Tree"},
+              {name: "Shrub"},
+              {name: "Flower"},
+              {name: "Berry"}
+          ]
+      }
+  ];
+  
+  $scope.getSpecifcGardenPlants = function(){
     if($scope.data.gardenName){
       Plants.getGardenPlants($scope.data)
         .then(function(results) {
