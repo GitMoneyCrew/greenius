@@ -4,7 +4,7 @@
   "description": "A smarter way to plant.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start",
     "start": "server/server.js",
     "postinstall": "bower install"
   },
@@ -29,12 +29,13 @@
     "gulp-karma": "0.0.4",
     "gulp-nodemon": "^1.0.5",
     "gulp-shell": "^0.2.11",
+    "jasmine-core": "^2.4.1",
+    "jshint": "^2.9.1",
     "jshint-stylish": "^0.2.0",
     "karma": "^0.13.0",
     "karma-chrome-launcher": "^0.2.0",
     "karma-cli": "0.0.4",
     "karma-jasmine": "^0.3.6",
-    "jasmine-core": "^2.4.1",
     "karma-nested-reporter": "^0.1.1",
     "sqlite3": "^3.1.1"
   },
@@ -44,7 +45,9 @@
     "body-parser": "^1.4.3",
     "bower": "^1.7.2",
     "express": "^4.4.5",
+    "express-jwt": "^3.3.0",
     "gulp-sqlite3": "0.0.1",
+    "jshint": "^2.9.1",
     "morgan": "^1.1.1",
     "pg": "^4.4.3",
     "request": "^2.36.0",

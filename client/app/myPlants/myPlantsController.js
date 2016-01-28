@@ -1,29 +1,43 @@
 var myPlants = angular.module('myPlants',[]);
-myPlants.controller('myPlantsController', ['$scope', 'Plants', '$state', 'ProfileInfo',  function($scope, Plants, $state, ProfileInfo){
-  $scope.data = {};
-  // $scope.data.username = $state.params.username;
-  $scope.data.username = ProfileInfo.profile.username;
-  $scope.data.gardenName = '';
-  $scope.data.nickname;
-  $scope.gardenArray=[];
-  $scope.count = 0;
+myPlants.controller('myPlantsController', ['Plants', '$state', 'ProfileInfo',  function(Plants, $state, ProfileInfo){
+  var that = this;
+  that.data = {};
+  // that.data.username = $state.params.username;
+  that.data.username = ProfileInfo.profile.username;
+  that.data.gardenName = '';
+  that.data.nickname;
+  that.gardenArray=[];
+  that.count = 0;
+  that.data.plantDelete = '';
 
   var changeState = function (plant){
-    $state.go('plantProfile', {nickname: plant});
+    $state.go('navbar.plantProfile', {nickname: plant});
   };
 
-  $scope.goToPlant = function(name){
-    $scope.data.nickname = name;
-    changeState($scope.data.nickname);
+  that.deletePlant = function(){
+    if(that.data.plantDelete){
+      Plants.deletePlant(that.data)
+        .then(function(results){
+          console.log(results, 'RESULTS IN DELETE PLANT CONTROLLER');
+        })
+        .catch(function(error){
+          console.log(error, 'ERROR IN DELETE PLANT CONTROLLER');
+        })
+    }
   };
 
-  $scope.getSpecifcGardenPlants= function(){
-    if($scope.data.gardenName){
-      Plants.getGardenPlants($scope.data)
+  that.goToPlant = function(name){
+    that.data.nickname = name;
+    changeState(that.data.nickname);
+  };
+
+  that.getSpecifcGardenPlants= function(){
+    if(that.data.gardenName){
+      Plants.getGardenPlants(that.data)
         .then(function(results) {
           // console.log(results, 'SUCCESS IN getSpecifcGardenPlants CONTROLLER');
-          $scope.resultPlants = results;
-          $scope.count++;
+          that.resultPlants = results;
+          that.count++;
         })
         .catch(function(error) {
           console.log(error);
@@ -31,14 +45,14 @@ myPlants.controller('myPlantsController', ['$scope', 'Plants', '$state', 'Profil
     }
   };
 
-  $scope.getUsersGardens = function(){
-    Plants.getUserGardens($scope.data)
+  that.getUsersGardens = function(){
+    Plants.getUserGardens(that.data)
       .then(function(results) {
         // console.log(results, 'SUCCES IN GETUSERSGARDENS CONTROLLER');
         for(var i = 0; i< results.length; i++){
           var temp = results[i].gardenName;
-          if($scope.gardenArray.indexOf(temp)===-1){
-            $scope.gardenArray.push(temp);
+          if(that.gardenArray.indexOf(temp)===-1){
+            that.gardenArray.push(temp);
           }
         }
       })
@@ -47,9 +61,9 @@ myPlants.controller('myPlantsController', ['$scope', 'Plants', '$state', 'Profil
       })
   };
 
-  $scope.getUserPlants = function(){
+  that.getUserPlants = function(){
     var tempArray = [];
-    Plants.getUsersPlants($scope.data)
+    Plants.getUsersPlants(that.data)
           .then(function(results) {
             // console.log(results.data, 'SUCCESS IN GETUSERPLANTS CONTROLLER');
             for(var i = 0 ; i < results.data.length; i++){
@@ -57,7 +71,7 @@ myPlants.controller('myPlantsController', ['$scope', 'Plants', '$state', 'Profil
               obj.nickname = results.data[i].nickname;
               tempArray.push(obj);
             }
-            $scope.resultPlants = tempArray;
+            that.resultPlants = tempArray;
           })
           .catch(function(error) {
             console.log(error);
@@ -65,6 +79,6 @@ myPlants.controller('myPlantsController', ['$scope', 'Plants', '$state', 'Profil
   };
 
   // immediately calls this function when controller loads
- $scope.getUserPlants();
- $scope.getUsersGardens();
+ that.getUserPlants();
+ that.getUsersGardens();
 }]);

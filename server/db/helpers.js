@@ -2,7 +2,23 @@ var db = require('./sequelize.js');
 
 var helpers = {
 
-  //user is an object with keys: username, password, email, location, userPic, nickname
+
+  //adding deleteUser, deletePlant, deleteGarden
+  deleteUser : function(userData) {
+    console.log('userData in helpers.js', userData)
+    return db.Users.destroy({
+     where: {username: userData.usernameDelete} 
+    })
+    .then(function(userResult) {
+      if(!userResult){
+        throw Error('username not doesnt exist! cant be deleted')
+      }
+    })
+    .catch(function(error) {
+      console.log('Error adding user to the database', error);
+    })
+  },
+
   addUser : function(user) {
     // Check for commonName in Users table
     return db.Users.findOne({
@@ -75,6 +91,38 @@ var helpers = {
         })
     })
   },
+
+  deleteGarden: function(gardenData) {
+    return db.Gardens.destroy({
+      where: {gardenName : gardenData.gardenDelete}
+    })
+    .then(function(gardenResult) {
+      if(!gardenResult){
+        throw Error('Garden does not exist, cannot be deleted', error);
+      }
+      return gardenResult;
+    })
+    .catch(function(error) {
+      console.log('Error deleting garden', error);
+    })
+  },
+
+  deletePlant: function(plantData) {
+    return db.Plants.destroy({
+      where: {nickname: plantData.plantDelete}
+    })
+    .then(function(plantResult) {
+      if(!plantResult){
+        throw Error('Plant does not exist, cannot be deleted', error);
+      }
+      console.log(plantResult, 'RESULT INSIDE DELETE PLANT HELPER')
+      return plantResult;
+    })
+    .catch(function(error) {
+      console.log('Error deleting plant from database', error)
+    })
+  },
+
 
   //garden is an object with gardenName
   addGarden : function(garden) {

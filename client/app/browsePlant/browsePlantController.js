@@ -1,28 +1,29 @@
 var browsePlant = angular.module('browsePlant', []);
-browsePlant.controller('browsePlantController', ['$scope', 'Plants','ProfileInfo','$state' ,function($scope, Plants, ProfileInfo,$state){
-  $scope.data = {};
-    $scope.data.commonName = '';
-    $scope.data.specieResults;
-    $scope.data.nickname = '';
-    $scope.data.username = ProfileInfo.profile.username;
-    $scope.data.botanicalName = '';
+browsePlant.controller('browsePlantController', ['Plants','ProfileInfo','$state' ,function(Plants, ProfileInfo,$state){
+  var that = this;
+  that.data = {};
+    that.data.commonName = '';
+    that.data.specieResults;
+    that.data.nickname = '';
+    that.data.username = ProfileInfo.profile.username;
+    that.data.botanicalName = '';
     // TODO need to fix for later w calendar stuff, for now itll be nursery
-    $scope.data.plantStatus = 'nursery';
+    that.data.plantStatus = 'nursery';
     // TODO need to tell user how to format
-    $scope.data.plantDate = ProfileInfo.profile.plantDate;
-    $scope.data.gardenName = '';
-    $scope.data.plantArray = [];
-    $scope.usersGardenArray = [];
-    $scope.plantInfoPrompts = false;
-    $scope.promptToAddPlant = false;
-    $scope.gardenPrompt = false;
-    $scope.showModal= false;
-    $scope.tracker = false;
+    that.data.plantDate = ProfileInfo.profile.plantDate;
+    that.data.gardenName = '';
+    that.data.plantArray = [];
+    that.usersGardenArray = [];
+    that.plantInfoPrompts = false;
+    that.promptToAddPlant = false;
+    that.gardenPrompt = false;
+    that.showModal= false;
+    that.tracker = false;
 
     // Gets all the gardens that belong the user to populate the existing garden table
-    $scope.getExistingGardens = function(){
+    that.getExistingGardens = function(){
       var gardenArray = [];
-        Plants.getUserGardens($scope.data)
+        Plants.getUserGardens(that.data)
           .then(function(results) {
             // console.log(results, 'SUCCESS IN GETEXISTINGGARDS');
             for(var j = 0; j< results.length; j++){
@@ -31,83 +32,84 @@ browsePlant.controller('browsePlantController', ['$scope', 'Plants','ProfileInfo
                 gardenArray.push(garden);
               }
             }
-            $scope.usersGardenArray = gardenArray;
+            that.usersGardenArray = gardenArray;
           })
           .catch(function(error) {
             console.log(error);
           })
     };
     // invoke immediately when controller is loaded
-    $scope.getExistingGardens();
+    that.getExistingGardens();
 
     var changeToPlantProfile = function(name){
-      $state.go('plantProfile', {nickname: name});
+      $state.go('navbar.plantProfile', {nickname: name});
     };
 
-    $scope.goToPlant = function(name){
-      $scope.data.nickname = name;
-      changeToPlantProfile($scope.data.nickname);
+    that.goToPlant = function(name){
+      that.data.nickname = name;
+      changeToPlantProfile(that.data.nickname);
     };
 
     // this will query the speciesInfo to get the plant they are interested in
-    $scope.browse = function(){
-      if($scope.data.commonName){
-        // console.log($scope.data, 'CONSOLE.LOG BROWSEPLANT SCOPEDATAPLANT');
-        Plants.getSpecieInfo($scope.data)
+    that.browse = function(){
+      if(that.data.commonName){
+        // console.log(that.data, 'CONSOLE.LOG BROWSEPLANT SCOPEDATAPLANT');
+        Plants.getSpecieInfo(that.data)
           .then(function(data) {
             // console.log(data.commonName, data.botanicalName, 'BROWSE DATA')
-            $scope.data.commonName = data.commonName;
-            $scope.data.botanicalName = data.botanicalName;
-            $scope.userWantsToAddPlant();
+            that.data.commonName = data.commonName;
+            that.data.botanicalName = data.botanicalName;
+            that.userWantsToAddPlant();
           })
           .catch(function(err) {
             console.log(err);
+            alert('Plant not found');
           })
       }
     };
 
     //this is for the ng-if prompt, appears= if user wants to plant this plant
-    $scope.userWantsToAddPlant = function(){
-      $scope.promptToAddPlant = !($scope.promptToAddPlant);
+    that.userWantsToAddPlant = function(){
+      that.promptToAddPlant = !(that.promptToAddPlant);
     };
 
     // this is for the ng-if prompt, appears = user choses which garden to add to
-    $scope.userChoseGarden = function(){
-      $scope.gardenPrompt = !($scope.gardenPrompt);
+    that.userChoseGarden = function(){
+      that.gardenPrompt = !(that.gardenPrompt);
     };
 
     //this is for the ng-if prompt, appears tell the user to name the plant and startdate
-    $scope.specificPlantInfoPrompts = function(){
-      $scope.plantInfoPrompts = !($scope.plantInfoPrompts);
+    that.specificPlantInfoPrompts = function(){
+      that.plantInfoPrompts = !(that.plantInfoPrompts);
     };
 
-    $scope.plantsInGardenTracker = function(){
-      $scope.tracker = true;
+    that.plantsInGardenTracker = function(){
+      that.tracker = true;
     };
 
     // checks if the garden exists or not, if it doesnt then adds the Garden
-    $scope.selectGarden = function(){
-      if($scope.data.gardenName){
-        if($scope.data.usersGarden != $scope.data.gardenName){
+    that.selectGarden = function(){
+      if(that.data.gardenName){
+        if(that.data.usersGarden != that.data.gardenName){
           //TODO check that user only inputed in one field
-          Plants.addGarden($scope.data)
+          Plants.addGarden(that.data)
             .then(function(results) {
               // console.log(results, 'SUCCESS IN SELECTGARDEN');
-              $scope.getGardenPlants();
+              that.getGardenPlants();
             })
             .catch(function(error) {
               console.log(error);
             })
         }
-        $scope.specificPlantInfoPrompts();
+        that.specificPlantInfoPrompts();
       }
     };
 
-    $scope.getGardenPlants = function(){
+    that.getGardenPlants = function(){
         var nicknameArray= [];
         var plantDateArray = [];
         var plantStatusArray = [];
-      Plants.getGardenPlants($scope.data)
+      Plants.getGardenPlants(that.data)
         .then(function(results) {
           // console.log(results, 'SUCCESS IN GETGARDENPLANTS CONTROLLER');
           for(var i = results.length-1; i>= 0; i--){
@@ -124,7 +126,7 @@ browsePlant.controller('browsePlantController', ['$scope', 'Plants','ProfileInfo
               })
             nicknameArray.push(obj);
           }
-          $scope.nicknameArray = nicknameArray;
+          that.nicknameArray = nicknameArray;
         })
         .catch(function(error) {
           console.log(error);
@@ -132,17 +134,21 @@ browsePlant.controller('browsePlantController', ['$scope', 'Plants','ProfileInfo
     };
 
     //adds the plant to the database
-    $scope.addPlant = function(){
-      if($scope.data.nickname){
-        Plants.addPlant($scope.data)
+    that.addPlant = function(){
+      if(that.data.nickname){
+        Plants.addPlant(that.data)
           .then(function(results){
             // console.log(results, 'SUCCESS IN ADDINPLANT ADDPLANT CONTROLLER');
-            $scope.getGardenPlants();
-            $scope.specificPlantInfoPrompts();
-            $scope.userChoseGarden();
-            $scope.userWantsToAddPlant();
-            $scope.plantsInGardenTracker();
-            $scope.data.botanicalName = '';
+            that.getGardenPlants();
+            that.specificPlantInfoPrompts();
+            that.userChoseGarden();
+            that.userWantsToAddPlant();
+            that.getExistingGardens();
+            that.plantsInGardenTracker();
+            that.data.botanicalName = '';
+            that.data.commonName = '';
+            that.data.nickname = '';
+            that.data.plantDate = '';
           })
           .catch(function(error) {
             console.log(error);

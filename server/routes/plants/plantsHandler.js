@@ -3,8 +3,36 @@ var app = express();
 var helper = require('./../../db/helpers.js');
 
 module.exports = {
+  deleteGarden: function(req, res){
+    // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE DELETEGARDEN');
+    var gardenData = req.body;
+    helper.deleteGarden(gardenData)
+      .then(function(results) {
+        console.log(results, 'SUCCESS INSIDE DELETE GARDEN');
+        res.status(200).send(results);
+      })
+      .catch(function(error) {
+        console.log(error, 'ERROR INSIDE DELETEGARDEN');
+        res.status(404).send(error);
+      })
+  },  
+
+  deletePlant: function(req, res){
+    // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE DELETEPLANT');
+    var plantData = req.body;
+    helper.deletePlant(plantData)
+      .then(function(results) {
+        console.log(results, 'SUCCES INSIDE DELETEPLANT in plantsHandler.js');
+        res.status(200).send(results);
+      })
+      .catch(function(error) {
+        console.log(error, 'ERROR INSIDE DELETEPLANT in plantsHandler.js');
+        res.status(404).send(error);
+      })
+  },
+
 	 addPlants: function(req, res) {
-		 console.log(req.body, 'THIS IS THE REQ.BODY INSIDE ADDPLANT');
+		 // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE ADDPLANT');
 		 var plantData = req.body;
 		 helper.addPlant(plantData)
        .then(function(results) {
@@ -19,7 +47,7 @@ module.exports = {
 	 },
 
    addGarden: function(req, res){
-     console.log(req.body, 'THIS IS THE REQ.BODY INSIDE ADDGARDEN');
+     // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE ADDGARDEN');
      var gardenData = req.body;
      var userData = req.body;
      helper.addGarden(gardenData)
@@ -43,7 +71,7 @@ module.exports = {
    },
 
 	 getPlantsForAUser: function(req, res) {
-		 console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETPLANTSFORAUSER');
+		 // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETPLANTSFORAUSER');
 		 var userData = req.body;
 		 helper.getUserPlants(userData)
 		   .then(function(results) {
@@ -72,7 +100,7 @@ module.exports = {
    },
 
    getPlant: function(req, res){
-     console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETPLANTHABDKER');
+     // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETPLANTHABDKER');
      var plantData = req.body;
      helper.getPlantByNickname(plantData)
        .then(function(results) {
@@ -86,7 +114,7 @@ module.exports = {
      },
 
     getUserGardens: function(req, res) {
-      console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETUSERGARDENSHANDLER');
+      // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETUSERGARDENSHANDLER');
       var userData = req.body;
       helper.getGardensFromUser(userData)
         .then(function(results) {
@@ -99,7 +127,7 @@ module.exports = {
         })
     },
     getGardenPlants: function(req, res) {
-      console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETGARDENPLANTSHANDLER');
+      // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETGARDENPLANTSHANDLER');
       var gardenData = req.body;
       helper.getGardenPlants(gardenData)
         .then(function(results) {
@@ -113,7 +141,7 @@ module.exports = {
     },
 
     getSpecieInfoById: function(req, res) {
-      console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETSPECIESINFOBYIDHANDLER');
+      // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETSPECIESINFOBYIDHANDLER');
       var idData = req.body;
       helper.getSpecieInfoById(idData)
         .then(function(results) {

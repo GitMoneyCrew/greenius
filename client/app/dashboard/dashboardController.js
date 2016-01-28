@@ -1,76 +1,77 @@
 var dashboard = angular.module('dashboard', []);
-dashboard.controller('dashboardController', ['$scope', 'Plants', 'ProfileInfo', function($scope, Plants, ProfileInfo){
-  $scope.data = {};
-  $scope.data.username = ProfileInfo.profile.username;
-  $scope.data.plants = [];
-  $scope.totalFlowers = 0;
-  $scope.totalHousePlants = 0;
-  $scope.totalFruits = 0;
-  $scope.totalVegetables = 0;
-  $scope.totalHerbs = 0;
-  $scope.totalShrubs = 0;
-  $scope.total_Flowers_HousePlant = 0;
-  $scope.total_Fruits_Vegetables = 0;
-  $scope.total_Herbs_Shrubs = 0;
+dashboard.controller('dashboardController', ['Plants', 'ProfileInfo', function(Plants, ProfileInfo){
+  var that = this;
+  that.data = {};
+  that.data.username = ProfileInfo.profile.username;
+  that.data.plants = [];
+  that.totalFlowers = 0;
+  that.totalHousePlants = 0;
+  that.totalFruits = 0;
+  that.totalVegetables = 0;
+  that.totalHerbs = 0;
+  that.totalShrubs = 0;
+  that.total_Flowers_HousePlant = 0;
+  that.total_Fruits_Vegetables = 0;
+  that.total_Herbs_Shrubs = 0;
   
-  $scope.getSpecieInfo = function(index, plant){  
+  that.getSpecieInfo = function(index, plant){  
     Plants.getSpecieById(plant)
           .then(function(speciesResult) {
-            $scope.data.plants[index].speciesInfo = speciesResult.data;
+            that.data.plants[index].speciesInfo = speciesResult.data;
             console.log(speciesResult.data, 'SUCCESS IN GETSPECIESINFO CONTROLLER');
-            $scope.getPlantStats();
+            that.getPlantStats();
           })
           .catch(function(error) {
             console.log(error, 'ERROR IN GETSPECIESINFO CONTROLLER');
           });
   };
 
-  $scope.getAllPlantsSpeciesInfo = function(array) {
+  that.getAllPlantsSpeciesInfo = function(array) {
     for(var i = 0; i < array.length; i++) {
-      $scope.getSpecieInfo(i, array[i]);
+      that.getSpecieInfo(i, array[i]);
     }    
   };
   
-  $scope.getUserPlants = function(){
-    Plants.getUsersPlants($scope.data)
+  that.getUserPlants = function(){
+    Plants.getUsersPlants(that.data)
           .then(function(plantResults) {
-            $scope.data.plants = plantResults.data;
+            that.data.plants = plantResults.data;
             console.log(plantResults.data, 'SUCCESS IN GETUSERPLANTS CONTROLLER');
-            $scope.getAllPlantsSpeciesInfo($scope.data.plants);
+            that.getAllPlantsSpeciesInfo(that.data.plants);
           })
           .catch(function(error) {
             console.log(error, 'ERROR IN GETUSERPLANTS CONTROLLER');
           });
   };
 
-  $scope.getPlantStats = function(){
-    for(var i = 0; i < $scope.data.plants.length; i++) {
-      var curSpeciesType = $scope.data.plants[i].speciesInfo;
+  that.getPlantStats = function(){
+    for(var i = 0; i < that.data.plants.length; i++) {
+      var curSpeciesType = that.data.plants[i].speciesInfo;
       if(curSpeciesType.typeOf === 'Flower') {
-        $scope.totalFlowers++;
+        that.totalFlowers++;
       }
       if (curSpeciesType.typeOf === 'Houseplant') {
-        $scope.totalHousePlants++;
+        that.totalHousePlants++;
       } 
       if (curSpeciesType.typeOf === 'Fruit') {
-        $scope.totalFruits++;
+        that.totalFruits++;
       } 
       if (curSpeciesType.typeOf === 'Vegetable') { 
-        $scope.totalVegetables++;
+        that.totalVegetables++;
       } 
       if (curSpeciesType.typeOf === 'Herb') {
-        $scope.totalHerbs++;
+        that.totalHerbs++;
       } 
       if (curSpeciesType.typeOf === 'Shrub') {
-        $scope.totalShrubs++;
+        that.totalShrubs++;
       } 
     }
-    $scope.total_Flowers_HousePlant = $scope.totalFlowers + $scope.totalHousePlants;
-    $scope.total_Fruits_Vegetables = $scope.totalFruits + $scope.totalVegetables;
-    $scope.total_Herbs_Shrubs = $scope.totalHerbs + $scope.totalShrubs;
+    that.total_Flowers_HousePlant = that.totalFlowers + that.totalHousePlants;
+    that.total_Fruits_Vegetables = that.totalFruits + that.totalVegetables;
+    that.total_Herbs_Shrubs = that.totalHerbs + that.totalShrubs;
   };
 
   // immediately calls this function when controller loads
-  $scope.getUserPlants();
+  that.getUserPlants();
 
 }]);
