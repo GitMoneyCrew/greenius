@@ -1,0 +1,2 @@
+// Google API Key
+var GOOGLE_API_KEY = 'x87d9BN59ICCQlQGpKg1A83bmCXSr9te';

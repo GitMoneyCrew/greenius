@@ -14,35 +14,15 @@ var main = angular.module('greeniusApp',
 	'ui.router']);
 
 main.config(function (authProvider) {
-    authProvider.init({
-      domain: 'greeniusthesis.auth0.com',
-      clientID: '909iKBxjdoJbblSUwtwFKFwfkqZss09d',
-      loginState: 'landingPage'
-    });
-  })
-  .run(function(auth) {
-    auth.hookEvents();
+  authProvider.init({
+    domain: 'greeniusthesis.auth0.com',
+    clientID: '909iKBxjdoJbblSUwtwFKFwfkqZss09d',
+    loginState: 'landingPage'
   });
-
-
-main.run(function($rootScope, auth, store, jwtHelper, $location) {
-  // This events gets triggered on refresh or URL change
-  $rootScope.$on('$locationChangeStart', function() {
-    var token = store.get('token');
-    if (token) {
-      if (!jwtHelper.isTokenExpired(token)) {
-        if (!auth.isAuthenticated) {
-          auth.authenticate(store.get('profile'), token);
-        }
-      } else {
-        // Either show the login page or use the refresh token to get a new idToken
-        $location.path('/');
-      }
-    }
-  });
+})
+.run(function(auth) {
+  auth.hookEvents();
 });
-
-
 
 main.config(function (authProvider, $httpProvider, jwtInterceptorProvider) {
   jwtInterceptorProvider.tokenGetter = ['store', function(store) {
