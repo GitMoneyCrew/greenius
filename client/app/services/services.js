@@ -1,17 +1,16 @@
 var services = angular.module('services', []);
 services.factory('Plants', ['$http', function($http){
 
-  var deletePlant = function(plant) {
+  var deletePlant = function(plant){
     return $http({
       method: 'POST',
       url: '/api/plants/deletePlant',
       data: plant
-    }).then(function(response) {
-      console.log('RESPONSE IN DELETE PLANT FACTORY', response)
+    }).then(function(response){
       return response;
-    }).catch(function(error) {
-      console.log(error, 'ERROR IN DELETE PLANT FACTORY');
-    })
+    }).catch(function(error){
+      console.log(error);
+    });
   };
 
   var deleteGarden = function(garden){
@@ -19,34 +18,33 @@ services.factory('Plants', ['$http', function($http){
       method: 'POST',
       url: '/api/plants/deleteGarden',
       data: garden
-    }).then(function(response) {
-      console.log('RESPONSE IN DELETE GARDEN FACTORY', response)
+    }).then(function(response){
       return response;
-    }).catch(function(error) {
-      console.log(error, 'ERROR IN DELETE GARDEN PLANT FACTORY');
-    })
+    }).catch(function(error){
+      console.log(error);
+    });
   };
 
-  var addPlant = function(plant) {
+  var addPlant = function(plant){
     return $http({
       method: 'POST',
       url: '/api/plants/addPlants',
       data: plant
-    }).then(function(response) {
-        // console.log(response);
-    }).catch(function(error) {
+    }).then(function(response){
+        return response;
+    }).catch(function(error){
         console.log(error);
     });
   };
 
-  var addGarden = function(garden) {
+  var addGarden = function(garden){
     return $http({
       method: 'POST',
       url: '/api/plants/addGarden',
       data: garden
-    }).then(function(response) {
-        // console.log(response);
-    }).catch(function(error) {
+    }).then(function(response){
+        return response;
+    }).catch(function(error){
         console.log(error);
     });
   };
@@ -56,62 +54,57 @@ services.factory('Plants', ['$http', function($http){
       method: 'POST',
       url: '/api/plants/loadPlants',
       data: user
-    }).then(function(response) {
-        // console.log(response, 'SUCCESS GETUSERSPLANTS PLANTS FACTORY');
+    }).then(function(response){
         return response;
-    }).catch(function(error) {
+    }).catch(function(error){
         console.log(error);
     });
   };
 
-  var getSpecieInfo = function (plant){
+  var getSpecieInfo = function(plant){
     return $http({
       method: 'POST',
       url: '/api/plants/loadSpecieInfo',
       data: plant
-    }).then(function(response) {
-        // console.log(response.data,'SUCCESS GETSPECIEINFO PLANTS FACTORY');
+    }).then(function(response){
         return response.data;
-    }).catch(function(error) {
+    }).catch(function(error){
         console.log(error);
     });
   };
 
-  var getPlant = function (plant) {
+  var getPlant = function (plant){
     return $http({
       method: 'POST',
       url: '/api/plants/loadPlantInfo',
       data: plant
-    }).then(function(response) {
-        // console.log(response, 'SUCCESS GETPLANT PLANTS FACTORY');
+    }).then(function(response){
         return response;
-    }).catch(function(error) {
+    }).catch(function(error){
         console.log(error);
     });
   };
 
-  var getUserGardens = function(user) {
+  var getUserGardens = function(user){
     return $http({
       method: 'POST',
       url: '/api/plants/loadUserGardens',
       data: user
-    }).then(function(response) {
-      console.log(response.data, 'SUCCESS GETUSERGARDENS PLANTS FACTORY');
+    }).then(function(response){
       return response.data;
-    }).catch(function(error) {
+    }).catch(function(error){
         console.log(error);
     });
   };
 
-  var getGardenPlants = function(garden) {
+  var getGardenPlants = function(garden){
     return $http({
       method: 'POST',
       url: '/api/plants/loadGardenPlants',
       data: garden
-    }).then(function(response) {
-        // console.log(response, 'SUCCESS GETGARDENPLANTS PLANTS FACTORY');
+    }).then(function(response){
         return response.data;
-    }).catch(function(error) {
+    }).catch(function(error){
         console.log(error);
     });
   };
@@ -121,10 +114,9 @@ services.factory('Plants', ['$http', function($http){
       method: 'POST',
       url: '/api/plants/loadSpecieInfoById',
       data: id
-    }).then(function(response) {
-        // console.log(response, 'SUCCESS IN GETSPECIEBYID PLANTS FACTORY');
+    }).then(function(response){
         return response;
-    }).catch(function(error) {
+    }).catch(function(error){
         console.log(error);
     });
   };
@@ -146,36 +138,35 @@ services.factory('Plants', ['$http', function($http){
 
 services.factory('Users', ['$http', function($http){
 
-  var addUser = function(userObj) {
+  var addUser = function(userObj){
     return $http({
       method: 'POST',
       url: '/api/users/addUser',
       data: userObj
-    }).then(function(response) {
-      console.log('services.js SUCCESSFUL POST FOR ADDUSER');
+    }).then(function(response){
       return response.config.data;
-    }).catch(function(error) {
-      console.log('ERROR FOR ADDUSER', error);
+    }).catch(function(error){
+      console.log(error);
     });
   };
 
- var deleteUser = function(userObj) {
+ var deleteUser = function(userObj){
     return $http({
       method: 'POST',
       url: '/api/users/deleteUser',
       data: userObj
-    }).then(function(response) {
-      console.log('SUCCESSFUL POST FOR DELETEUSER, services.js', response.config.data);
+    }).then(function(response){
       return response.config.data;
-    }).catch(function(error) {
-      console.log('ERROR FOR DELETE USER, services.js', error);
+    }).catch(function(error){
+      console.log(error);
     });
   };
 
   return {
     addUser: addUser,
     deleteUser: deleteUser
-  }
+  };
+  
 }]);
 
 //populate once we have our cookie (and once our cookies are figured out)

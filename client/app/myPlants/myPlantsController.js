@@ -1,16 +1,16 @@
-var myPlants = angular.module('myPlants',[]);
-myPlants.controller('myPlantsController', ['Plants', '$state', 'ProfileInfo',  function(Plants, $state, ProfileInfo){
+var myPlants = angular.module('myPlants', []);
+myPlants.controller('myPlantsController', ['Plants', '$state', 'ProfileInfo', function(Plants, $state, ProfileInfo){
   var that = this;
   that.data = {};
-  // that.data.username = $state.params.username;
-  that.data.username = ProfileInfo.profile.username;
-  that.data.gardenName = '';
-  that.data.nickname;
-  that.gardenArray=[];
+    that.data.username = ProfileInfo.profile.username;
+    that.data.plantDelete = '';
+    that.data.gardenName = '';
+    that.data.nickname;
+  that.gardenArray = [];
   that.count = 0;
-  that.data.plantDelete = '';
 
-  var changeState = function (plant){
+
+  var changeState = function(plant){
     $state.go('navbar.plantProfile', {nickname: plant});
   };
 
@@ -18,11 +18,15 @@ myPlants.controller('myPlantsController', ['Plants', '$state', 'ProfileInfo',  f
     if(that.data.plantDelete){
       Plants.deletePlant(that.data)
         .then(function(results){
-          console.log(results, 'RESULTS IN DELETE PLANT CONTROLLER');
+          if(that.data.gardenName){
+            that.getSpecifcGardenPlants();
+          } else{
+            that.getUserPlants();
+          }
         })
         .catch(function(error){
-          console.log(error, 'ERROR IN DELETE PLANT CONTROLLER');
-        })
+          console.log(error);
+        });
     }
   };
 
@@ -31,41 +35,39 @@ myPlants.controller('myPlantsController', ['Plants', '$state', 'ProfileInfo',  f
     changeState(that.data.nickname);
   };
 
-  that.getSpecifcGardenPlants= function(){
+  that.getSpecifcGardenPlants = function(){
     if(that.data.gardenName){
       Plants.getGardenPlants(that.data)
-        .then(function(results) {
-          // console.log(results, 'SUCCESS IN getSpecifcGardenPlants CONTROLLER');
+        .then(function(results){
           that.resultPlants = results;
           that.count++;
         })
-        .catch(function(error) {
+        .catch(function(error){
           console.log(error);
-        })
+        });
     }
   };
 
   that.getUsersGardens = function(){
     Plants.getUserGardens(that.data)
-      .then(function(results) {
-        // console.log(results, 'SUCCES IN GETUSERSGARDENS CONTROLLER');
+      .then(function(results){
         for(var i = 0; i< results.length; i++){
           var temp = results[i].gardenName;
-          if(that.gardenArray.indexOf(temp)===-1){
+          if(that.gardenArray.indexOf(temp) === -1){
             that.gardenArray.push(temp);
           }
         }
       })
-      .catch(function(error) {
+      .catch(function(error){
         console.log(error);
-      })
+      });
   };
+  that.getUsersGardens();
 
   that.getUserPlants = function(){
     var tempArray = [];
     Plants.getUsersPlants(that.data)
-          .then(function(results) {
-            // console.log(results.data, 'SUCCESS IN GETUSERPLANTS CONTROLLER');
+          .then(function(results){
             for(var i = 0 ; i < results.data.length; i++){
               var obj = {};
               obj.nickname = results.data[i].nickname;
@@ -73,12 +75,10 @@ myPlants.controller('myPlantsController', ['Plants', '$state', 'ProfileInfo',  f
             }
             that.resultPlants = tempArray;
           })
-          .catch(function(error) {
+          .catch(function(error){
             console.log(error);
           });
   };
+  that.getUserPlants();
 
-  // immediately calls this function when controller loads
- that.getUserPlants();
- that.getUsersGardens();
 }]);

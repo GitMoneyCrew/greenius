@@ -13,19 +13,19 @@ var main = angular.module('greeniusApp',
 	'services',
 	'ui.router']);
 
-main.config(function (authProvider) {
+main.config(function (authProvider){
   authProvider.init({
     domain: 'greeniusthesis.auth0.com',
     clientID: '909iKBxjdoJbblSUwtwFKFwfkqZss09d',
     loginState: 'landingPage'
   });
 })
-.run(function(auth) {
+.run(function(auth){
   auth.hookEvents();
 });
 
-main.config(function (authProvider, $httpProvider, jwtInterceptorProvider) {
-  jwtInterceptorProvider.tokenGetter = ['store', function(store) {
+main.config(function(authProvider, $httpProvider, jwtInterceptorProvider){
+  jwtInterceptorProvider.tokenGetter = ['store', function(store){
     // Return the saved token
     var token = store.get('token');
     return token;
@@ -34,11 +34,11 @@ main.config(function (authProvider, $httpProvider, jwtInterceptorProvider) {
 });
 
 main.run(['$rootScope', 'auth', 'store', 'jwtHelper', '$location', function($rootScope, auth, store, jwtHelper, $location){
-  $rootScope.$on('$locationChangeStart', function () {
+  $rootScope.$on('$locationChangeStart', function(){
     var token = store.get('token');
-    if(token) {
-      if(!jwtHelper.isTokenExpired(token)) {
-        if(!auth.isAuthenticated) {
+    if(token){
+      if(!jwtHelper.isTokenExpired(token)){
+        if(!auth.isAuthenticated){
           auth.authenticate(store.get('profile'), token);
         }
       } else{

@@ -2,7 +2,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var jwt = require('express-jwt');
 
-if(!process.env.Deployed) {
+if(!process.env.DEPLOYED) {
 	var config = require('./../env/config.js');	
 }
 

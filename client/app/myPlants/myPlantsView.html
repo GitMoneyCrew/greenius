@@ -1,32 +1,45 @@
 
 <div class='container-fluid'>
   <div class='row'>
-    <!-- TODO: non-mvp filter search bar -->
     <form ng-submit='mpp.getSpecifcGardenPlants()'>
-      <select placeholder='Filter by Garden:'  ng-model='mpp.data.gardenName' >
+      <select placeholder='Filter by Garden:' ng-model='mpp.data.gardenName'>
         <option value='' disabled selected>Select garden</option>
-        <option ng-repeat='garden in mpp.gardenArray' ng-model = 'mpp.data.gardenName'>{{garden}}</option>
+        <option ng-repeat='garden in mpp.gardenArray' ng-model='mpp.data.gardenName'>{{garden}}</option>
       </select>
-      <input type='submit' value = 'Garden me'>
+      <input type='submit' value='Garden me'>
     </form>
-    <div ng-repeat= 'plant in mpp.resultPlants' >
-      <a  ng-click= 'mpp.goToPlant(plant.nickname)'>{{plant.nickname}}</a>
+    <h5> My Plants: </h5>
+    <div ng-repeat='plant in mpp.resultPlants'>
+      <a  ng-click='mpp.goToPlant(plant.nickname)'>{{plant.nickname}}</a>
+    </div>
+    <div>
+      <h5>Wish to Delete a Plant?</h5>
+      <form ng-submit='mpp.deletePlant()'>
+        <select placeholder='Delete Plant' ng-model='mpp.data.plantDelete'>
+          <option value='' disabled selected></option>
+          <option ng-repeat='plant in mpp.resultPlants'>{{plant.nickname}}</option>
+        </select>
+        <input type='submit' value='Delete'>
+      </form>
     </div>
   </div>
-  <div class = 'row'>
-    <div class="panel panel-danger">
-      <div class="panel-heading">
-          <h2 class="panel-title text-center">Delete Plant</h2>
+
+
+
+  <!-- <div class='row'>
+    <div class='panel panel-danger'>
+      <div class='panel-heading'>
+          <h2 class='panel-title text-center'>Delete Plant</h2>
       </div>
-      <div class="panel-body">
-          <form name="addForm" novalidate>
-              <div class="form-group">
-                  <label for="plant">plant to delete </label>
-                  <input type="text" class="form-control" id="plant" placeholder="DELETEME" ng-model="mpp.data.plantDelete" required>
+      <div class='panel-body'>
+          <form name='addForm' novalidate>
+              <div class='form-group'>
+                  <label for='plant'>plant to delete</label>
+                  <input type='text' class='form-control' id='plant' placeholder='DELETEME' ng-model='mpp.data.plantDelete' required>
               </div>
-              <button type="submit" class="btn btn-danger btn-block" ng-click="mpp.deletePlant()" ng-disabled="addForm.$invalid">Submit</button>
+              <button type='submit' class='btn btn-danger btn-block' ng-click='mpp.deletePlant()' ng-disabled='addForm.$invalid'>Submit</button>
           </form>
-      </div> 
+      </div>
     </div>
-  </div>
+  </div> -->
 </div>

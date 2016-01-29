@@ -9,5 +9,5 @@ navbar.controller('navbarController', ['Plants', 'ProfileInfo', 'auth', 'store',
     store.remove('profile');
     store.remove('token');
   };
-  
+
 }]);
