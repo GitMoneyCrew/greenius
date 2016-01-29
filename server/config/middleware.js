@@ -1,7 +1,10 @@
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var jwt = require('express-jwt');
-var config = require('./../env/config.js');
+
+if(!process.env.Deployed) {
+	var config = require('./../env/config.js');	
+}
 
 module.exports = function(app, express){
 

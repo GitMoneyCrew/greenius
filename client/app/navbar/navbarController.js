@@ -8,7 +8,6 @@ navbar.controller('navbarController', ['Plants', 'ProfileInfo', 'auth', 'store',
     auth.signout();
     store.remove('profile');
     store.remove('token');
-  }
-
-
+  };
+  
 }]);

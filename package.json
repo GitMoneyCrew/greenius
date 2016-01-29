@@ -2,10 +2,10 @@
   "name": "greenius",
   "version": "1.0.0",
   "description": "A smarter way to plant.",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "karma start",
-    "start": "server/server.js",
+    "start": "node server/server.js",
     "postinstall": "bower install"
   },
   "repository": {
