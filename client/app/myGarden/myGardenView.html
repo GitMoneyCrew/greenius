@@ -1,46 +1,42 @@
-<div>
-    <div class="myGarden row">
-
-        <div ng-repeat="list in lists" class="col-md-3">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">List of {{list.label}} </h3>
-                </div>
-    <ul dnd-list="list.plants">
-        <li ng-repeat="plant in list.plants"
-            dnd-draggable="plant"
-            dnd-type="plant.type"
-            dnd-moved="list.plants.splice($index, 1)"
-            dnd-effect-allowed="move"
-            class="background-{{plant.type}}"
-            >
-            <div class="handle">:::</div>
-            <div class="name" dnd-nodrag>
-                <input type="text" ng-model="plant.name" class="background-{{plant.name}} form-control input-sm">
-            </div>
-        </li>
-    </ul>
+<div> 
+  <div class="myGarden row">
+    <div ng-repeat="list in mgp.lists" class="col-md-6" id={{list.label}}>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{list.label}}</h3>
         </div>
+        <ul dnd-list="list.plants"  
+        dnd-inserted="dropCallback(event, index, item, external, type)" >
+        <!-- Make dnd moved call a function that plants the plant -->
+          <li ng-repeat="plant in list.plants"
+              dnd-draggable="plant"
+              dnd-disable-if="plant.gardenId !== ''"
+              dnd-type="plant.type"
+              dnd-moved="list.plants.splice($index, 1)"
+              dnd-canceled="console.log(event)"
+              ng-init="mgp.plant.bucket = list.label">
+              <div class="handle" >:::</div> <!--different handle based on type?-->
+              <div class="name" dnd-nodrag>{{plant.name}}</div>
+          </li>
+        </ul>
     </div>
+  </div>
 </div>
 
-<!-- <div class='container-fluid'>
+<div class='container-fluid'>
   <div class='row'>
     <div class="panel panel-danger">
       <div class="panel-heading">
           <h2 class="panel-title text-center">Delete Garden</h2>
       </div>
       <div class="panel-body">
-          <form name="addForm" novalidate>
-              <div class="form-group">
-                  <label for="garden">garden to delete </label>
-                  <input type="text" class="form-control" id="garden" placeholder="DELETEME" ng-model="data.gardenDelete" required>
-              </div>
-
-              <button type="submit" class="btn btn-danger btn-block" ng-click="deleteGarden()" ng-disabled="addForm.$invalid">Submit</button>
-
-          </form>
+        <form name="addForm" novalidate>
+            <div class="form-group">
+                <label for="garden">garden to delete </label>
+                <input type="text" class="form-control" id="garden" placeholder="DELETEME" ng-model="mgp.data.gardenDelete" required>
+            </div>
+            <button type="submit" class="btn btn-danger btn-block" ng-click="mgp.deleteGarden()" ng-disabled="addForm.$invalid">Submit</button>
+        </form>
       </div> 
     </div>
  </div>
- -->

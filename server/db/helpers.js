@@ -176,42 +176,43 @@ var helpers = {
     })
   },
 
-  //plant is an object with plantId, commonName
+  //plant is an object with plantId
   //garden is an object with gardenName
   addGardenToPlant : function(plant, garden) {
-    var plantObj = {};
-    // Check for Gardens gardenName
-    return db.Gardens.findOne({
-      where: {gardenName: garden.gardenName}
-    })
-    .then(function(gardenResult) {
-      if(!gardenResult) {
-        throw ERROR('Garden name does not exist');
-      }
-      console.log('Garden name exists: ', gardenResult.gardenName);
-      plantObj.gardenId = gardenResult.id;
-      // Check for Plants gardenId
-      return db.Plants.findOne({
-        where: {plantId: plant.plantId}
-      })
-      .then(function(plantResult) {
+   var plantObj = {};
+   // Check for Gardens gardenName
+   return db.Gardens.findOne({
+     where: {gardenName: garden.gardenName}
+   })
+   .then(function(gardenResult) {
+     if(!gardenResult) {
+       throw ERROR('Garden name does not exist');
+     }
+     console.log('Garden name exists: ', gardenResult.gardenName);
+     plantObj.gardenId = gardenResult.id;
+     // Check for Plants gardenId
+     return db.Plants.findOne({
+       where: {id: plant.plantId}
+     })
+     .then(function(plantResult) {
+       if(!plantResult) {
+         throw ERROR('Plant ID does not exist');
+       }
+       return plantResult.update({
+        idOfGarden: plantObj.gardenId
+       })
+       .then(function(updatedPlant) {
         if(!plantResult) {
-          throw ERROR('Plant ID does not exist');
+          throw ERROR('Error when adding garden to plant');
         }
-        console.log('Plant name exists: ', plantResult);
-          //set idOfGarden
-          return db.Plants.set({
-            idOfGarden: plantObj.gardenId
-          })
-        })
-        .then(function(addPlantToGardenResult) {
-          console.log('Add plant to garden successful');
-        })
-        .catch(function(error) {
-           console.log('Error adding plant to the database ', error);
-        })
-    })
-  },
+       console.log('This is the updatedPlant: ', updatedPlant);
+       })
+     })
+     .catch(function(error) {
+        console.log('Error adding plant to the database ', error);
+     })
+   })
+ },
 
   //addGardenToUser : function(user, garden) {
 
@@ -361,6 +362,8 @@ var helpers = {
     })
   },
 
+ 
+  
   //garden is an object with gardenName
   //user is an object with username
   addUserToGarden : function(garden, user) {
