@@ -201,7 +201,6 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
   };
 
   that.formatGardenForSandbox = function(){
-
     that.resultPlants.forEach(function(element){
       if(element.idOfGarden === ""){
         that.lists[0].plants.push({
@@ -220,6 +219,33 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
       }
     })
   };
+
+  // get current time and create reoccuring schedule
+  that.function findWaterTime(plantLife, waterSched) { 
+    var currentDate = moment().valueOf();
+    var plantDate = currentDate;
+    var results = [];
+    var theWaterSched = [604800000/1,604800000/2,604800000/3];
+    var endDate = moment().add(plantLife, 'days').valueOf();
+
+    while(plantDate < endDate) {
+      plantDate = plantDate + theWaterSched[waterSched - 1];
+      results.push(plantDate);
+    }
+
+    return results;
+  }
+
+  that.function formDate (dates) {
+    var results = [];
+    for(var i = 0; i < dates.length; i++) {
+      results.push(moment(dates[i]).format());
+    }
+    return results;
+  }
+
+  // that.formDate(that.findWaterTime(90, 1)));
+
 
   that.getUserPlants();
 

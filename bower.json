@@ -38,7 +38,8 @@
     "angular-jwt": "~0.0.9",
     "angular-cookies": "~1.4.9",
     "auth0.js": "~6.8.0",
-    "auth0-angular": "~4.1.0"
+    "auth0-angular": "~4.1.0",
+    "moment": "~2.11.1"
   },
   "resolutions": {
     "angular": "1.4.8"
