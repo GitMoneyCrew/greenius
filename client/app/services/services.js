@@ -7,9 +7,10 @@ services.factory('Plants', ['$http', function($http){
       url: '/api/plants/deletePlant',
       data: plant
     }).then(function(response){
+      console.log(response, 'SUCCESS IN DELTE PLANT')
       return response;
     }).catch(function(error){
-      console.log(error);
+      console.log(error, 'ERROR IN DELTE PLANT');
     });
   };
 
@@ -19,9 +20,10 @@ services.factory('Plants', ['$http', function($http){
       url: '/api/plants/deleteGarden',
       data: garden
     }).then(function(response){
+      console.log('SUCCESS IN DELETEGARDEN FACTORY', response);
       return response;
     }).catch(function(error){
-      console.log(error);
+      console.log(error, 'ERROR in DELETEGARDEN Factory');
     });
   };
 
@@ -43,12 +45,28 @@ services.factory('Plants', ['$http', function($http){
       url: '/api/plants/addGarden',
       data: garden
     }).then(function(response){
+        console.log(response, 'THIS ADDGARDEN FACTORY')
         return response;
     }).catch(function(error){
         console.log(error);
     });
   };
 
+  var addGardenToPlant = function(plant, garden){
+    console.log(plant, garden)
+    var data = {plant: plant, garden: garden }
+    return $http({
+      method: 'POST',
+      url: '/api/plants/addGardenToPlant',
+      data: data
+    }).then(function(response) {
+      console.log(response, 'SUCCESS addGardenToPlant PLANTS FACTORY');
+      // return response.data;
+    }).catch(function(error) {
+      console.log(error);
+    });    
+  };
+ 
   var getUsersPlants = function(user){
     return $http({
       method: 'POST',
@@ -124,6 +142,7 @@ services.factory('Plants', ['$http', function($http){
   return {
     addPlant: addPlant,
     addGarden: addGarden,
+    addGardenToPlant: addGardenToPlant,
     getUsersPlants: getUsersPlants,
     getSpecieInfo: getSpecieInfo,
     getPlant: getPlant,
@@ -138,11 +157,11 @@ services.factory('Plants', ['$http', function($http){
 
 services.factory('Users', ['$http', function($http){
 
-  var addUser = function(userObj){
+  var addUser = function(user){
     return $http({
       method: 'POST',
       url: '/api/users/addUser',
-      data: userObj
+      data: user
     }).then(function(response){
       return response.config.data;
     }).catch(function(error){
@@ -150,11 +169,24 @@ services.factory('Users', ['$http', function($http){
     });
   };
 
- var deleteUser = function(userObj){
+  var getUser = function(user){
+      return $http({
+        method: 'POST',
+        url: 'api/users/getUser',
+        data: user
+      }).then(function(response){
+        return response;
+      }).catch(function(error){
+        console.log(error);
+      });
+    };
+
+
+ var deleteUser = function(user){
     return $http({
       method: 'POST',
       url: '/api/users/deleteUser',
-      data: userObj
+      data: user
     }).then(function(response){
       return response.config.data;
     }).catch(function(error){
@@ -164,48 +196,84 @@ services.factory('Users', ['$http', function($http){
 
   return {
     addUser: addUser,
+    getUser: getUser,
     deleteUser: deleteUser
   };
-  
+
 }]);
 
-//populate once we have our cookie (and once our cookies are figured out)
-//this will make it easy to remember info about the user, so you can just pass around this factory
-services.factory('ProfileInfo', ['$http', function($http){
-  var profile = {
-    // Below is for MVP testing purposes
-    username: 'Robert',
-    password: 'SWISS',
-    email: 'robertstuartcardiff@gmail.com',
-    location: '',
-    userPic: 'http://facebookcraze.com/wp-content/uploads/2009/12/funny_profile_pic_for_facebook_rape.jpg',
-    createdAt: '',
-    updatedAt: '',
-    gardenName: 'Eden',
-    plantDate: ''
+services.factory('Events', ['$http', function($http){
 
-    // Real one to populate
-    // username: undefined,
-    // gardenName: undefined
-    // TODO: FINISH THIS
+  var addPlantEvent = function(plantEvent){
+    return $http({
+      method: 'POST',
+      url: '/api/events/addPlantEvent',
+      data: plantEvent
+    }).then(function(response){
+      console.log('SUCCESS INSIDE addPlantEvent FACTORY', response);
+      return response;
+    }).catch(function(error){
+      console.log(error, 'ERROR INSIDE ADDPLANTEVENTS FACTORY');
+    });
   };
 
-  var getProfile = function() {
-    // TODO: FINISH THIS
-    return profile;
+  var getPlantEvent = function(plantEvent){
+    return $http({
+      method: 'POST',
+      url: '/api/events/getPlantEvent',
+      data: plantEvent
+    }).then(function(response){
+      console.log('SUCCESS INSIDE getPlantEvent FACTORY', response);
+      return response;
+    }).catch(function(error){
+      console.log(error, 'ERROR INSIDE GETPLANTEVENTS FACTORY');
+    });
   };
 
-  var setProfile = function(key, value) {
-    profile[key] = value;
-    return profile;
-    // TODO: FINISH THIS
+  var getUserEvents = function(user){
+    return $http({
+      method: 'POST',
+      url: '/api/events/getUserEvents',
+      data: user
+    }).then(function(response){
+      console.log('SUCCESS INSIDE GETUSEREVENTS', response);
+      return response;
+    }).catch(function(error){
+      console.log(error, 'ERROR INSIDE GETUSEREVENTS FACTORY');
+    });
+  };
+
+  var postToGoogleCalendar = function(plantEvent){
+    return $http({
+      method: 'POST',
+      url: '/api/events/postToGoogleCalendar',
+      data: plantEvent
+    }).then(function(response){
+      console.log('SUCCESS INSIDE POSTTOGOOGLECALENDAR FACTORY', response);
+      return response;
+    }).catch(function(error){
+      console.log(error, 'ERROR INSIDE POSTTOGOOGLECALENDAR FACTORY');
+    });
+  };
+
+  var removePlantEvent = function(plantEvent){
+    return $http({
+      method: 'POST',
+      url: '/api/events/removePlantEvent',
+      data: plantEvent
+    }).then(function(response){
+      console.log('SUCCESS INSIDE REMOVEPLANTEVENT FACTORY', response);
+      return response;
+    }).catch(function(error){
+      console.log(error, 'ERROR INSIDE REMOVEPLANTEVENTS FACTORY');
+    });
   };
 
   return{
-    getProfile: getProfile,
-    setProfile: setProfile,
-  // Below is for MVP testing purposes
-    profile: profile
+    addPlantEvent: addPlantEvent,
+    getPlantEvent: getPlantEvent,
+    getUserEvents: getUserEvents,
+    postToGoogleCalendar: postToGoogleCalendar,
+    removePlantEvent: removePlantEvent,
   };
-
 }]);

@@ -10,6 +10,9 @@
     </form>
     <h5> My Plants: </h5>
     <div ng-repeat='plant in mpp.resultPlants'>
+      <!-- Custom plantProfileDirective -->
+      <profile nickname='plant.nickname'></profile> 
+      <!-- Custom plantProfileDirective end -->
       <a  ng-click='mpp.goToPlant(plant.nickname)'>{{plant.nickname}}</a>
     </div>
     <div>

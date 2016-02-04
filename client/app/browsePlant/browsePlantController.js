@@ -1,14 +1,13 @@
 var browsePlant = angular.module('browsePlant', []);
-browsePlant.controller('browsePlantController', ['Plants', 'ProfileInfo', '$state', function(Plants, ProfileInfo, $state) {
+browsePlant.controller('browsePlantController', ['Plants', '$state', '$window', function(Plants, $state, $window) {
   var that = this;
   that.data = {};
     that.data.commonName = '';
     that.data.specieResults;
     that.data.nickname = '';
-    that.data.username = ProfileInfo.profile.username;
+    that.data.username = $window.localStorage.getItem('username');
     that.data.botanicalName = '';
-    // TODO MAKE SURE PLANTDATE MATCHES CALENDAR AND DB
-    that.data.plantDate = ProfileInfo.profile.plantDate;
+    //that.data.plantDate = '';
     that.data.gardenName = '';
     that.data.plantArray = [];
     that.usersGardenArray = [];
@@ -17,6 +16,14 @@ browsePlant.controller('browsePlantController', ['Plants', 'ProfileInfo', '$stat
     that.gardenPrompt = false;
     that.showModal = false;
     that.tracker = false;
+
+    that.plants = ['Jade', 'Peaches', 'Radishes', 'Shasta Daisies', 'Daffodils', 'Thyme', 'Coriander and Cilantro', 'Crocuses', 'Brussels Sprouts',
+                    'Dill', 'Beans', 'Cabbage', 'Tomatoes', 'Grapes', 'Carrots', 'Corn', 'Sweet Peas', 'Lilies', 'Aster', 'Watermelon', 'Blueberries', 'Rosemary', 'Bell Peppers', 'Chives',
+                    'Veronica', 'Tulips', 'Lettuce', 'Rhododendrons', 'Turnips', 'African Violets', 'Cannas', 'Sage', 'Cucumbers', 'Peace Lily', 'Zinnias', 'Plums', 'Marigolds',
+                    'Jasmine', 'Geraniums', 'Chard', 'Peas', 'Onions', 'Irises', 'Ponytail Palm', 'Cosmos', 'Wandering Jew', 'Strawberries', 'Tarragon', 'Nasturtium',
+                    'Phlox', 'Potatoes', 'Wisteria', 'Spider Plants', 'Yarrow', 'Astilbe', 'Kale', 'Peonies', 'Beets', 'Pansies', 'Mint', 'Lemons & Oranges', 'Parsley', 'Celery', 'Basil', 'Cherries', 'Rhubarb', 'Hydrangea', 'Figs', 'Sunflowers', 'Blackberries', 'Pears', 'Christmas Cactus',
+                    'Black-eyed Susans', 'Okra', 'Dahlias', 'Parsnips', 'Aloe Vera', 'Sedum', 'Impatiens', 'Broccoli', 'Cauliflower', 'Asparagus', 'Petunias','Sweet Potato', 'Spinach',
+                    'Gladiolus', 'Butterfly Bush', 'Oregano', 'Eggplant', 'Roses', 'Raspberries', 'Morning Glories', 'Delphiniums', 'Coneflowers', 'Apples', 'Garlic', 'Pumpkins', 'Hyacinths', 'Squash & Zucchini'];
 
     that.getExistingGardens = function(){
       var gardenArray = [];
@@ -45,12 +52,20 @@ browsePlant.controller('browsePlantController', ['Plants', 'ProfileInfo', '$stat
       changeToPlantProfile(that.data.nickname);
     };
 
+    that.changeCommonName = function(plant) {
+      console.log(plant);
+      that.data.commonName = plant;
+      that.browse();
+    }
+    
     that.browse = function(){
+      console.log('browse got heard!!');
       if(that.data.commonName){
         Plants.getSpecieInfo(that.data)
           .then(function(data){
             that.data.commonName = data.commonName;
             that.data.botanicalName = data.botanicalName;
+            console.log(that.data);
             that.userWantsToAddPlant();
           })
           .catch(function(error){
@@ -131,13 +146,13 @@ browsePlant.controller('browsePlantController', ['Plants', 'ProfileInfo', '$stat
             that.data.botanicalName = '';
             that.data.commonName = '';
             that.data.nickname = '';
-            that.data.plantDate = '';
+            //that.data.plantDate = '';
           })
           .catch(function(error){
             console.log(error);
           });
       } else{
-        alert('You must enter a plant');
+        alert('You must enter a plant name.');
       }
     };
 }]);

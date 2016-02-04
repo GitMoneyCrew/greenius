@@ -29,6 +29,7 @@
     "gulp-karma": "0.0.4",
     "gulp-nodemon": "^1.0.5",
     "gulp-shell": "^0.2.11",
+    "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
     "jshint": "^2.9.1",
     "jshint-stylish": "^0.2.0",
@@ -40,16 +41,22 @@
     "sqlite3": "^3.1.1"
   },
   "dependencies": {
+    "auth0-angular": "^4.1.0",
     "auth0-lock": "^8.2.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.4.3",
     "bower": "^1.7.2",
+    "cron": "^1.1.0",
     "express": "^4.4.5",
     "express-jwt": "^3.3.0",
+    "google-auth-library": "^0.9.7",
+    "googleapis": "^2.1.7",
     "gulp-sqlite3": "0.0.1",
     "jshint": "^2.9.1",
     "morgan": "^1.1.1",
-    "pg": "^4.4.3",
+    "nodemailer": "^2.1.0",
+    "nodemailer-smtp-transport": "^2.0.1",
+    "pg": "^4.4.4",
     "request": "^2.36.0",
     "sequelize": "^3.17.3"
   }

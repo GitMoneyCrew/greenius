@@ -20,7 +20,7 @@
   height: 100%;
   margin-left: -250px;
   overflow-y: auto;
-  background: #000;
+  background: #222;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -53,20 +53,22 @@
 }
 
 .sidebar-nav li {
-  text-indent: 20px;
-  line-height: 40px;
-}
+    padding: 15px;
+    padding-left: 20px;
+  }
 
 .sidebar-nav li a {
+  letter-spacing: 0.1rem;
   display: inline-block;
   text-decoration: none;
-  color: #999999;
+  color: #fff;
 }
 
-.sidebar-nav li a:hover {
+.sidebar-nav li:hover {
   text-decoration: none;
+  background: #000;
+  border-left: 5px solid rgba(89, 154, 41, 0.96) ;
   color: #fff;
-  background: rgba(255,255,255,0.2);
 }
 
 .sidebar-nav li a:active,
@@ -75,31 +77,43 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-  height: 85px;
+  text-align: center;
+  padding: 10px;
   font-size: 18px;
   line-height: 60px;
-  border-color: #ccc;
-  border-bottom: 2px solid;
+}
+
+.sidebar-nav > .sidebar-brand:hover {
+  background: none;
+  border-left: 0px;
 }
 
 .sidebar-nav > .sidebar-brand a {
-  color: #999999;
+  color: #fff;
 }
 
-.sidebar-nav > .sidebar-brand a:hover {
+/*.sidebar-nav > .sidebar-brand a:hover {
   color: #fff;
-  background: none;
-}
+}*/
 
 #menu-btn-container {
-  margin-bottom: 10px;
-  width: 100%;
+}
+
+.profile-image {
+  width: 100px;
+  border-radius: 50px;
+  border: 0px;
 }
 
 #profile-image {
   height: 75px;
   width: auto;
 }
+
+/*.box-image {
+  height: 242.6px;
+  width: 450.6px;
+}*/
 
 .dropdown-menu {
   margin-left: 10%;
@@ -148,7 +162,12 @@
     height: 75px;
     width: auto;
   }
-  
+
+/*.box-image {
+  height: 242.6px;
+  width: 450.6px;
+}*/
+
   #menu-btn-container {
     width: 100%;
     margin-bottom: 20px;
@@ -162,7 +181,7 @@
 }
 
 .min-padding {
-  padding-right: 15px; 
+  padding-right: 15px;
   padding-left: 15px;
 }
 
@@ -173,4 +192,72 @@
 
 
 
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.myGarden ul[dnd-list],
+.myGarden ul[dnd-list] > li {
+  position: relative;
+}
 
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.myGarden ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.myGarden ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.myGarden ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #29a329;
+    min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+.myGarden ul[dnd-list] li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+}
+
+/**
+ * Handle positioning
+ */
+.myGarden .handle {
+    cursor: move;
+    position: absolute;
+    top: 14px;
+}
+
+.myGarden .name {
+    margin-top: 5px;
+    margin-left: 20px;
+}

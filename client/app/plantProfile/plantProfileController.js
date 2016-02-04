@@ -1,5 +1,5 @@
 var plantProfile = angular.module('plantProfile', []);
-plantProfile.controller('plantProfileController',['Plants', '$state','ProfileInfo', function(Plants, $state, ProfileInfo){
+plantProfile.controller('plantProfileController',['Plants', '$state', function(Plants, $state){
   var that = this;
   that.data = {};
     that.data.nickname = $state.params.nickname;

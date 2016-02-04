@@ -48,7 +48,7 @@ p {
 }
 
 .bg-primary {
-    background-color: #3C763D;
+    background-color: rgba(89, 154, 41, 0.96);
 }
 
 .bg-dark {
@@ -327,14 +327,7 @@ header .header-content .header-content-inner p {
     padding-left: 0;
 }
 
-.btn-default {
-    border-color: #fff;
-    color: #222;
-    background-color: #fff;
-    -webkit-transition: all .35s;
-    -moz-transition: all .35s;
-    transition: all .35s;
-}
+
 
 .btn-default:hover,
 .btn-default:focus,
@@ -432,14 +425,14 @@ fieldset[disabled] .btn-primary.active {
     color: #3C763D;
     background-color: #fff;
 }
-
-.btn {
+/*
+.btn{
     border: 0;
     border-radius: 300px;
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
-}
+}*/
 
 .btn-xl {
     padding: 15px 30px;

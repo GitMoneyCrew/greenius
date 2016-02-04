@@ -1,30 +1,26 @@
-<div id='wrapper'>
+<div id='wrapper' ng-class="nvp.isOpen ? 'toggled' : ''">
     <!-- Sidebar -->
-    <div id='sidebar-wrapper'>
+    <div id='sidebar-wrapper' ng-class="nvp.isOpen ? 'toggled' : ''">
       <ul class='sidebar-nav'>
         <li class='sidebar-brand'>
-          <img id='profile-image' ng-src={{nvp.userImage}} class='profile-image img-circle'></img><a>{{nvp.userName}}</a> <!-- TODO: add profile image & username -->
+          <img id='profile-image' ng-src={{nvp.userImage}} class='img-circle'></img><br>
+          <a>Welcome, {{nvp.userName}}</a> <!-- TODO: add profile image & username -->
         </li>
         <li>
-            <a class='full-width' href='#/navbar/myplants'>My Plants</a>
+          <a href='#/navbar/dashboard'>Dashboard</a>
         </li>
         <li>
-            <a class='full-width' href='#/navbar/mygarden'>My Garden</a>
+          <a href='#/navbar/browseplant'>The Greenhouse</a>
         </li>
         <li>
-            <a class='full-width' href='#/navbar/browseplant'>Browse Plants</a>
+          <a href='#/navbar/mygarden'>Garden Builder</a>
         </li>
         <li>
-            <a class='full-width' href='#/navbar/dashboard'>Calendar</a>
+          <a href='#/navbar/myplants'>My Plants</a>
         </li>
-        <li>
-          <li class='dropdown'>
-            <a class='dropdown-toggle full-width' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='true'>Dropdown<span class='caret'></span></a>
-            <ul class='dropdown-menu'>
-              <li><a href='#/landingPage' ng-click='nvp.logout()'>Logout</a></li>
-            </ul>
-          </li>
-        </li>
+        <li><a href='#/settings'>Settings</a></li>
+        <li><a href='#/landingPage' ng-click='nvp.logout()'>Logout</a></li>
+  
       </ul>
     </div>
     <!-- Page Content -->
@@ -33,11 +29,11 @@
         <div class='row'>
           <div class='col-lg-12'>
             <div id='menu-btn-container'>
-              <a href='#menu-toggle' class='btn btn-default next' id='menu-toggle'>
+              <a ng-click='nvp.toggleSideBar()' class='btn btn-default next' id='menu-toggle'>
                 <i class='fa fa-bars'></i>
               </a>
             </div>
-                <div ui-view='subView'></div>
+              <div ui-view='subView'></div>
           </div>
         </div>
       </div>

@@ -1,55 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html ng-app='greeniusApp'>
+
 <head>
   <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>Greenius</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Greenius</title> 
   <meta name='description' content='Greenius is the new, more intellegent, way to plant your garden.'>
 
   <!-- CSS -->
-  <link rel='stylesheet' href='./lib/bootstrap/dist/css/bootstrap.min.css'>
-  <link rel='stylesheet' href='./lib/font-awesome/css/font-awesome.css'>
-  <link rel='stylesheet' href='./assets/css/styles.css'>
-  <link rel='stylesheet' href='./assets/css/animate.min.css' type='text/css'>
-  <link rel='stylesheet' href='./assets/css/creative.css' type='text/css'>
+  <link rel='stylesheet' href='./lib/bootstrap/dist/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='./lib/font-awesome/css/font-awesome.css' />
+  <link rel='stylesheet' href='./assets/css/styles.css' />
+  <link rel="stylesheet" href="./assets/css/animate.min.css" type="text/css">
+  <link rel="stylesheet" href="./assets/css/creative.css" type="text/css">
 
-  <!-- JS Source -->
-  <script src='./lib/jquery/dist/jquery.min.js'></script>
-  <script src='./lib/angular/angular.min.js'></script>
-  <script src='./lib/angular-animate/angular-animate.min.js'></script>
-  <script src='./lib/angular-ui-router/release/angular-ui-router.min.js'></script>
-  <script src='./lib/angular-bootstrap/ui-bootstrap.min.js'></script>
-  <script src='./lib/angular-route/angular-route.min.js'></script>
-  <script src='./lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js'></script>
-  <script src='//code.angularjs.org/1.2.16/angular-cookies.min.js'></script>
+  <!-- Setting the right viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel='icon' href='./assets/favicon.ico' type='image/x-icon'/ > 
 
-  <script src='./assets/js/bootstrap.min.js'></script>
-  <script src='./assets/js/jquery.easing.min.js'></script>
-  <script src='./assets/js/jquery.fittext.js'></script>
-  <script src='./assets/js/wow.min.js'></script>
-  <script src='./assets/js/creative.js'></script>
-
-  <script src='//code.angularjs.org/1.2.16/angular-cookies.min.js'></script>
-  <script src='//cdn.auth0.com/js/lock-8.1.min.js'></script>
-  <script type='text/javascript' src='//cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js'></script>
-  <script type='text/javascript' src='//cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js'></script>
-  <script src='//cdn.auth0.com/w2/auth0-angular-4.js'> </script>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-  <link rel='icon' href='./assets/favicon.ico' type='image/x-icon'>
 </head>
+  <body>  
 
-<body>
-  <div ui-view='indexPage'></div>
+    <div ui-view='indexPage'></div>
 
-  <script src='./app/main.js'></script>
-  <script src='./app/services/services.js'></script>
-  <script src='./app/landingPage/landingPageController.js'></script>
-  <script src='./app/navbar/navbarController.js'></script>
-  <script src='./app/browsePlant/browsePlantController.js'></script>
-  <script src='./app/dashboard/dashboardController.js'></script>
-  <script src='./app/myPlants/myPlantsController.js'></script>
-  <script src='./app/myGarden/myGardenController.js'></script>
-  <script src='./app/plantProfile/plantProfileController.js'></script>
-  <script src='./app/utility.js'></script>
-</body>
+    <!-- JS Source -->
+    <script src='./lib/jquery/dist/jquery.min.js'></script>
+    <script src='./lib/angular/angular.min.js'></script>
+    <script src='./lib/angular-animate/angular-animate.min.js'></script>
+    <script src='./lib/angular-ui-router/release/angular-ui-router.min.js'></script>
+    <script src='./lib/angular-bootstrap/ui-bootstrap.min.js'></script>
+    <script src='./lib/angular-route/angular-route.min.js'></script>
+    <script src='./lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js'></script>
+    <script src='./lib/angular-cookies/angular-cookies.min.js'></script>
+    <script src='./lib/angular-ui-calendar/src/calendar.js'></script>
+
+    <!-- angolia -->
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/jquery.easing.min.js"></script>
+    <script src="./assets/js/jquery.fittext.js"></script>
+    <script src="./assets/js/wow.min.js"></script>
+    <script src="./assets/js/creative.js"></script>
+
+    <!-- Moments -->
+    <script src='./lib/moment/min/moment.min.js'></script>
+
+    <!-- Auth0 lock, angular-jwt and angular-storage -->
+    <script src='./lib/auth0-lock/build/auth0-lock.js'></script>
+    <script src='./lib/a0-angular-storage/dist/angular-storage.js'></script>
+    <script src='./lib/angular-jwt/dist/angular-jwt.js'></script>
+    <script src='./lib/auth0-angular/build/auth0-angular.js'></script>
+    
+    <!-- Angular Controllers & Services-->
+    <script src='./app/main.js'></script>
+    <script src='./app/services/services.js'></script>
+    <script src='./app/landingPage/landingPageController.js'></script>
+    <script src='./app/navbar/navbarController.js'></script>
+    <script src='./app/browsePlant/browsePlantController.js'></script>
+    <script src='./app/dashboard/dashboardController.js'></script>
+    <script src='./app/calendar/calendarController.js'></script>
+    <script src='./app/myPlants/myPlantsController.js'></script>
+    <script src='./app/myGarden/myGardenController.js'></script>
+    <script src='./app/plantProfile/plantProfileController.js'></script>
+    <script src='./app/directives/plantProfileDirective.js'></script>
+
+  </body>
 </html>
+
+
+

@@ -1,46 +1,67 @@
 <div>
-    <div class="myGarden row">
-
-        <div ng-repeat="list in lists" class="col-md-3">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">List of {{list.label}} </h3>
-                </div>
-    <ul dnd-list="list.plants">
-        <li ng-repeat="plant in list.plants"
-            dnd-draggable="plant"
-            dnd-type="plant.type"
-            dnd-moved="list.plants.splice($index, 1)"
-            dnd-effect-allowed="move"
-            class="background-{{plant.type}}"
-            >
-            <div class="handle">:::</div>
-            <div class="name" dnd-nodrag>
-                <input type="text" ng-model="plant.name" class="background-{{plant.name}} form-control input-sm">
-            </div>
-        </li>
-    </ul>
+  <div class="myGarden row">
+    <h1>Garden Builder</h1>
+    <h3> Drag and drop a plant from 'The Nursery' into the garden you wish to populate today! </h3>
+    <div ng-repeat="list in mgp.lists" class="col-md-6" id={{list.label}}>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{list.label}}</h3>
         </div>
+        <ul dnd-list="list.plants"
+            dnd-inserted="mgp.dropCallback(event, index, item, external, type)" >
+          <!-- Make dnd moved call a function that plants the plant -->
+          <li ng-repeat="plant in list.plants"
+              dnd-draggable="plant"
+              dnd-disable-if="plant.gardenId !== ''"
+              dnd-type="plant.type"
+              dnd-moved="mgp.confirm(); list.plants.splice($index, 1)"
+              dnd-canceled="list.plants.splice($index, 1)"
+              ng-init="plant.bucket = list.label">
+              <div class="handle" >:::</div> <!--different handle based on type?-->
+              <div class="name" dnd-nodrag>{{plant.name}}</div>
+          </li>
+        </ul>
     </div>
+  </div>
 </div>
 
-<!-- <div class='container-fluid'>
-  <div class='row'>
+<h3>Wanna Create a Garden? </h3>
+<form name="addForm" ng-submit='mgp.addGarden()' novalidate>
+  <div class='form-group'>
+    <input type='text' placeholder='Add Garden' ng-model='mgp.data.gardenAdded'>
+    <input type='submit' value='Add'>
+  </div>
+</form>
+
+<h3> Wanna Delete a Garden? </h3>
+<form name="deleteForm" ng-submit='mgp.deleteGarden()' novalidate>
+    <div class="form-group">
+        <select placeholder='Delete Garden' ng-model='mgp.data.gardenDelete'>
+          <option value='' disabled selected></option>
+          <option ng-repeat='(key, value) in mgp.gardens'>{{value}}</option>
+        </select>
+        <input type= 'submit' value='Delete'>
+    </div>
+    <!-- <button type="submit" class="btn btn-danger btn-block" ng-click="mgp.deleteGarden()" ng-disabled="addForm.$invalid">Submit</button> -->
+</form>
+<!-- <div class='container-fluid'> -->
+  <!-- <div class='row'>
     <div class="panel panel-danger">
       <div class="panel-heading">
           <h2 class="panel-title text-center">Delete Garden</h2>
       </div>
-      <div class="panel-body">
-          <form name="addForm" novalidate>
-              <div class="form-group">
-                  <label for="garden">garden to delete </label>
-                  <input type="text" class="form-control" id="garden" placeholder="DELETEME" ng-model="data.gardenDelete" required>
-              </div>
+      <div class="panel-body" ng-submit= ''>
+        <form name="addForm" novalidate>
+            <div class="form-group">
 
-              <button type="submit" class="btn btn-danger btn-block" ng-click="deleteGarden()" ng-disabled="addForm.$invalid">Submit</button>
-
-          </form>
-      </div> 
+                <select placeholder='Delete Garden' ng-model='mpp.data.gardenDelete'>
+                  <option value='' disabled selected></option>
+                  <option ng-repeat='(key, value) in mpp.gardens'>value</option>
+                </select>
+                <input type="text" class="form-control" id="garden" placeholder="DELETEME" ng-model="mgp.data.gardenDelete" required>
+             </div>
+            <button type="submit" class="btn btn-danger btn-block" ng-click="mgp.deleteGarden()" ng-disabled="addForm.$invalid">Submit</button>
+        </form>
+      </div>
     </div>
- </div>
- -->
+ </div> -->

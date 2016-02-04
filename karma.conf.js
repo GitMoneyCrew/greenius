@@ -15,18 +15,34 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        // 'client/node_modules/auth0-js/**/*.js',
-        // 'client/node_modules/auth0-lock/**/*.js',
+        // angular source
+        'client/lib/auth0.js',
         'client/lib/angular/angular.js',
         'client/lib/angular-mocks/angular-mocks.js',
+        'client/lib/angular-route/angular-route.js',
         'client/lib/angular-ui-router/release/angular-ui-router.js',
+        'client/lib/a0-angular-storage/dist/angular-storage.js',
+        'client/lib/angular-animate/angular-animate.js',
+        'client/lib/angular-bootstrap/ui-bootstrap.js',
+        'client/lib/angular-cookies/angular-cookies.js',
+        'client/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
+        'client/lib/angular-jwt/dist/angular-jwt.js',
+        'client/lib/jquery/dist/jquery.js',
+        'client/lib/auth0-angular/build/auth0-angular.js',
+        'client/lib/auth0-lock/build/auth0-lock.js',
+
+        // our app code
         'client/app/**/*.js',
+
+        // our spec files
         'spec/client/**/*.js'
     ],
-
+        
+    // <script src='./lib/angular-animate/angular-animate.min.js'></script>
 
     // list of files to exclude
     exclude: [
+        'karma.conf.js'
     ],
 
 

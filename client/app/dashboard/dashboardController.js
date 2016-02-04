@@ -1,8 +1,8 @@
 var dashboard = angular.module('dashboard', []);
-dashboard.controller('dashboardController', ['Plants', 'ProfileInfo', function(Plants, ProfileInfo){
+dashboard.controller('dashboardController', ['Plants', 'auth', '$window', '$q','Events', function(Plants, auth, $window, $q, Events){
   var that = this;
   that.data = {};
-    that.data.username = ProfileInfo.profile.username;
+    that.data.username = $window.localStorage.getItem('username');
     that.data.plants = [];
   that.totalFlowers = 0;
   that.totalHousePlants = 0;
@@ -14,11 +14,23 @@ dashboard.controller('dashboardController', ['Plants', 'ProfileInfo', function(P
   that.total_Fruits_Vegetables = 0;
   that.total_Herbs_Shrubs = 0;
 
+
+  that.getEvents = function(){
+    Events.getUserEvents(that.data)
+      .then(function(results){
+        console.log('SUCCESS IN getUserEvents CONTROLLER', results);
+        //results in an array of objects
+        // TODO possible convert ms back into time
+      })
+      .catch(function(error){
+        console.log(error, 'ERROR INSIDE GETUSEREVENTS CONTROLLER');
+      })
+  }
+that.getEvents();
   that.getSpecieInfo = function(index, plant){
-    Plants.getSpecieById(plant)
+    return Plants.getSpecieById(plant)
       .then(function(speciesResult){
         that.data.plants[index].speciesInfo = speciesResult.data;
-        that.getPlantStats();
       })
       .catch(function(error){
         console.log(error);
@@ -26,9 +38,13 @@ dashboard.controller('dashboardController', ['Plants', 'ProfileInfo', function(P
   };
 
   that.getAllPlantsSpeciesInfo = function(array){
-    for(var i = 0; i < array.length; i++){
-      that.getSpecieInfo(i, array[i]);
+    var myPromises = [];
+    for(var i = 0; i < that.data.plants.length; i++){
+       myPromises[i] = that.getSpecieInfo(i, that.data.plants[i]);
     }
+    $q.all(myPromises).then(function(){
+      that.getPlantStats();
+    })
   };
 
   that.getUserPlants = function(){
@@ -42,27 +58,25 @@ dashboard.controller('dashboardController', ['Plants', 'ProfileInfo', function(P
       });
   };
 
-  that.getUserPlants();
-
   that.getPlantStats = function(){
-    for(var i = 0; i < that.data.plants.length; i++){
-      var curSpeciesType = that.data.plants[i].speciesInfo;
-      if(curSpeciesType.typeOf === 'Flower'){
+    for(var i = 0; i < that.data.plants.length; i++) {
+      var curSpeciesType = that.data.plants[i].speciesInfo.typeOf;
+      if(curSpeciesType === 'Flower'){
         that.totalFlowers++;
       }
-      if (curSpeciesType.typeOf === 'Houseplant'){
+      if (curSpeciesType === 'Houseplant'){
         that.totalHousePlants++;
       }
-      if (curSpeciesType.typeOf === 'Fruit'){
+      if (curSpeciesType === 'Fruit'){
         that.totalFruits++;
       }
-      if (curSpeciesType.typeOf === 'Vegetable'){
+      if (curSpeciesType === 'Vegetable'){
         that.totalVegetables++;
       }
-      if (curSpeciesType.typeOf === 'Herb'){
+      if (curSpeciesType === 'Herb'){
         that.totalHerbs++;
       }
-      if (curSpeciesType.typeOf === 'Shrub'){
+      if (curSpeciesType === 'Shrub'){
         that.totalShrubs++;
       }
     }
@@ -70,5 +84,7 @@ dashboard.controller('dashboardController', ['Plants', 'ProfileInfo', function(P
     that.total_Fruits_Vegetables = that.totalFruits + that.totalVegetables;
     that.total_Herbs_Shrubs = that.totalHerbs + that.totalShrubs;
   };
+
+  that.getUserPlants();
 
 }]);

@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var jwt = require('express-jwt');
 
 if(!process.env.DEPLOYED) {
-	var config = require('./../env/config.js');	
+	var config = require('./../env/config.js');
 }
 
 module.exports = function(app, express){
@@ -19,11 +19,14 @@ module.exports = function(app, express){
 
 	var plantsRouter = express.Router();
 	var usersRouter = express.Router();
+  var eventsRouter = express.Router();
 
 	app.use('/api/plants', plantsRouter);
 	app.use('/api/users', usersRouter);
+  app.use('/api/events', eventsRouter);
 
 	require('./../routes/plants/plantsRoutes.js', jwtCheck)(plantsRouter);
+  require('./../routes/events/eventsRoutes.js', jwtCheck)(eventsRouter);
 	require('./../routes/users/usersRoutes.js')(usersRouter);
 
 };
