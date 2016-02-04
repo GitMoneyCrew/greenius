@@ -14,7 +14,7 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
   that.data.token.accessToken = store.get('access_token');
   that.data.token.refreshToken = store.get('refresh_token');
   that.data.email = $window.localStorage.getItem('email');
-  that.gardens = {"0": "The Nursery"};
+  that.gardens = {};
   that.count = 0;
   that.resultPlants;
   that.lists;
@@ -219,8 +219,14 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
             }
             Plants.deleteGarden(that.data)
             .then(function(results) {
-              console.log(results, 'RESULTS IN DELETE GARDEN CONTROLLER');
+              console.log("RESSSS", gardenObj)
+              for(var key in that.gardens){
+                if(that.gardens[key] === gardenObj.gardenName){
+                  delete that.gardens[key]
+                }
+              }
               that.getUserPlants();
+              console.log(results, 'RESULTS IN DELETE GARDEN CONTROLLER');
 
             })
             .catch(function(error){

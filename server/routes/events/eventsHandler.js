@@ -6,11 +6,6 @@ if(!process.env.DEPLOYED) {
 	var config = require('./../../env/config.js');
 }
 
-var google = require('googleapis');
-var OAuth2 = google.auth.OAuth2;
-//TODO: make process.env variables fro CLIENT_SECRET
-// var oauth2Client = new OAuth2(process.env.GOOGLE_CALENDAR_ID || config.GOOGLE_CALENDAR_ID, process.env.GOOGLE_CLIENT_SECRET || config.GOOGLE_CLIENT_SECRET, "http://127.0.0.1:3000/auth/google/callback");
-oauth2Client = new OAuth2( config.GOOGLE_CALENDAR_ID, config.GOOGLE_CLIENT_SECRET);
 var mailer = require('./../../config/mailer.js');
 
 module.exports = {
@@ -58,26 +53,26 @@ module.exports = {
   },
 
   postToGoogleCalendar: function(req, res){
-    oauth2Client.setCredentials({
-     access_token: req.body.token.accessToken,
-     refresh_token: req.body.token.refreshToken
-   });
-   console.log(oauth2Client, 'LOOK AT MEEEEEEEE')
-  //  console.log(req.body, 'THIS IS THE REQ.BODY IN POSTTOGOOGLECALENDAR HANDLER');
-   //TODO GET WHAT YOU NEED FROM THE REQ.BODY;
-   var description = req.body  //TODO GET WHAT YOU NEED FROM THE REQ.BODY;
+  //   oauth2Client.setCredentials({
+  //    access_token: req.body.token.accessToken,
+  //    refresh_token: req.body.token.refreshToken
+  //  });
+  //  console.log(oauth2Client, 'LOOK AT MEEEEEEEE')
+  // //  console.log(req.body, 'THIS IS THE REQ.BODY IN POSTTOGOOGLECALENDAR HANDLER');
+  //  //TODO GET WHAT YOU NEED FROM THE REQ.BODY;
+  //  var description = req.body  //TODO GET WHAT YOU NEED FROM THE REQ.BODY;
 
-   var event = {
-     'summary' : description,
-     'description' : description,
-     'start' : {
-       'dateTime': req.body.eventDate
-     },
-     'end' : {
-       'dateTime': req.body.endDate //have some logic that this is three months after plantDate;
-     }
-   }
-   var calendar = google.calendar('v3');
+  //  var event = {
+  //    'summary' : description,
+  //    'description' : description,
+  //    'start' : {
+  //      'dateTime': req.body.eventDate
+  //    },
+  //    'end' : {
+  //      'dateTime': req.body.endDate //have some logic that this is three months after plantDate;
+  //    }
+  //  }
+  //  var calendar = google.calendar('v3');
 
   //  TODO fix google calendar
   //  calendar.events.insert({

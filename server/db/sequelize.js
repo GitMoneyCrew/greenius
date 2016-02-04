@@ -11,12 +11,18 @@ var Sequelize = require('sequelize');
   //   });
   // } else {
     // var config = require('../env/config.js');
-    var sequelize = new Sequelize('test', null, null,{
-      host: 'localhost',
-      dialect: 'sqlite',
-      storage: './db.sqlite'
-    });
+    // var sequelize = new Sequelize('test', null, null,{
+    //   host: 'localhost',
+    //   dialect: 'sqlite',
+    //   storage: './db.sqlite'
+    // });
   // };
+
+var sequelize = new Sequelize('test', null, null,{
+  host: 'localhost',
+  dialect: 'sqlite',
+  storage: './db.sqlite'
+});  
 
 
 var models = {};
@@ -31,9 +37,6 @@ models.Users = sequelize.define('User', {
   email: {
     type: Sequelize.STRING
   },
-  // location: {
-  //   type: Sequelize.STRING
-  // },
   userPic: {
     type: Sequelize.STRING
   },
@@ -105,13 +108,13 @@ models.SpeciesInfos = sequelize.define('SpeciesInfo', {
   },
   careGuide: {
     type: Sequelize.TEXT
-  }/*,
+  },
   createdAt: {
     type: Sequelize.STRING
   },
   updatedAt: {
     type: Sequelize.STRING
-  }*/
+  }
 });
 
 models.Gardens = sequelize.define('Garden', {
@@ -207,10 +210,5 @@ models.Users.sync({
           });
       });
   });
-
-
-
-
-
 
 module.exports = models;
