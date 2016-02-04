@@ -7,6 +7,7 @@ var main = angular.module('greeniusApp',
   'dndLists',
 	'browsePlant',
 	'dashboard',
+	'calendar',
 	'myPlants',
   'myGarden',
 	'plantProfile',
@@ -120,10 +121,22 @@ main.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($
 					templateUrl: './app/dashboard/dashboardView.html',
 					controller: 'dashboardController',
 					controllerAs: 'dbp'
+				},
+				'subSubView@navbar.dashboard': {
+					templateUrl: './app/calendar/calendarView.html',
+					controller: 'calendarController',
+					controllerAs: 'clp'
 				}
 			},
       data: {requiresLogin : true}
 		})
+		// .state('navbar.dashboard.calendar', {
+		// 	url: '/calendar',
+		// 	views: {
+				
+		// 	},
+  //     data: {requiresLogin : true}
+		// })
 		.state('navbar.browsePlant', {
 			url: '/browseplant',
 			views: {
