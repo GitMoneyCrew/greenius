@@ -32,11 +32,9 @@ module.exports = {
   },
 
   addPlants: function(req, res) {
-    // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE ADDPLANT');
     var plantData = req.body;
     helper.addPlant(plantData)
       .then(function(results) {
-        //need to call addSpeciesInfo?
         console.log(results, 'SUCCESS IN ADDPLANT HANDLER');
         res.status(200).send(results);
       })
@@ -126,7 +124,19 @@ module.exports = {
       })
   },
 
-
+  getPlantById : function(req, res) {
+    console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETPLANTBYID');
+    var plantData = req.body;
+    helper.getPlantById(plantData)
+      .then(function(results){
+        console.log(results, 'SUCCESS IN GETPLANTBYID');
+        res.status(200).send(results);
+      })
+      .catch(function(error) {
+        console.log(error, 'ERROR INSIDE GETPLANTBYID HANDLER');
+        res.status(404).send(error);
+      })
+  },
 
   getUserGardens: function(req, res) {
     // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETUSERGARDENSHANDLER');

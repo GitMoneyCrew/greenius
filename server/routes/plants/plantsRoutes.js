@@ -10,6 +10,7 @@
    app.post('/loadUserGardens', plantsHandler.getUserGardens);
    app.post('/loadGardenPlants', plantsHandler.getGardenPlants);
    app.post('/loadSpecieInfoById', plantsHandler.getSpecieInfoById);
+   app.post('/loadPlantById', plantsHandler.getPlantById);
    app.post('/deletePlant', plantsHandler.deletePlant);
    app.post('/deleteGarden', plantsHandler.deleteGarden);
  };

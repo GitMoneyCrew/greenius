@@ -40,10 +40,12 @@
     "auth0.js": "~6.8.0",
     "auth0-angular": "~4.1.0",
     "moment": "~2.11.1",
-    "angular-ui-calendar": "~1.0.1"
+    "angular-ui-calendar": "~1.0.1",
+    "fullcalendar": "~2.6.0"
   },
   "resolutions": {
     "angular": "1.4.9",
-    "angular-bootstrap": "~0.14.3"
+    "angular-bootstrap": "~0.14.3",
+    "fullcalendar": "2.3.1"
   }
 }

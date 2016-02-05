@@ -64,9 +64,9 @@ services.factory('Plants', ['$http', function($http){
       // return response.data;
     }).catch(function(error) {
       console.log(error);
-    });    
+    });
   };
- 
+
   var getUsersPlants = function(user){
     return $http({
       method: 'POST',
@@ -139,12 +139,25 @@ services.factory('Plants', ['$http', function($http){
     });
   };
 
+  var getPlantById = function (plant){
+    return $http({
+      method: 'POST',
+      url: '/api/plants/loadPlantById',
+      data: plant
+    }).then(function(response){
+      return response;
+    }).catch(function (error){
+      console.log(error);
+    })
+  }
+
   return {
     addPlant: addPlant,
     addGarden: addGarden,
     addGardenToPlant: addGardenToPlant,
     getUsersPlants: getUsersPlants,
     getSpecieInfo: getSpecieInfo,
+    getPlantById: getPlantById,
     getPlant: getPlant,
     getUserGardens: getUserGardens,
     getGardenPlants: getGardenPlants,
@@ -269,11 +282,24 @@ services.factory('Events', ['$http', function($http){
     });
   };
 
+  var removeAllPlantEvents = function(plantEvent){
+    return $http({
+      method: 'POST',
+      url: '/api/events/removeAllPlantEvents',
+      data: plantEvent
+    }).then(function(response){
+      console.log(response, 'SUCCESS INSIDE REMOVEALLPLANTEVENTS FACTORY', response);
+    }).catch(function(error){
+      console.log(error, 'ERROR INSIDE REMOVEALLPLANTEVENTS FACTORY');
+    })
+  }
+
   return{
     addPlantEvent: addPlantEvent,
     getPlantEvent: getPlantEvent,
     getUserEvents: getUserEvents,
     postToGoogleCalendar: postToGoogleCalendar,
     removePlantEvent: removePlantEvent,
+    removeAllPlantEvents : removeAllPlantEvents
   };
 }]);

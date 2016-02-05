@@ -25,11 +25,11 @@ module.exports = {
   },
 
   getPlantEvent: function(req, res){
-    console.log(req.body, 'THIS IS REQ.BODY IN GETPLANTEVENT HANDLER');
+    // console.log(req.body, 'THIS IS REQ.BODY IN GETPLANTEVENT HANDLER');
     var plantEventData = req.body;
     helper.getPlantEvents(plantEventData)
       .then(function(results){
-        console.log('SUCCESS INSIDE GETPLANTEVENT HANDLER');
+        // console.log('SUCCESS INSIDE GETPLANTEVENT HANDLER');
         res.status(200).send(results);
       })
       .catch(function(error){
@@ -39,11 +39,11 @@ module.exports = {
   },
 
   getUserEvents: function(req, res){
-    console.log(req.body, 'THIS IS THE REQ.BODY IN GETUSEREVENT HANDLER');
+    // console.log(req.body, 'THIS IS THE REQ.BODY IN GETUSEREVENT HANDLER');
     var userData = req.body;
     helper.getUserEvents(userData)
       .then(function(results){
-        console.log('SUCCESS INSIDE GETUSEREVENTS');
+        // console.log('SUCCESS INSIDE GETUSEREVENTS');
         res.status(200).send(results);
       })
       .catch(function(error){
@@ -98,12 +98,26 @@ module.exports = {
    var plantEventData = req.body;
    helper.removePlantEvent(plantEventData)
      .then(function(results){
-       console.log('SUCCESS INSIDE REMOVEPLANTEVENT HANDLER');
+       console.log( results, 'SUCCESS INSIDE REMOVEPLANTEVENT HANDLER');
        res.status(200).send(results);
      })
      .catch(function(error){
        console.log(error, 'ERROR INSIDE REMOVEPLANTEVENT HANDLER');
        res.status(404).send(error);
      });
+ },
+
+ removeAllPlantEvents: function(req, res){
+   console.log(req.body, 'THIS IS REQ.BODY IN REMOVEALLPLANTEVENTS HANDLER');
+   var plantEventData = req.body;
+   helper.removeAllPlantEvents(plantEventData)
+    .then(function(results){
+      console.log(results, 'SUCCESS INSIDE REMOVEALLPLANTEVENTS HANDLER');
+      res.status(200).send(results);
+    })
+    .catch(function(error){
+      console.log(error, 'ERROR INSIDE REMOVEALLPLANTEVENTS HANDLER');
+      res.status(404).send(error);
+    })
  }
 };

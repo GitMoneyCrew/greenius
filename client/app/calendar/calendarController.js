@@ -1,24 +1,53 @@
 var calendar = angular.module('calendar', []);
-calendar.controller('calendarController', ['auth', '$window', 'Events','$compile', '$timeout', 'uiCalendarConfig', function(auth, $window, Events, $compile, $timeout, uiCalendarConfig) {
+calendar.controller('calendarController', ['auth', '$window', 'Events', 'Plants','$compile', '$timeout', 'uiCalendarConfig', function(auth, $window, Events, Plants, $compile, $timeout, uiCalendarConfig) {
 	var that = this;
   var date = new Date();
   var d = date.getDate();
   var m = date.getMonth();
   var y = date.getFullYear();
+  that.data = {};
+  that.data.username = $window.localStorage.getItem('username');
 
-  that.events = [
-    {title: 'Rose needs to plant', start: new Date(y, m , d + 1, 19, 0), end: new Date(y, m , d +1, 20, 30), allDay: false }
-  ];
-  // console.log(uiCalendarConfig, 'HELLOWWW($)')
+  that.getEvents = function(){
+    Events.getUserEvents(that.data)
+      .then(function(results){
+        for(var i = 0; i < results.data.length; i++){
+          that.data.eventDate = results.data[i].eventDate;
+            var year = moment(that.data.eventDate).format('YYYY');
+            var month = moment(that.data.eventDate).format('MM');
+            var day = moment(that.data.eventDate).format('DD');
+            var hour = moment(that.data.eventDate).format('HH');
+            var minute = moment(that.data.eventDate).format('mm');
+            that.events.push({
+              title: 'Water me',
+              start : new Date(year, month-1, day, hour, minute),
+              end : new Date(year, month-1, day, hour, minute + 15)
+            })
+          }
+        })
+      .catch(function(error){
+        console.log(error, 'ERROR INSIDE GETUSEREVENTS CONTROLLER');
+      })
+  };
+  that.getEvents();
+  that.events = [];
 
-	that.eventSources = [that.events];
-  // that.renderCalendar = function(calendar) {
-  //     if(uiCalendarConfig.calendars[calendar]){
-  //       uiCalendarConfig.calendars[calendar].fullCalendar('render');
-  //     }
-  //   };
-  // that.eventsF
 
+  /* Change View */
+  that.changeView = function(view,calendar) {
+    uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
+  };
+
+  /* Change View */
+  that.renderCalender = function(calendar) {
+    $timeout(function() {
+     if(uiCalendarConfig.calendars[calendar]){
+       uiCalendarConfig.calendars[calendar].fullCalendar('render');
+     }
+   });
+  };
+
+  /* Configure calendar */
   that.uiConfig = {
       calendar:{
         height: 450,
@@ -28,29 +57,13 @@ calendar.controller('calendarController', ['auth', '$window', 'Events','$compile
           center: '',
           right: 'today prev,next'
         },
-        eventClick: $scope.alertOnEventClick,
-        eventDrop: $scope.alertOnDrop,
-        eventResize: $scope.alertOnResize,
-        eventRender: $scope.eventRender
+        eventClick: that.alertOnEventClick,
+        eventDrop: that.alertOnDrop,
+        eventResize: that.alertOnResize,
+        eventRender: that.eventRender
       }
     };
 
-    // that.eventSources = [that.events]
+    that.eventSources = [that.events];
 
-
-  //   that.eventsF = function (start, end, timezone, callback) {
-  //    var s = new Date(start).getTime() / 1000;
-  //    var e = new Date(end).getTime() / 1000;
-  //    var m = new Date(start).getMonth();
-  //    var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
-  //    callback(events);
-  //  };
-    // that.addEvent = function() {
-    //    that.events.push({
-    //      title: 'Open Sesame',
-    //      start: new Date(y, m, 28),
-    //      end: new Date(y, m, 29),
-    //      className: ['openSesame']
-    //    });
-    //  };
 }]);

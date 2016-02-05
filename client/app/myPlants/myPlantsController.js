@@ -1,5 +1,5 @@
 var myPlants = angular.module('myPlants', []);
-myPlants.controller('myPlantsController', ['Plants', '$state', '$window', function(Plants, $state, $window){
+myPlants.controller('myPlantsController', ['Plants', '$state', '$window','Events', function(Plants, $state, $window, Events){
   var that = this;
   that.data = {};
     that.data.username = $window.localStorage.getItem('username');
@@ -16,19 +16,58 @@ myPlants.controller('myPlantsController', ['Plants', '$state', '$window', functi
 
   that.deletePlant = function(){
     if(that.data.plantDelete){
-      Plants.deletePlant(that.data)
+      var plant = {nickname: that.data.plantDelete}
+      Plants.getPlant(plant)
         .then(function(results){
-          if(that.data.gardenName){
-            that.getSpecifcGardenPlants();
-          } else{
-            that.getUserPlants();
-          }
+            var plantEvent = {
+              idOfPlant: results.data.id,
+            };
+          console.log(plantEvent, 'WEWEWE')
+          Events.removeAllPlantEvents(plantEvent)
+            .then(function(eventResults){
+              console.log(eventResults, 'HEY@#$')
+              Plants.deletePlant(that.data)
+                .then(function(results){
+                  if(that.data.gardenName){
+                    that.getSpecifcGardenPlants();
+                  } else{
+                    that.getUserPlants();
+                  }
+                })
+                .catch(function(error){
+                  console.log(error);
+                });
+            })
         })
-        .catch(function(error){
-          console.log(error);
-        });
     }
   };
+  // that.removeEvents = function(plantObj, eventDate){
+  //   plantObj.eventDate = eventDate;
+  //   console.log(plantObj, 'HEY GURL')
+  //   Events.removePlantEvent(plantObj)
+  //     .then(function(results){
+  //       console.log(results, 'SUCCESS IN REMOVEEVENT CONTROLLER');
+  //       return results;
+  //     })
+  //     .catch(function(error){
+  //       console.log(error, 'ERROR IN REMOVEEVNT CONTROLLER')
+  //     })
+  // }
+  // that.deletePlant = function(){
+  //   if(that.data.plantDelete){
+  //     Plants.deletePlant(that.data)
+  //       .then(function(results){
+  //         if(that.data.gardenName){
+  //           that.getSpecifcGardenPlants();
+  //         } else{
+  //           that.getUserPlants();
+  //         }
+  //       })
+  //       .catch(function(error){
+  //         console.log(error);
+  //       });
+  //   }
+  // };
 
   that.goToPlant = function(name){
     that.data.nickname = name;

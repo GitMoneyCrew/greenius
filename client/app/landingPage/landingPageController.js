@@ -18,7 +18,6 @@ landingPage.controller('landingPageController', ['$http', 'auth', 'store', '$loc
         store.set('token', token);
         store.set('refresh_token', refresh_token);
         store.set('access_token', access_token);
-        console.log(store, 'hey lizz');
         that.data.email = profile.email;
         that.data.username = profile.name;
         that.data.userPic = profile.picture;

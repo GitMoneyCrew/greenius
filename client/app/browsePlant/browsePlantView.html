@@ -23,14 +23,20 @@
           <h3 class="panel-title">Add plant to your garden: </h3>
         </div>
         <div class="panel-body">
-          <h2>{{bpp.data.commonName}}</h2>
-          <h4>{{bpp.data.botanicalName}}</h4>
-          <div class="input-group">
-            <input type="text" ng-model='bpp.data.nickname' class="form-control" placeholder="Name your plant...">
-            <span class="input-group-btn">
-              <button  ng-click ='bpp.addPlant()' class="btn btn-default" type="button">Go!</button>
-            </span>
-          </div><!-- /input-group -->
+
+          <div class="thumbnail">
+              <h3 class="text-align">{{bpp.data.commonName}}</h3>
+              <p class="text-align">{{bpp.data.botanicalName}}</p>
+            <img ng-src={{bpp.data.plantPic}}>
+            <div class="caption">
+              <div class="input-group">
+                <input type="text" ng-model='bpp.data.nickname' class="form-control" placeholder="Name your plant...">
+                <span class="input-group-btn">
+                  <button  ng-click ='bpp.addPlant()' class="btn btn-default" type="button">Add Plant</button>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,12 +1,8 @@
 <div class='container-fluid'>
-  <div class='row'>
-  	<div class='col-md-12'>
-  		<h1 class="page-header">
-            Dashboard <small>Statistics Overview</small>
-        </h1>
-  	</div>
-  </div>
   <div class="row">
+    <div class="col-md-3">
+        <h3>Dashboard<br><small>Statistics Overview</small></h3>
+    </div>
     <div class="col-md-3">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -58,14 +54,13 @@
             </div>
         </div>
     </div>
-</div>
-
-  <div class='row'>
-		<div class='col-md-9'>
-			<div class='calendar-container'>
-				<h2 class="text-align">Garden Calendar</h2>
-			</div>
-		</div>
   </div>
-
+  <div class='row'>
+	<div class='col-md-12'>
+	  <div class='calendar-container'>
+        <div ui-view='subSubView'></div>
+			<!-- <h2 class="text-align">Garden Calendar</h2> -->
+	  </div>
+	</div>
+  </div>
 </div>
