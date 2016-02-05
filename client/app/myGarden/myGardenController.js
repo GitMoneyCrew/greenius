@@ -52,10 +52,12 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
   that.getWateringInfo = function(plant) {
     Plants.getPlant(plant)
       .then(function(plantResult) {
-        var plantObj = {id: plantResult.data.idOfSpecies};
+        var plantObj = {idOfSpecies: plantResult.data.idOfSpecies};
         Plants.getSpecieById(plantObj)
         .then(function(speciesResult) {
+
           that.plantWaterSched = speciesResult.data.wateringInformation;
+
           that.formDate(that.findWaterSched(that.expectedPlantLife, that.plantWaterSched))
         })
       })
@@ -81,6 +83,7 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
   // get current time and create reoccuring schedule
   that.findWaterSched = function(plantLife, waterSched) {
     var currentDate = moment().valueOf();
+
     var plantDate = currentDate;
     var results = [];
     var theWaterSched = [604800000/1,604800000/2,604800000/3];
@@ -89,6 +92,7 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
     while(plantDate < endDate) {
       plantDate = plantDate + theWaterSched[waterSched - 1];
       var endTime = plantDate + 900000;
+
       results.push([plantDate, endTime]);
     }
     return results;
@@ -98,7 +102,9 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
   that.formDate = function(dates) {
     var results = [];
     for(var i = 0; i < dates.length; i++) {
+
       results.push([moment(dates[i][0]).format(), moment(dates[i][1]).format()]);
+    
     }
     that.wateringSchedule = results;
     console.log(that.wateringSchedule);
@@ -116,7 +122,9 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
       plantEvent.email = that.data.email;
       plantEvent.eventDate= that.wateringSchedule[i][0];
       plantEvent.endDate = that.wateringSchedule[i][1];
+      console.log(plantEvent.eventDate)
       Events.addPlantEvent(plantEvent)
+
         .then(function(results){
           console.log(results, 'Sucess addingPlant event');
         })
