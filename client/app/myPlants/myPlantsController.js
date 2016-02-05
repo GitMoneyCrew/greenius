@@ -1,5 +1,5 @@
 var myPlants = angular.module('myPlants', []);
-myPlants.controller('myPlantsController', ['Plants', 'Events' '$state', '$window', '$q', function(Plants, Events $state, $window, $q){
+myPlants.controller('myPlantsController', ['Plants', 'Events', '$state', '$window', '$q', function(Plants, Events, $state, $window, $q){
   var that = this;
   that.data = {};
     that.data.username = $window.localStorage.getItem('username');
