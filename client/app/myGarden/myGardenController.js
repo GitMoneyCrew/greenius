@@ -212,12 +212,17 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
           .then(function(results){
             console.log(results, 'RESULTS IN GETGARDENPLANTSDELETEGAREDJFKLN');
             for(var i = 0; i<results.length; i++){
-              console.log(results[i].nickname, 'nickname')
+              console.log(results[i].id, 'nickname')
               var temp = {};
               temp.plantDelete = results[i].nickname;
-              console.log(temp, "jlkajfsalkjklewiouriowne")
-              Plants.deletePlant(temp);
-              that.getUserPlants();
+              temp.idOfPlant = results[i].id;
+              Events.removeAllPlantEvents(temp)
+                .then(function(results){
+                  console.log(results, 'hey');
+                  console.log(temp, "jlkajfsalkjklewiouriowne")
+                  Plants.deletePlant(temp);
+                  that.getUserPlants();
+                })
             }
             Plants.deleteGarden(that.data)
             .then(function(results) {

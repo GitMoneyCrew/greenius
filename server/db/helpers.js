@@ -572,7 +572,7 @@ var helpers = {
   // specieId is an object with an id key
   getSpecieInfoById : function(specieId){
     return db.SpeciesInfos.findOne({
-      where: {id: specieId.id}
+      where: {id: specieId.idOfSpecies}
     })
     .then(function(specieResult) {
       if(!specieResult) {

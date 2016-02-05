@@ -25,9 +25,7 @@ dashboard.controller('dashboardController', ['Plants', 'auth', '$window', '$q','
       .catch(function(error){
         console.log(error, 'ERROR INSIDE GETUSEREVENTS CONTROLLER');
       })
-  }
-
-  that.getEvents();
+  };
 
   that.getSpecieInfo = function(index, plant){
     return Plants.getSpecieById(plant)
@@ -87,6 +85,8 @@ dashboard.controller('dashboardController', ['Plants', 'auth', '$window', '$q','
     that.total_Fruits_Vegetables = that.totalFruits + that.totalVegetables;
     that.total_Herbs_Shrubs = that.totalHerbs + that.totalShrubs;
   };
+  
+  that.getEvents();
   that.getUserPlants();
   that.getPlantStats();
 

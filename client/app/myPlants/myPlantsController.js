@@ -1,14 +1,14 @@
 var myPlants = angular.module('myPlants', []);
-myPlants.controller('myPlantsController', ['Plants', '$state', '$window','Events', function(Plants, $state, $window, Events){
+myPlants.controller('myPlantsController', ['Plants', 'Events' '$state', '$window', '$q', function(Plants, Events $state, $window, $q){
   var that = this;
   that.data = {};
     that.data.username = $window.localStorage.getItem('username');
     that.data.plantDelete = '';
     that.data.gardenName = '';
     that.data.nickname;
-  that.gardenArray = [];
+    that.data.plants;
   that.count = 0;
-
+  that.plantPromise = [];
 
   var changeState = function(plant){
     $state.go('navbar.plantProfile', {nickname: plant});
@@ -74,49 +74,39 @@ myPlants.controller('myPlantsController', ['Plants', '$state', '$window','Events
     changeState(that.data.nickname);
   };
 
-  that.getSpecifcGardenPlants = function(){
-    if(that.data.gardenName){
-      Plants.getGardenPlants(that.data)
-        .then(function(results){
-          that.resultPlants = results;
-          that.count++;
-        })
-        .catch(function(error){
-          console.log(error);
-        });
-    }
-  };
-
-  that.getUsersGardens = function(){
-    Plants.getUserGardens(that.data)
-      .then(function(results){
-        for(var i = 0; i< results.length; i++){
-          var temp = results[i].gardenName;
-          if(that.gardenArray.indexOf(temp) === -1){
-            that.gardenArray.push(temp);
-          }
-        }
+  that.getSpecieInfo = function(plant){
+    return Plants.getSpecieById(plant)
+      .then(function(speciesResult){
+        var obj = plant;
+        obj.speciesInfo = speciesResult.data;
+        that.plantPromise.push(obj);
       })
       .catch(function(error){
         console.log(error);
       });
   };
-  that.getUsersGardens();
+
+  that.getAllPlantsSpeciesInfo = function(array){
+    var plantData = [];
+    for(var i = 0; i < array.length; i++){
+      plantData.push(that.getSpecieInfo(array[i]));
+    }
+    $q.all(plantData).then(function(){
+      that.data.plants = that.plantPromise;
+      // console.log('That data: ', that.data.plants);
+    })
+  };
 
   that.getUserPlants = function(){
-    var tempArray = [];
+    var plantArray;
     Plants.getUsersPlants(that.data)
-          .then(function(results){
-            for(var i = 0 ; i < results.data.length; i++){
-              var obj = {};
-              obj.nickname = results.data[i].nickname;
-              tempArray.push(obj);
-            }
-            that.resultPlants = tempArray;
-          })
-          .catch(function(error){
-            console.log(error);
-          });
+      .then(function(plantResults){
+        plantArray = plantResults.data;
+        that.getAllPlantsSpeciesInfo(plantArray);
+      })
+      .catch(function(error){
+        console.log(error);
+      });
   };
   that.getUserPlants();
 
