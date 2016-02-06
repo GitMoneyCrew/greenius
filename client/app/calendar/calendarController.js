@@ -11,48 +11,35 @@ calendar.controller('calendarController', ['auth', '$window', 'Events', 'Plants'
   var plantPromises = [];
 
   that.getEvents = function(){
-      Events.getUserEvents(that.data)
-        .then(function(results){
+    Events.getUserEvents(that.data)
+      .then(function(results){
+        console.log(results.data, 'h234234234234234234')
+          for(var key in results.data){
+            console.log(results.data[key], 'HEY GURL HAYYY')
 
-          for(var i = 0; i < results.data.length; i++){
+            for(var i = 0; i < results.data[key].events.length; i++){
+              // console.log()
+              var name = results.data[key].nickname;
+              that.data.eventDate = results.data[key].events[i];
+                // console.log(that.data.eventDate, 'OWEORW#$&HK#@Y**^(#$HJKNM<JBGU)')
+                var year = moment(that.data.eventDate).format('YYYY');
+                var month = moment(that.data.eventDate).format('MM');
+                var day = moment(that.data.eventDate).format('DD');
 
-            that.data.eventDate = results.data[i].eventDate;
-              // console.log(results.data., 'OWEORW#$&HK#@Y**^(#$HJKNM<JBGU)')
-              var year = moment(that.data.eventDate).format('YYYY');
-              var month = moment(that.data.eventDate).format('MM');
-              var day = moment(that.data.eventDate).format('DD');
-              var id = results.data[i].idOfPlant;
+                that.events.push({
+                  title: 'Water ' + name,
+                  start : new Date(year, month-1, day, 5),
+                  end : new Date(year, month-1, day, 5, 30),
+                  allDay : false
+                })
+              }
+          }
 
-              that.events.push({
-                title: 'Water me',
-                start : new Date(year, month-1, day, 5),
-                end : new Date(year, month-1, day, 5, 30),
-                allDay : false,
-                id: id
-              })
-            }
-          }).then(function(){
-            console.log(that.events);
-            for(var i = 0; i < that.events.length; i++){
-              Plants.getPlantById({plantId: that.events[i].id})
-              .then(function(results2){
-                console.log(results2);
-                for(var i = 0; i < that.events.length; i++){
-                  if(that.events[i].id ===  results2.data.id){
-                    that.events[i].title = that.events[i].title + ' ' + results2.data.nickname;
-                  }
-                }
-
-
-              });
-            }
-          })
-        .catch(function(error){
-          console.log(error, 'ERROR INSIDE GETUSEREVENTS CONTROLLER');
         })
-
-
-    };
+      .catch(function(error){
+        console.log(error, 'ERROR INSIDE GETUSEREVENTS CONTROLLER');
+      })
+  };
   that.getEvents();
   that.events = [];
 

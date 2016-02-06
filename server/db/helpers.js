@@ -197,7 +197,7 @@ var helpers = {
         if(!eventsResult) {
           throw Error('No events exist in the database', error);
         }
-        console.log('GetUserEvents');
+        // console.log('GetUserEvents');
         return eventsResult;
       })
     })
@@ -462,7 +462,7 @@ var helpers = {
       if(!plantResult){
         throw ERROR('Plant does not exist');
       }
-      console.log('GETPLANTBYID WAS SUCCESSFUL', plantResult);
+      // console.log('GETPLANTBYID WAS SUCCESSFUL', plantResult);
       return plantResult;
     })
     .catch(function(error){
@@ -491,7 +491,7 @@ var helpers = {
         if(!plantsResult) {
           throw ERROR('Plants do not exists');
         }
-        console.log('GetUserPlants was successful');
+        // console.log('GetUserPlants was successful');
         return plantsResult;
       })
       .catch(function(error) {
@@ -578,7 +578,7 @@ var helpers = {
       if(!specieResult) {
         throw Error('Specie does not exist');
       }
-      console.log(specieResult, "HEWOWERREIOROWIEURIOWE902$)(#$U)(#)")
+      // console.log(specieResult, "HEWOWERREIOROWIEURIOWE902$)(#$U)(#)")
       return specieResult;
     })
     .catch(function(error) {
@@ -615,7 +615,7 @@ var helpers = {
   }
 
 };
-// 
+//
 // helpers.removeAllPlantEvents({idOfPlant: 2});
 
 module.exports = helpers;

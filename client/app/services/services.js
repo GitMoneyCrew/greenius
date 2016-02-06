@@ -256,16 +256,16 @@ services.factory('Events', ['$http', function($http){
     });
   };
 
-  var postToGoogleCalendar = function(plantEvent){
+  var sendPlantMail = function(plantEvent){
     return $http({
       method: 'POST',
-      url: '/api/events/postToGoogleCalendar',
+      url: '/api/events/sendPlantMail',
       data: plantEvent
     }).then(function(response){
-      console.log('SUCCESS INSIDE POSTTOGOOGLECALENDAR FACTORY', response);
+      console.log('SUCCESS INSIDEsendPlantMail FACTORY', response);
       return response;
     }).catch(function(error){
-      console.log(error, 'ERROR INSIDE POSTTOGOOGLECALENDAR FACTORY');
+      console.log(error, 'ERROR INSIDE sendPlantMail FACTORY');
     });
   };
 
@@ -298,7 +298,7 @@ services.factory('Events', ['$http', function($http){
     addPlantEvent: addPlantEvent,
     getPlantEvent: getPlantEvent,
     getUserEvents: getUserEvents,
-    postToGoogleCalendar: postToGoogleCalendar,
+    sendPlantMail: sendPlantMail,
     removePlantEvent: removePlantEvent,
     removeAllPlantEvents : removeAllPlantEvents
   };

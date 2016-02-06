@@ -15,7 +15,7 @@ module.exports = {
     var plantEventData = req.body;
     helper.addPlantEvent(plantEventData)
       .then(function(results){
-        console.log('SUCCESS INSIDE ADDPLANTEVENT HANDLER');
+        // console.log('SUCCESS INSIDE ADDPLANTEVENT HANDLER');
         res.status(200).send(results);
       })
       .catch(function(error){
@@ -41,10 +41,39 @@ module.exports = {
   getUserEvents: function(req, res){
     // console.log(req.body, 'THIS IS THE REQ.BODY IN GETUSEREVENT HANDLER');
     var userData = req.body;
+    var resultsArray = [];
+    var eventDate;
+    var nickname;
+    var plant = {};
+    var results = {};
+    var len;
+    var currentLen = 0;
+
     helper.getUserEvents(userData)
-      .then(function(results){
-        // console.log('SUCCESS INSIDE GETUSEREVENTS');
-        res.status(200).send(results);
+      .then(function(data){
+        len = data.length;
+        for(var i = 0; i<data.length; i++){
+          plant.plantId = data[i].dataValues.idOfPlant;
+          console.log(plant.plantId, 'plant iddddd');
+          eventDate = data[i].dataValues.eventDate;
+          if(results[plant.plantId] === undefined){
+            results[plant.plantId] = {};
+            results[plant.plantId].events = [];
+          }
+          results[plant.plantId].events.push(eventDate);
+          helper.getPlantById(plant)
+            .then(function(results2){
+              currentLen++;
+              var resultObj = {};
+              nickname = results2.nickname
+              id = results2.id
+              results[id].nickname = nickname;
+              if(currentLen === len){
+                console.log('this sent', results);
+                res.status(200).send(results);
+              }
+            })
+        }
       })
       .catch(function(error){
         console.log(error, 'ERROR INSIDE GETUSEREVENTS HANDLER');
@@ -52,53 +81,18 @@ module.exports = {
       });
   },
 
-  postToGoogleCalendar: function(req, res){
-  //   oauth2Client.setCredentials({
-  //    access_token: req.body.token.accessToken,
-  //    refresh_token: req.body.token.refreshToken
-  //  });
-  //  console.log(oauth2Client, 'LOOK AT MEEEEEEEE')
-  // //  console.log(req.body, 'THIS IS THE REQ.BODY IN POSTTOGOOGLECALENDAR HANDLER');
-  //  //TODO GET WHAT YOU NEED FROM THE REQ.BODY;
-  //  var description = req.body  //TODO GET WHAT YOU NEED FROM THE REQ.BODY;
-
-  //  var event = {
-  //    'summary' : description,
-  //    'description' : description,
-  //    'start' : {
-  //      'dateTime': req.body.eventDate
-  //    },
-  //    'end' : {
-  //      'dateTime': req.body.endDate //have some logic that this is three months after plantDate;
-  //    }
-  //  }
-  //  var calendar = google.calendar('v3');
-
-  //  TODO fix google calendar
-  //  calendar.events.insert({
-  //    auth: oauth2Client,
-  //    calendarId: 'primary',
-  //    resource: event,
-  //  }, function(err, event){
-  //    if(err){
-  //      console.log('Oh no! There was an error contacting the calendar service: ', err);
-  //      return;
-  //    }
-
-    // TODO fix so that it only send an email on that day
+  sendPlantMail: function(req, res){
      var recepient = req.body.email;
-     mailer.sendMail(recepient);
+     mailer.plantMail(recepient);
      res.send(200).status('POSTED TO GOOGLE CALENDAR ');
-
-  //  })
  },
 
  removePlantEvent: function(req, res){
-   console.log(req.body, 'THIS IS REQ.BODY IN REMOVEPLANTEVENT HANDLER');
+  //  console.log(req.body, 'THIS IS REQ.BODY IN REMOVEPLANTEVENT HANDLER');
    var plantEventData = req.body;
    helper.removePlantEvent(plantEventData)
      .then(function(results){
-       console.log( results, 'SUCCESS INSIDE REMOVEPLANTEVENT HANDLER');
+      //  console.log( results, 'SUCCESS INSIDE REMOVEPLANTEVENT HANDLER');
        res.status(200).send(results);
      })
      .catch(function(error){
@@ -108,11 +102,11 @@ module.exports = {
  },
 
  removeAllPlantEvents: function(req, res){
-   console.log(req.body, 'THIS IS REQ.BODY IN REMOVEALLPLANTEVENTS HANDLER');
+  //  console.log(req.body, 'THIS IS REQ.BODY IN REMOVEALLPLANTEVENTS HANDLER');
    var plantEventData = req.body;
    helper.removeAllPlantEvents(plantEventData)
     .then(function(results){
-      console.log(results, 'SUCCESS INSIDE REMOVEALLPLANTEVENTS HANDLER');
+      // console.log(results, 'SUCCESS INSIDE REMOVEALLPLANTEVENTS HANDLER');
       res.status(200).send(results);
     })
     .catch(function(error){

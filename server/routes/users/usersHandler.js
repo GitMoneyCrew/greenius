@@ -1,12 +1,16 @@
 var express = require('express');
 var app = express();
 var helper = require('./../../db/helpers.js');
+var mailer = require('./../../config/mailer.js');
 
 module.exports = {
 	addUser: function(req, res){
 		var userData = req.body;
 		helper.addUser(userData)
 			  .then(function(results){
+          console.log(results, 'HEY BOO BOO')
+          var email = results.dataValues.email
+          mailer.signUpMail(email);
 				  res.status(200).send(results);
 			  })
 			  .catch(function(error) {

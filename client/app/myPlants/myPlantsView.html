@@ -1,16 +1,23 @@
 <div class='container-fluid'>
   <div class='row'>
-    <h5> My Plants: </h5>
-    <div class='row'>
+    <div class="col-md-12">
+      <a ng-click='nvp.toggleSideBar()' class='btn btn-default next' id='menu-toggle'>
+      <i class='fa fa-bars'></i>
+      </a>
+
+      <h1 class="page-header">My Plants<small> View your plants</small>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="col-md-12">
       <div ng-repeat='plant in mpp.data.plants'>
         <!-- Custom plantProfileDirective -->
         <profile plant="plant" goplant="mpp.goToPlant"></profile>   
       </div>
     </div>
-  </div>  
+  </div>
   <div class='row'>
-    <div class='col-md-3'>
-    </div>
+    <div class='col-md-3'></div>
     <div class="col-md-6 panel panel-default">
       <div class="panel-body">
         <h5>Wish to Delete a Plant?</h5>
@@ -23,7 +30,6 @@
         </form>
       </div>
     </div>
-    <div class='col-md-3'>
-    </div>
+    <div class='col-md-3'></div>
   </div>
 </div>

@@ -62,6 +62,8 @@
   display: inline-block;
   text-decoration: none;
   color: #fff;
+  font-weight: 100;
+  font-size: 16px;
 }
 
 .sidebar-nav li:hover {
@@ -96,7 +98,8 @@
   color: #fff;
 }*/
 
-#menu-btn-container {
+.page-header{
+  margin: 10px 0 20px;
 }
 
 .profile-image {
@@ -157,7 +160,6 @@
 
   #menu-btn-container {
     width: 100%;
-    margin-bottom: 20px;
   }
 }
 
@@ -248,17 +250,23 @@
     margin-top: 5px;
     margin-left: 20px;
 }
+.panel-success{
+  border-color: #5CB854;
+}
 
 .panel-success>.panel-heading {
     color: #FFFFFF;
-    background-color: #3C763D;
-    border-color: #d6e9c6;
+    background-color: #5CB854;
+    border-color: #5CB854;
 }
-
+.panel-danger {
+  border-color: #8F3187;
+}
 .panel-danger>.panel-heading {
     color: #fff;
     background-color: #8F3187;
-    border-color: #ebccd1;
+    border-color: #8F3187;
 }
+
 
 

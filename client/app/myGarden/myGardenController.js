@@ -30,9 +30,6 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
     var garden = {gardenName: item.bucket};
     var name = {nickname: item.name};
     that.idOfPlant = item.plantId;
-
-    if(confirm('Are you sure you want to plant this today?')){
-
       that.getExpectedPlantLife();
       that.getWateringInfo(name);
       Plants.addGardenToPlant(plant, garden)
@@ -42,10 +39,6 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
         .catch(function(error){
           console.log(error, 'ERROR ADDING GARDEN TO PLANT');
         })
-    }
-     else{
-      // return plant back to 'Nursery'
-    }
   };
 
   // query database using plant nickname for species wateringInformation
@@ -68,16 +61,7 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
 
   // prompt user for expected plant life (Seasonal, Semi-annual, Annual)
   that.getExpectedPlantLife = function() {
-    var inputPlantLife = prompt("Input expected Plant Life: (Seasonal, Semi-annual, Annual)");
-    if (inputPlantLife != null) {
-      if(inputPlantLife === 'Seasonal') {
-        that.expectedPlantLife = 90;
-      } else if (inputPlantLife === 'Semi-annual') {
-        that.expectedPlantLife = 180;
-      } else {
-        that.expectedPlantLife = 365;
-      }
-    }
+        that.expectedPlantLife = 100;
   };
 
   // get current time and create reoccuring schedule
@@ -98,13 +82,12 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
     return results;
   };
 
-  // format date to google calendar specifications (e.g "2016-04-20T18:36:42-07:00")
   that.formDate = function(dates) {
     var results = [];
     for(var i = 0; i < dates.length; i++) {
 
       results.push([moment(dates[i][0]).format(), moment(dates[i][1]).format()]);
-    
+
     }
     that.wateringSchedule = results;
     console.log(that.wateringSchedule);
@@ -132,12 +115,12 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
           console.log(error, 'ERRROR IN adding plant event')
         })
       }
-      Events.postToGoogleCalendar(plantEvent)
+      Events.sendPlantMail(plantEvent)
         .then(function(results){
-            console.log('SUCESS TO POSTTOGOOGLECALENDAR CONTROLLER', results)
+            console.log('SUCESS TO sendPlantMail CONTROLLER', results)
         })
       .catch(function(error){
-        console.log(error, 'ERROR TO POSTTOGOOGLECALENDAR CONTROLLER')
+        console.log(error, 'ERROR TO sendPlantMail CONTROLLER')
       })
   }
 

@@ -8,7 +8,7 @@ module.exports = {
     var gardenData = req.body;
     helper.deleteGarden(gardenData)
       .then(function(results) {
-        console.log(results, 'SUCCESS INSIDE DELETE GARDEN');
+        // console.log(results, 'SUCCESS INSIDE DELETE GARDEN');
         res.status(200).send(results);
       })
       .catch(function(error) {
@@ -22,7 +22,7 @@ module.exports = {
     var plantData = req.body;
     helper.deletePlant(plantData)
       .then(function(results) {
-        console.log(results, 'SUCCES INSIDE DELETEPLANT in plantsHandler.js');
+        // console.log(results, 'SUCCES INSIDE DELETEPLANT in plantsHandler.js');
         res.status(200).send(results);
       })
       .catch(function(error) {
@@ -35,7 +35,7 @@ module.exports = {
     var plantData = req.body;
     helper.addPlant(plantData)
       .then(function(results) {
-        console.log(results, 'SUCCESS IN ADDPLANT HANDLER');
+        // console.log(results, 'SUCCESS IN ADDPLANT HANDLER');
         res.status(200).send(results);
       })
       .catch(function(error) {
@@ -50,10 +50,10 @@ module.exports = {
     var userData = req.body;
     helper.addGarden(gardenData)
       .then(function(results) {
-        console.log(results, 'SUCCCESSSSSS')
+        // console.log(results, 'SUCCCESSSSSS')
         helper.addUserToGarden(gardenData, userData)
           .then(function(results) {
-            console.log('SUCCESS IN ADDGARDEN HANDLER');
+            // console.log('SUCCESS IN ADDGARDEN HANDLER');
             res.status(200).send(results);
           })
           .catch(function(error) {
@@ -86,7 +86,7 @@ module.exports = {
     var userData = req.body;
     helper.getUserPlants(userData)
       .then(function(results) {
-        console.log(results, 'SUCCESS IN GETPLANTSFORAUSER HANDLER');
+        // console.log(results, 'SUCCESS IN GETPLANTSFORAUSER HANDLER');
         res.status(200).send(results);
       })
       .catch(function(error) {
@@ -101,7 +101,7 @@ module.exports = {
 
     helper.getSpeciesInfo(specieData)
       .then(function(results) {
-        console.log('SUCCESS IN GETSPECIEINFO HANDLER');
+        // console.log('SUCCESS IN GETSPECIEINFO HANDLER');
         res.status(200).send(results.dataValues);
       })
       .catch(function(error) {
@@ -115,7 +115,7 @@ module.exports = {
     var plantData = req.body;
     helper.getPlantByNickname(plantData)
       .then(function(results) {
-        console.log(results, 'SUCCESS IN GETPLANT HANDLER');
+        // console.log(results, 'SUCCESS IN GETPLANT HANDLER');
         res.status(200).send(results);
       })
       .catch(function(error) {
@@ -125,11 +125,11 @@ module.exports = {
   },
 
   getPlantById : function(req, res) {
-    console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETPLANTBYID');
+    // console.log(req.body, 'THIS IS THE REQ.BODY INSIDE GETPLANTBYID');
     var plantData = req.body;
     helper.getPlantById(plantData)
       .then(function(results){
-        console.log(results, 'SUCCESS IN GETPLANTBYID');
+        // console.log(results, 'SUCCESS IN GETPLANTBYID');
         res.status(200).send(results);
       })
       .catch(function(error) {
@@ -143,7 +143,7 @@ module.exports = {
     var userData = req.body;
     helper.getGardensFromUser(userData)
       .then(function(results) {
-        console.log(results, 'SUCCESS IN GETUSERGARDENS HANDLER');
+        // console.log(results, 'SUCCESS IN GETUSERGARDENS HANDLER');
         res.status(200).send(results);
       })
       .catch(function(error) {
@@ -156,7 +156,7 @@ module.exports = {
     var gardenData = req.body;
     helper.getGardenPlants(gardenData)
       .then(function(results) {
-        console.log(results, 'SUCCESS IN GETGARDENPLANTS HANDLER');
+        // console.log(results, 'SUCCESS IN GETGARDENPLANTS HANDLER');
         res.status(200).send(results);
       })
       .catch(function(error) {
@@ -170,7 +170,7 @@ module.exports = {
     var idData = req.body;
     helper.getSpecieInfoById(idData)
       .then(function(results) {
-        console.log(results, 'SUCCESS IN GETSPECIESINFOBYID HANDLER');
+        // console.log(results, 'SUCCESS IN GETSPECIESINFOBYID HANDLER');
         res.status(200).send(results);
       })
       .catch(function(error) {
