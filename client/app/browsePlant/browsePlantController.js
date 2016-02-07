@@ -2,17 +2,16 @@ var browsePlant = angular.module('browsePlant', []);
 browsePlant.controller('browsePlantController', ['Plants', '$state', '$window', function(Plants, $state, $window) {
   var that = this;
   that.data = {};
-    that.data.commonName = '';
     that.data.specieResults;
     that.data.nickname = '';
     that.data.username = $window.localStorage.getItem('username');
-    that.data.botanicalName = '';
-    //that.data.plantDate = '';
+    that.data.commonName = 'Sunflowers';
+    that.data.botanicalName = 'Helianthus';
     that.data.gardenName = '';
     that.data.plantArray = [];
+    that.addedPlants = [];
     that.usersGardenArray = [];
     that.plantInfoPrompts = false;
-    that.promptToAddPlant = false;
     that.gardenPrompt = false;
     that.showModal = false;
     that.tracker = false;
@@ -24,6 +23,10 @@ browsePlant.controller('browsePlantController', ['Plants', '$state', '$window', 
                     'Phlox', 'Potatoes', 'Wisteria', 'Spider Plants', 'Yarrow', 'Astilbe', 'Kale', 'Peonies', 'Beets', 'Pansies', 'Mint', 'Lemons & Oranges', 'Parsley', 'Celery', 'Basil', 'Cherries', 'Rhubarb', 'Hydrangea', 'Figs', 'Sunflowers', 'Blackberries', 'Pears', 'Christmas Cactus',
                     'Black-eyed Susans', 'Okra', 'Dahlias', 'Parsnips', 'Aloe Vera', 'Sedum', 'Impatiens', 'Broccoli', 'Cauliflower', 'Asparagus', 'Petunias','Sweet Potato', 'Spinach',
                     'Gladiolus', 'Butterfly Bush', 'Oregano', 'Eggplant', 'Roses', 'Raspberries', 'Morning Glories', 'Delphiniums', 'Coneflowers', 'Apples', 'Garlic', 'Pumpkins', 'Hyacinths', 'Squash & Zucchini'];
+
+    that.goToPlant = function(name){
+      $state.go('navbar.plantProfile', {nickname: name});
+    };
 
     that.getExistingGardens = function(){
       var gardenArray = [];
@@ -106,47 +109,15 @@ browsePlant.controller('browsePlantController', ['Plants', '$state', '$window', 
        }
     };
 
-    that.getGardenPlants = function(){
-        var nicknameArray= [];
-        var plantDateArray = [];
-        var plantStatusArray = [];
-      Plants.getGardenPlants(that.data)
-        .then(function(results) {
-          // for(var i = results.length - 1 ; i>= 0; i--){
-          //   var obj = {}
-          //    obj.nickname = results[i].nickname;
-          //    obj.id = i;
-          //    Plants.getSpecieById(results[i])
-          //     .then(function(results){
-          //       obj.commonName = results.data.commonName;
-          //       obj.plantPic = results.data.plantPic;
-          //     })
-          //     .catch(function(errror){
-          //       console.log(error);
-          //     });
-          //   nicknameArray.push(obj);
-          // }
-          // that.nicknameArray = nicknameArray;
-        })
-        .catch(function(error){
-          console.log(error);
-        });
-    };
-
     that.addPlant = function(){
       if(that.data.nickname){
         Plants.addPlant(that.data)
           .then(function(results){
-            //that.getGardenPlants();
             that.specificPlantInfoPrompts();
             that.userChoseGarden();
             that.userWantsToAddPlant();
             that.getExistingGardens();
-            that.plantsInGardenTracker();
-            that.data.botanicalName = '';
-            that.data.commonName = '';
-            that.data.nickname = '';
-            //that.data.plantDate = '';
+            that.addedPlants.push({nickname: that.data.nickname, commonName: that.data.commonName});
           })
           .catch(function(error){
             console.log(error);
@@ -155,5 +126,7 @@ browsePlant.controller('browsePlantController', ['Plants', '$state', '$window', 
         alert('You must enter a plant name.');
       }
     };
+
+    that.changeCommonName(that.data.commonName);
 
 }]);

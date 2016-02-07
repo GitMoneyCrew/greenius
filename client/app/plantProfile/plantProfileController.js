@@ -1,11 +1,11 @@
 var plantProfile = angular.module('plantProfile', []);
-plantProfile.controller('plantProfileController',['Plants', '$state', function(Plants, $state){
+plantProfile.controller('plantProfileController',['Plants', '$state', '$stateParams', function(Plants, $state, $stateParams){
   var that = this;
   that.data = {};
-    that.data.nickname = $state.params.nickname;
+    that.data.nickname = $stateParams.nickname;
 
     that.getPlant = function(){
-
+      console.log('This is State Para: ', $stateParams.nickname);
       Plants.getPlant(that.data)
         .then(function(results){
           console.log('This thang is getting fired', that.data);

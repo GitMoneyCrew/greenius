@@ -41,7 +41,8 @@
     "auth0-angular": "~4.1.0",
     "moment": "~2.11.1",
     "angular-ui-calendar": "~1.0.1",
-    "fullcalendar": "~2.6.0"
+    "fullcalendar": "~2.6.0",
+    "Ionicons": "ionicons#~2.0.1"
   },
   "resolutions": {
     "angular": "1.4.9",

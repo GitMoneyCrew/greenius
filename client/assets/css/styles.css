@@ -94,10 +94,6 @@
   color: #fff;
 }
 
-/*.sidebar-nav > .sidebar-brand a:hover {
-  color: #fff;
-}*/
-
 .page-header{
   margin: 10px 0 20px;
 }
@@ -153,11 +149,6 @@
     width: auto;
   }
 
-/*.box-image {
-  height: 242.6px;
-  width: 450.6px;
-}*/
-
   #menu-btn-container {
     width: 100%;
   }
@@ -178,8 +169,34 @@
   width: 100%;
 }
 
+i.icon {
+    font-size: 40px;
+}
 
+/*Bootstrap override*/
 
+button.btn.btn-success {
+    color: #dff0d8;
+    background-color: #3c763d;
+    border-color: #dff0d8;
+}
+
+.panel-primary {
+    border-color: #3c763d;
+}    
+
+.panel-primary>.panel-heading {
+    background-color: #3c763d;
+    border-color: #3c763d;
+}
+
+.navbar-brand {
+  padding: 0px 20px;
+}
+
+.navbar-brand>img {
+  height: 50px;
+}
 
 /**
  * For the correct positioning of the placeholder element, the dnd-list and

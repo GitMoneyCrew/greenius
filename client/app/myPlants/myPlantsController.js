@@ -93,7 +93,6 @@ myPlants.controller('myPlantsController', ['Plants', 'Events', '$state', '$windo
     }
     $q.all(plantData).then(function(){
       that.data.plants = that.plantPromise;
-      // console.log('That data: ', that.data.plants);
     })
   };
 

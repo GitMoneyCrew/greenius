@@ -4,35 +4,19 @@
       <h1 class="page-header">
         <a ng-click='nvp.toggleSideBar()' class='btn btn-default next' id='menu-toggle'>
         <i class='fa fa-bars'></i>
-        </a>
-        My Plants<small> View your plants</small>
+        </a>  My Plants<small> | View your plants</small>
     </div>
-  </div>
-  <div class='row'>
-    <div class="col-md-12">
-      <div ng-repeat='plant in mpp.data.plants'>
-        <!-- Custom plantProfileDirective -->
-        <profile plant="plant" goplant="mpp.goToPlant"></profile>
+    <div class='row'>
+      <div class="col-md-12">
+        <div ng-repeat='plant in mpp.data.plants'>
+          <!-- Custom plantProfileDirective -->
+          <profile plant="plant" goplant="mpp.goToPlant"></profile>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- <div class='row'>
-    <div class='col-md-3'>
-      <div class="panel-body">
-        <h4>Delete a Plant:</h4>
-        <form ng-submit='mpp.deletePlant()'>
-          <select placeholder='Delete Plant' ng-model='mpp.data.plantDelete'>
-            <option value='' disabled selected></option>
-            <option ng-repeat='plant in mpp.resultPlants'>{{plant.nickname}}</option>
-          </select>
-          <input class="btn btn-danger" type='submit' value='Delete'>
-        </form>
-      </div>
-    </div>
-    <div class='col-md-9'></div>
-  </div>
-</div>
-<div class="row">
+  </div>  
+</div> 
+<!-- <div class="row">
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
       <img src="..." alt="...">

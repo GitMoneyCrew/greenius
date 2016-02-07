@@ -85,12 +85,9 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
   that.formDate = function(dates) {
     var results = [];
     for(var i = 0; i < dates.length; i++) {
-
       results.push([moment(dates[i][0]).format(), moment(dates[i][1]).format()]);
-
     }
     that.wateringSchedule = results;
-    console.log(that.wateringSchedule);
     that.addEvents();
   };
 
@@ -105,7 +102,6 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
       plantEvent.email = that.data.email;
       plantEvent.eventDate= that.wateringSchedule[i][0];
       plantEvent.endDate = that.wateringSchedule[i][1];
-      console.log(plantEvent.eventDate)
       Events.addPlantEvent(plantEvent)
 
         .then(function(results){
@@ -166,10 +162,8 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
     if(that.data.gardenName){
       Plants.getGardenPlants(that.data)
         .then(function(results) {
-          // console.log(results, 'SUCCESS IN getSpecifcGardenPlants CONTROLLER');
           that.resultPlants = results;
           that.count++;
-          // that.formatGardenForSandbox();
         })
         .catch(function(error) {
           console.log(error);
@@ -182,10 +176,8 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
       var gardenObj = {};
       gardenObj.gardenName = that.data.gardenAdded;
       gardenObj.username = that.data.username;
-      // console.log('HELLO', gardenObj);
       Plants.addGarden(gardenObj)
         .then(function(results){
-          // console.log(results, 'JWKELJR:WLKJR#_)($_)@#($(*!@#))')
           that.getUserPlants();
         })
         .catch(function(error){
@@ -201,23 +193,18 @@ myGarden.controller('myGardenController', ['Plants', '$state', '$window', 'Event
         gardenObj.gardenName = that.data.gardenDelete
         Plants.getGardenPlants(gardenObj)
           .then(function(results){
-            console.log(results, 'RESULTS IN GETGARDENPLANTSDELETEGAREDJFKLN');
             for(var i = 0; i<results.length; i++){
-              console.log(results[i].id, 'nickname')
               var temp = {};
               temp.plantDelete = results[i].nickname;
               temp.idOfPlant = results[i].id;
               Events.removeAllPlantEvents(temp)
                 .then(function(results){
-                  console.log(results, 'hey');
-                  console.log(temp, "jlkajfsalkjklewiouriowne")
                   Plants.deletePlant(temp);
                   that.getUserPlants();
                 })
             }
             Plants.deleteGarden(that.data)
             .then(function(results) {
-              console.log("RESSSS", gardenObj)
               for(var key in that.gardens){
                 if(that.gardens[key] === gardenObj.gardenName){
                   delete that.gardens[key]
