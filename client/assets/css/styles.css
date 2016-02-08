@@ -285,6 +285,14 @@ button.btn.btn-success {
 .panel-danger{
   border-color: #8F3187;
 }
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+.panel-primary {
+  border-color: #337ab7;
+}
 
 .thumbnail {
   border: 0px;
