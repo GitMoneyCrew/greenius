@@ -12,7 +12,6 @@ var helpers = {
          throw Error('Username is already taken');
        }
        //Create a user in the Users table
-       console.log('AddUser was successful');
        return db.Users.create(user);
     })
     .catch(function(error) {
@@ -29,7 +28,6 @@ var helpers = {
       if(!userResult){
         throw Error('Username not doesnt exist! cant be deleted')
       }
-      console.log('DeleteUser was successful');
       return userResult;
     })
     .catch(function(error) {
@@ -67,7 +65,6 @@ var helpers = {
           plantStatus: plant.plantStatus
         })
         .then(function(plantResults) {
-          console.log('Add plant successful');
           return plantResults;
         })
         .catch(function(error) {
@@ -95,7 +92,6 @@ var helpers = {
         if(!updatedPlant) {
           throw ERROR('Error updating plantDate');
         }
-        Console.log('UpdatedPlantDate was successful');
         return updatedPlant;
       })
     })
@@ -113,7 +109,6 @@ var helpers = {
       if(!plantResult){
         throw Error('Plant does not exist, cannot be deleted', error);
       }
-      console.log('DeletePlant was successful');
       return plantResult;
     })
     .catch(function(error) {
@@ -143,7 +138,6 @@ var helpers = {
       })
       .then(function(eventResult) {
         if(eventResult) {
-          console.log('Event already exists in database');
           return;
         }
         // Insert event into Events table
@@ -153,7 +147,6 @@ var helpers = {
           eventDate: eventData.eventDate
         })
         .then(function(eventsResult) {
-          console.log('AddPlantEvent was successful');
           return eventsResult;
         })
         .catch(function(error) {
@@ -172,7 +165,6 @@ var helpers = {
       if(!eventResults) {
         throw Error('IdOfPlant does not exist in Events table ', error);
       }
-      console.log(eventResults,'GetPlantEvents was successful');
       return eventResults;
     })
   },
@@ -202,7 +194,6 @@ var helpers = {
       })
     })
     .catch(function(error) {
-      console.log('Error finding events in database ', error);
     })
   },
 
@@ -230,7 +221,6 @@ var helpers = {
       .then(function(eventResult) {
         if(!eventResult) {
           throw Error('Event already exists in database ');
-          // return;
         }
         // Insert event into Events table
         idOfEvent = eventResult.id;
@@ -241,7 +231,6 @@ var helpers = {
           if(!eventsResult) {
             throw Error('Error deleting Event from database');
           }
-          console.log(eventsResult, 'RemovePlantEvent was successful');
           return eventsResult;
         })
         .catch(function(error) {
@@ -278,7 +267,6 @@ var helpers = {
         throw Error('Garden name is already taken');
       }
       //Insert garden into Garden table
-      console.log('AddGarden was successful');
       return db.Gardens.create(garden);
     })
     .catch(function(error) {
@@ -295,7 +283,6 @@ var helpers = {
       if(!gardenResult){
         throw Error('Garden does not exist, cannot be deleted', error);
       }
-      console.log('Deletegarden was successful');
       return gardenResult;
     })
     .catch(function(error) {
@@ -332,7 +319,6 @@ var helpers = {
       if(!speciesResult) {
         throw Error('Error when adding species info ', error)
       }
-      console.log('add species successful');
     })
     .catch(function(error) {
       console.log('Error adding species to database ', error);
@@ -368,7 +354,6 @@ var helpers = {
         if(!plantResult) {
           throw ERROR('Error when adding garden to plant');
         }
-        console.log('AddGardenToPlant was successful ');
         })
       })
       .catch(function(error) {
@@ -387,7 +372,6 @@ var helpers = {
       if(!userResult) {
         throw ERROR('Username does not exist', error);
       }
-      console.log('GetUser was successful');
       return userResult;
     })
   },
@@ -412,7 +396,6 @@ var helpers = {
         if(!plantResult) {
           throw ERROR('No plants associated with this garden');
         }
-        console.log('Plants associated with this garden ');
       })
       .catch(function(error) {
       console.log('Error, retrieving garden ', error);
@@ -430,7 +413,6 @@ var helpers = {
       if(!specieResult) {
         throw ERROR('Species does not exist');
       }
-      console.log('getSpeciesInfo was successful');
       return specieResult;
     })
     .catch(function(error) {
@@ -448,7 +430,6 @@ var helpers = {
       if(!plantResult) {
         throw ERROR ('Plant nickname does not exist');
       }
-      console.log ('Plant exists: ' , plantResult);
       return plantResult;
     })
   },
@@ -462,7 +443,6 @@ var helpers = {
       if(!plantResult){
         throw ERROR('Plant does not exist');
       }
-      // console.log('GETPLANTBYID WAS SUCCESSFUL', plantResult);
       return plantResult;
     })
     .catch(function(error){
@@ -495,7 +475,6 @@ var helpers = {
         return plantsResult;
       })
       .catch(function(error) {
-        console.log('Error, retrieving plantsResult: ', error);
       })
     })
   },

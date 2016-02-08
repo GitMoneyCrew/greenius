@@ -1,19 +1,16 @@
 var landingPage = angular.module('landingPage', []);
-landingPage.controller('landingPageController', ['$http', 'auth', 'store', '$location', 'Users', '$window', function($http, auth, store, $location, Users, $window){
+landingPage.controller('landingPageController', ['$http', 'auth', 'store', '$location', 'Users', '$window', function($http, auth, store, $location, Users, $window) {
 	var that = this;
   that.data = {};
 
   that.login = function(){
-
       auth.signin({
         authParams: {
           scope: 'openid offline_access'
-      // The following is optional
-      // device: 'Chrome browser'
-    },
+        },
         connections : ['google-oauth2'],
         icon: 'http://s8.postimg.org/pmmaghi29/leaf.png'
-      }, function(profile, token, refresh_token, access_token){
+      }, function(profile, token, refresh_token, access_token) {
         store.set('profile', profile);
         store.set('token', token);
         store.set('refresh_token', refresh_token);
@@ -25,39 +22,54 @@ landingPage.controller('landingPageController', ['$http', 'auth', 'store', '$loc
         $window.localStorage.setItem('email', profile.email);
 
         Users.getUser(that.data)
-        .then(function(results){
-          if(results === undefined){
+        .then(function(results) {
+          if(results === undefined) {
             Users.addUser(that.data)
-              .then(function(results){
+              .then(function(results) {
                 $window.localStorage.setItem('username', results.username);
                 $location.path('/navbar/dashboard');
               })
-              .catch(function(error){
+              .catch(function(error) {
                 console.log(error);
               })
-          }else{
+          }else {
             $window.localStorage.setItem('username', results.data.username);
             $location.path('/navbar/dashboard');
           }
         })
-        .catch(function(error){
+        .catch(function(error) {
           console.log(error)
         })
-      }, function(){
+      }, function() {
         //error callback
       });
     };
 
-  that.logout = function(){
-    auth.signout();
+  that.deleteUser = function() {
+    var user = {};
+    user.username = $window.localStorage.getItem('username');
+    Users.deleteUser(user)
+      .then(function(results) {
+        store.remove('refresh_token');
+        store.remove('access_token');
+        store.remove('profile');
+        store.remove('token');
+          $location.path('/landingPage');
+      })
+      .catch(function(error) {
+        console.log('error in dlete user ')
+      })
 
-    store.remove('refresh_token');
-    store.remove('access_token');
+  }
+  that.logout = function() {
+    auth.signout();
     store.remove('profile');
     store.remove('token');
+    store.remove('refresh_token');
+    store.remove('access_token');
   };
 
-  function UserInfoCtrl(that, auth){
+  function UserInfoCtrl(that, auth) {
     that.auth = auth;
   };
 

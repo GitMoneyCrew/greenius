@@ -1,35 +1,30 @@
 <div class='container-fluid'>
   <div class='row'>
     <div class="col-md-12">
-      <a ng-click='nvp.toggleSideBar()' class='btn btn-default next' id='menu-toggle'>
-      <i class='fa fa-bars'></i>
-      </a>
-
-      <h1 class="page-header">My Plants<small> View your plants</small>
+      <h1 class="page-header">
+        <a ng-click='nvp.toggleSideBar()' class='btn btn-default next' id='menu-toggle'>
+        <i class='fa fa-bars'></i>
+        </a>  My Plants<small> | View your plants</small>
     </div>
-  </div>
-  <div class='row'>
-    <div class="col-md-12">
-      <div ng-repeat='plant in mpp.data.plants'>
-        <!-- Custom plantProfileDirective -->
-        <profile plant="plant" goplant="mpp.goToPlant"></profile>   
+    <div class='row'>
+      <div class="col-md-12">
+        <div ng-repeat='plant in mpp.data.plants'>
+          <!-- Custom plantProfileDirective -->
+          <profile plant="plant" goplant="mpp.goToPlant"></profile>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div> 
+<!-- <div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="..." alt="...">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
       </div>
     </div>
   </div>
-  <div class='row'>
-    <div class='col-md-3'></div>
-    <div class="col-md-6 panel panel-default">
-      <div class="panel-body">
-        <h5>Wish to Delete a Plant?</h5>
-        <form ng-submit='mpp.deletePlant()'>
-          <select placeholder='Delete Plant' ng-model='mpp.data.plantDelete'>
-            <option value='' disabled selected></option>
-            <option ng-repeat='plant in mpp.resultPlants'>{{plant.nickname}}</option>
-          </select>
-          <input type='submit' value='Delete'>
-        </form>
-      </div>
-    </div>
-    <div class='col-md-3'></div>
-  </div>
-</div>
+</div> -->

@@ -1,22 +1,51 @@
 <div class='container-fluid'>
   <div class='row'>
-    <div>
-      <img ng-src={{ppp.data.plantPic}}></img>
-      <h1>{{ppp.data.nickname}}</h2>
-      <h3>{{ppp.data.commonName}} | {{ppp.data.botanicalName}}</h3>
-
-      <div>
-        <h5>Information about {{ppp.data.nickname}}</h5>
-         <p><em>Type:</em> {{ppp.data.typeOf}}</p>
-         <p><em>Plant Date:</em> {{ppp.data.plantDate}}</p>
-         <p><em> Plant Status:</em> {{ppp.data.plantStatus}}</p>
-         <p><em> Sun exposure:</em> {{ppp.data.exposure}}</p>
-         <p><em> Watering:</em> {{ppp.data.wateringInformation}}</p>
-        <p><em>Care:</em> {{ppp.data.careGuide}}</p>
-
-        <h5> Information about {{ppp.data.commonName}}</h5>
-          <p><em>{{ppp.data.botanicalName}}:</em> {{ppp.data.generalPlantInfo}}</p>
-      </div>
+    <div class = "col-md-12">
+      <a ng-click='nvp.toggleSideBar()' class='btn btn-default next' id='menu-toggle'>
+      <i class='fa fa-bars'></i>
+      </a>
+      <h1 class="page-header">
+          {{ppp.data.commonName}} | 
+          <small>{{ppp.data.botanicalName}}</small>
+      </h1>
     </div>
+
+    <div class = "col-md-10">
+      <div class="media">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object" ng-src={{ppp.data.plantPic}}>
+          </a>
+        </div>
+        <div class="media-body">
+          <table class="table table-striped">
+            <tr>
+              <td><b>Name:</b> {{ppp.data.nickname}}</td>
+            </td>
+            <tr>
+              <td><b>Type:</b> {{ppp.data.typeOf}}</td>
+            </tr>
+            <tr><td><b>
+              Plant Date:</b> {{ppp.data.plantDate}
+            </tr></td>
+            <tr><td><b>
+              Plant Status:</b> {{ppp.data.plantStatus}}
+            </tr>
+            <tr><td><b>
+              Sun exposure:</b> {{ppp.data.exposure}}
+            </tr>
+            <tr><td><b>
+              Watering:</b> {{ppp.data.wateringInformation}}
+            </tr>
+            <tr><td><b>
+              Care:</b> {{ppp.data.careGuide}}
+        Information about {{ppp.data.commonName}}
+       {{ppp.data.botanicalName}}: {{ppp.data.generalPlantInfo}}
+            </tr>
+          </table>
+        </div>
+      </div>
+
+
   </div>
 </div>

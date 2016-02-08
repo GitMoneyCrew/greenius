@@ -14,33 +14,33 @@ myPlants.controller('myPlantsController', ['Plants', 'Events', '$state', '$windo
     $state.go('navbar.plantProfile', {nickname: plant});
   };
 
-  that.deletePlant = function(){
-    if(that.data.plantDelete){
-      var plant = {nickname: that.data.plantDelete}
-      Plants.getPlant(plant)
-        .then(function(results){
-            var plantEvent = {
-              idOfPlant: results.data.id,
-            };
-          console.log(plantEvent, 'WEWEWE')
-          Events.removeAllPlantEvents(plantEvent)
-            .then(function(eventResults){
-              console.log(eventResults, 'HEY@#$')
-              Plants.deletePlant(that.data)
-                .then(function(results){
-                  if(that.data.gardenName){
-                    that.getSpecifcGardenPlants();
-                  } else{
-                    that.getUserPlants();
-                  }
-                })
-                .catch(function(error){
-                  console.log(error);
-                });
-            })
-        })
-    }
-  };
+  // that.deletePlant = function(){
+  //   if(that.data.plantDelete){
+  //     var plant = {nickname: that.data.plantDelete}
+  //     Plants.getPlant(plant)
+  //       .then(function(results){
+  //           var plantEvent = {
+  //             idOfPlant: results.data.id,
+  //           };
+  //         console.log(plantEvent, 'WEWEWE')
+  //         Events.removeAllPlantEvents(plantEvent)
+  //           .then(function(eventResults){
+  //             console.log(eventResults, 'HEY@#$')
+  //             Plants.deletePlant(that.data)
+  //               .then(function(results){
+  //                 if(that.data.gardenName){
+  //                   that.getSpecifcGardenPlants();
+  //                 } else{
+  //                   that.getUserPlants();
+  //                 }
+  //               })
+  //               .catch(function(error){
+  //                 console.log(error);
+  //               });
+  //           })
+  //       })
+  //   }
+  // };
   // that.removeEvents = function(plantObj, eventDate){
   //   plantObj.eventDate = eventDate;
   //   console.log(plantObj, 'HEY GURL')
@@ -93,7 +93,6 @@ myPlants.controller('myPlantsController', ['Plants', 'Events', '$state', '$windo
     }
     $q.all(plantData).then(function(){
       that.data.plants = that.plantPromise;
-      // console.log('That data: ', that.data.plants);
     })
   };
 

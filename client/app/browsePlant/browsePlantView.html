@@ -1,49 +1,50 @@
 <div class='container-fluid'>
   <div class='row'>
     <div class='col-md-12'>
-      <a ng-click='nvp.toggleSideBar()' class='btn btn-default next' id='menu-toggle'>
-      <i class='fa fa-bars'></i>
-      </a>
-
       <h1 class="page-header">
-      Browse Plants <small>Select plants you want to add to your nursery</small>
+      <a ng-click='nvp.toggleSideBar()' class='btn btn-default next' id='menu-toggle'><i class='fa fa-bars'></i></a>
+      Browse Plants <small>| Select plants you want to add to your nursery</small>
       </h1>
     </div>
   </div>
   <div class='row'>
-    <div class = "col-md-3">
+    <div class = "col-md-4">
       <div class="input-group input-group-lg">
-        <span class="input-group-addon" id="sizing-addon1">Filter</span>
+        <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
         <input ng-model="query" type="text" class="form-control" placeholder="Search for...">
       </div>
-      <div class="list-group">
-        <a class="list-group-item " ng-show='query' ng-repeat='plant in bpp.plants | filter:query' ng-click = "bpp.changeCommonName(plant)">{{plant}}</a>
+      <div class="list-group" style='position: absolute; width: 90%;'>
+        <a style='z-index: 1000;' class="list-group-item " ng-show='query' ng-repeat='plant in bpp.plants | filter:query' ng-click = "bpp.changeCommonName(plant)">{{plant}}</a>
+      </div>
+      <div ng-init="names=bpp.addedPlants" class='panel panel-default' style='height: 436px; width: 100%; position: relative; margin-top: 20px'>
+        <h4 style='text-align: center;'>Plants Added:</h4> 
+          <div ng-repeat='name in names' class="list-group active">
+            <a ng-click="bpp.goToPlant(name.nickname)" class="list-group-item">{{ name.commonName }} | {{ name.nickname }}</a>
+          </div>
       </div>
     </div>
-    <div class = 'col-md-6'>
+    <div class = 'col-md-4'>
       <!-- PANEL SHOWS WHEN USER CLICKS PLANT NAME -->
-      <div ng-if="bpp.promptToAddPlant === true" class="panel panel-primary">
+      <div class="panel panel-primary" style='height: 500px;'>
         <div class="panel-heading">
           <h3 class="panel-title">Add plant to your garden: </h3>
         </div>
-        <div class="panel-body">
-
           <div class="thumbnail">
               <h3 class="text-align">{{bpp.data.commonName}}</h3>
               <p class="text-align">{{bpp.data.botanicalName}}</p>
+            <a href="#" class="thumbnail">
             <img ng-src={{bpp.data.plantPic}}>
+          </a>
             <div class="caption">
               <div class="input-group">
                 <input type="text" ng-model='bpp.data.nickname' class="form-control" placeholder="Name your plant...">
                 <span class="input-group-btn">
-                  <button  ng-click ='bpp.addPlant()' class="btn btn-default" type="button">Add Plant</button>
+                  <button ng-click ='bpp.addPlant()' class="btn btn-default" type="button">Add Plant</button>
                 </span>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
-    <div class = 'col-md-3'></div>
   </div>
 </div>

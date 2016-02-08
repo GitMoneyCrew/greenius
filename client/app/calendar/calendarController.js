@@ -13,15 +13,10 @@ calendar.controller('calendarController', ['auth', '$window', 'Events', 'Plants'
   that.getEvents = function(){
     Events.getUserEvents(that.data)
       .then(function(results){
-        console.log(results.data, 'h234234234234234234')
           for(var key in results.data){
-            console.log(results.data[key], 'HEY GURL HAYYY')
-
             for(var i = 0; i < results.data[key].events.length; i++){
-              // console.log()
               var name = results.data[key].nickname;
               that.data.eventDate = results.data[key].events[i];
-                // console.log(that.data.eventDate, 'OWEORW#$&HK#@Y**^(#$HJKNM<JBGU)')
                 var year = moment(that.data.eventDate).format('YYYY');
                 var month = moment(that.data.eventDate).format('MM');
                 var day = moment(that.data.eventDate).format('DD');
