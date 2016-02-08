@@ -20,9 +20,9 @@ All of these features makes it incredibly easy to research, organize, and manage
 
 ##Architecture
 
-*[PLACE BRANDONS DESIGN HERE]
+![](client/assets/img/greeniusArchitecture.png)
 
-##Documentation
+##File Structure
 
 ##Installation
 
