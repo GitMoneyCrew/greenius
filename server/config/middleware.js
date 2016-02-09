@@ -6,7 +6,7 @@ if(!process.env.DEPLOYED) {
 	var config = require('./../env/config.js');
 }
 
-module.exports = function(app, express){
+module.exports = function(app, express) {
 
   var jwtCheck = jwt({
     secret: new Buffer( process.env.AUTH0_CLIENT_SECRET || config.AUTH0_CLIENT_SECRET),

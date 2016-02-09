@@ -12,7 +12,7 @@ var transporter = nodemailer.createTransport(smtpTransport({
   }
 }));
 
-exports.signUpMail = function(receiverEmail){
+exports.signUpMail = function(receiverEmail) {
   var mailOptions = {
     from: 'greenius.thesis@gmail.com',
     to: receiverEmail,
@@ -21,14 +21,14 @@ exports.signUpMail = function(receiverEmail){
     html: '<h4>Dear Future Gardener, <br> Thanks for joining the greenius community. Have fun gardening!<br> Love, the Greenius Team!</h4>',
   };
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if(error){
+  transporter.sendMail(mailOptions, function(error, info) {
+    if(error) {
       return console.log(error);
     }
     console.log('Message sent:' + info.response + '\n');
   });
 }
-exports.plantMail = function(receiverEmail){
+exports.plantMail = function(receiverEmail) {
   var mailOptions = {
     from: 'greenius.thesis@gmail.com',
     to: receiverEmail,
@@ -36,8 +36,8 @@ exports.plantMail = function(receiverEmail){
     text: 'One of the plants in your gardens needs to be watered! Checkout our website www.greenius.io to see which one.',
   };
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if(error){
+  transporter.sendMail(mailOptions, function(error, info) {
+    if(error) {
       return console.log(error);
     }
     console.log('Message sent:' + info.response + '\n');

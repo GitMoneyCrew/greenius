@@ -5,41 +5,35 @@ var helper = require('./../../db/helpers.js');
 if(!process.env.DEPLOYED) {
 	var config = require('./../../env/config.js');
 }
-
 var mailer = require('./../../config/mailer.js');
 
 module.exports = {
 
-  addPlantEvent: function(req, res){
-    // console.log(req.body, 'THIS IS REQ.BODY IN ADDPLANTEVENT HANDLER');
+  addPlantEvent: function(req, res) {
     var plantEventData = req.body;
     helper.addPlantEvent(plantEventData)
-      .then(function(results){
-        // console.log('SUCCESS INSIDE ADDPLANTEVENT HANDLER');
+      .then(function(results) {
         res.status(200).send(results);
       })
-      .catch(function(error){
-        console.log(error, 'ERROR INSIDE ADDPLANTEVENT HANDLER');
+      .catch(function(error) {
+        console.log(error);
         res.status(404).send(error);
       });
   },
 
-  getPlantEvent: function(req, res){
-    // console.log(req.body, 'THIS IS REQ.BODY IN GETPLANTEVENT HANDLER');
+  getPlantEvent: function(req, res) {
     var plantEventData = req.body;
     helper.getPlantEvents(plantEventData)
-      .then(function(results){
-        // console.log('SUCCESS INSIDE GETPLANTEVENT HANDLER');
+      .then(function(results) {
         res.status(200).send(results);
       })
-      .catch(function(error){
-        console.log(error, 'ERROR INSIDE GETPLANTEVENT HANDLER');
+      .catch(function(error) {
+        console.log(error);
         res.status(404).send(error);
       });
   },
 
-  getUserEvents: function(req, res){
-    // console.log(req.body, 'THIS IS THE REQ.BODY IN GETUSEREVENT HANDLER');
+  getUserEvents: function(req, res) {
     var userData = req.body;
     var resultsArray = [];
     var eventDate;
@@ -50,68 +44,62 @@ module.exports = {
     var currentLen = 0;
 
     helper.getUserEvents(userData)
-      .then(function(data){
+      .then(function(data) {
         len = data.length;
-        for(var i = 0; i<data.length; i++){
+        for(var i = 0; i<data.length; i++) {
           plant.plantId = data[i].dataValues.idOfPlant;
-          console.log(plant.plantId, 'plant iddddd');
           eventDate = data[i].dataValues.eventDate;
-          if(results[plant.plantId] === undefined){
+          if(results[plant.plantId] === undefined) {
             results[plant.plantId] = {};
             results[plant.plantId].events = [];
           }
           results[plant.plantId].events.push(eventDate);
           helper.getPlantById(plant)
-            .then(function(results2){
+            .then(function(results2) {
               currentLen++;
               var resultObj = {};
               nickname = results2.nickname
               id = results2.id
               results[id].nickname = nickname;
-              if(currentLen === len){
-                console.log('this sent', results);
+              if(currentLen === len) {
                 res.status(200).send(results);
               }
             })
         }
       })
-      .catch(function(error){
-        console.log(error, 'ERROR INSIDE GETUSEREVENTS HANDLER');
+      .catch(function(error) {
+        console.log(error);
         res.status(404).send(error);
       });
   },
 
-  sendPlantMail: function(req, res){
+  sendPlantMail: function(req, res) {
      var recepient = req.body.email;
      mailer.plantMail(recepient);
      res.send(200).status('POSTED TO GOOGLE CALENDAR ');
  },
 
- removePlantEvent: function(req, res){
-  //  console.log(req.body, 'THIS IS REQ.BODY IN REMOVEPLANTEVENT HANDLER');
+ removePlantEvent: function(req, res) {
    var plantEventData = req.body;
    helper.removePlantEvent(plantEventData)
-     .then(function(results){
-      //  console.log( results, 'SUCCESS INSIDE REMOVEPLANTEVENT HANDLER');
+     .then(function(results) {
        res.status(200).send(results);
      })
-     .catch(function(error){
-       console.log(error, 'ERROR INSIDE REMOVEPLANTEVENT HANDLER');
+     .catch(function(error) {
+       console.log(error);
        res.status(404).send(error);
      });
  },
 
- removeAllPlantEvents: function(req, res){
-  //  console.log(req.body, 'THIS IS REQ.BODY IN REMOVEALLPLANTEVENTS HANDLER');
+ removeAllPlantEvents: function(req, res) {
    var plantEventData = req.body;
    helper.removeAllPlantEvents(plantEventData)
-    .then(function(results){
-      // console.log(results, 'SUCCESS INSIDE REMOVEALLPLANTEVENTS HANDLER');
+    .then(function(results) {
       res.status(200).send(results);
     })
-    .catch(function(error){
-      console.log(error, 'ERROR INSIDE REMOVEALLPLANTEVENTS HANDLER');
+    .catch(function(error) {
+      console.log(error);
       res.status(404).send(error);
-    })
+    });
  }
 };

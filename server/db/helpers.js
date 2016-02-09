@@ -471,7 +471,6 @@ var helpers = {
         if(!plantsResult) {
           throw ERROR('Plants do not exists');
         }
-        // console.log('GetUserPlants was successful');
         return plantsResult;
       })
       .catch(function(error) {
@@ -490,17 +489,12 @@ var helpers = {
       if(!gardenResult) {
         throw ERROR('Garden does not exist');
       }
-      console.log('Garden associated with this plant: ', gardenResult);
       gardenId = gardenResult.id;
       //Check for idOfGarden in Plants table
       return db.Plants.findAll({
         where: {idOfGarden: gardenId}
       })
       .then(function(plantsResult) {
-        // if(!plantsResult) {
-        //   throw ERROR('Plants do not exists');
-        // }
-        console.log('Plants associated with this garden ', plantsResult);
         return plantsResult;
       })
       .catch(function(error) {
@@ -522,7 +516,6 @@ var helpers = {
         throw ERROR('Garden does not exist');
       }
       data.gardenId = gardenResult.id;
-      console.log('gardenId associated with this gardenName: ', data.gardenId);
       //Check for username in Users table
       return db.Users.findOne({
         where: {username: user.username}
@@ -532,14 +525,12 @@ var helpers = {
           throw ERROR('Plants do not exists');
         }
         data.userId = userResult.id;
-        console.log('userId associated with this username: ', data.userId);
         // Insert a user/garden join into UsersGardens table
         return db.UsersGardens.create({
           userId: data.userId,
           gardenId: data.gardenId
         })
         .then(function(userGardenResult) {
-          console.log('Join user to garden successful', userGardenResult);
         })
         .catch(function(error) {
           console.log('Error, retrieving plantsResult: ', error);
@@ -557,7 +548,6 @@ var helpers = {
       if(!specieResult) {
         throw Error('Specie does not exist');
       }
-      // console.log(specieResult, "HEWOWERREIOROWIEURIOWE902$)(#$U)(#)")
       return specieResult;
     })
     .catch(function(error) {
@@ -575,13 +565,11 @@ var helpers = {
       if(!userResult) {
         throw Error('User does not exist');
       }
-      // console.log('UserId associated with this username: ', userResult);
       return userResult.getGardens()
       .then(function(gardenResults) {
         if(!gardenResults) {
           throw Error('Gardens do not exist');
         }
-        console.log('Gardens associated with user: ', gardenResults);
         return gardenResults;
       })
       .catch(function(error) {
@@ -595,6 +583,5 @@ var helpers = {
 
 };
 //
-// helpers.removeAllPlantEvents({idOfPlant: 2});
 
 module.exports = helpers;

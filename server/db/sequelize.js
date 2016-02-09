@@ -1,29 +1,12 @@
 var pg = require('pg');
 var Sequelize = require('sequelize');
 
-  // if(process.env.DEPLOYED){
-  //   var sequelize = new Sequelize('postgres://gkepgcetryiagb:gumSmA8e4HAkRR8x0cJ_BwW2tH@ec2-54-197-241-24.compute-1.amazonaws.com:5432/dbq8oko6l5h6q7', {
-  //     dialect: 'postgres',
-  //     protocol: 'postgres',
-  //     dialectOptions: {
-  //       ssl: true
-  //     }
-  //   });
-  // } else {
-    // var config = require('../env/config.js');
-    // var sequelize = new Sequelize('test', null, null,{
-    //   host: 'localhost',
-    //   dialect: 'sqlite',
-    //   storage: './db.sqlite'
-    // });
-  // };
 
-var sequelize = new Sequelize('test', null, null,{
+var sequelize = new Sequelize('test', null, null, {
   host: 'localhost',
   dialect: 'sqlite',
   storage: './db.sqlite'
-});  
-
+});
 
 var models = {};
 
@@ -180,30 +163,24 @@ models.Users.sync({
     force: false
   })
   .then(function() {
-    console.log('User sync in sequelize.js');
     models.Plants.sync({
         force: false
       })
       .then(function() {
-        console.log('Plant sync in sequelize.js');
         models.SpeciesInfos.sync({
             force: false
           })
           .then(function() {
-            console.log('SpeciesInfo sync in sequelize.js');
             models.Gardens.sync({
                 force: false
               })
               .then(function() {
-                console.log('Garden sync in sequelize.js');
                 models.UsersGardens.sync({
                     force: false
                   })
                   .then(function() {
-                    console.log('UsersGardens sync in sequelize.js');
                     models.Events.sync({force: false})
                      .then(function() {
-                       console.log('Event sync in sequelize.js');
                       });
                   });
               });
