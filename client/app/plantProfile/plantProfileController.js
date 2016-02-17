@@ -1,29 +1,26 @@
 var plantProfile = angular.module('plantProfile', []);
-plantProfile.controller('plantProfileController',['Plants', '$state', '$stateParams', function(Plants, $state, $stateParams){
+plantProfile.controller('plantProfileController',['Plants', '$state', '$stateParams', function(Plants, $state, $stateParams) {
   var that = this;
   that.data = {};
     that.data.nickname = $stateParams.nickname;
 
-    that.getPlant = function(){
-      console.log('This is State Para: ', $stateParams.nickname);
+    that.getPlant = function() {
       Plants.getPlant(that.data)
         .then(function(results){
-          console.log('This thang is getting fired', that.data);
           that.data.idOfSpecies = results.data.idOfSpecies;
           that.data.plantDate = results.data.plantDate;
           that.data.plantStatus = results.data.plantStatus;
           that.getSpecieInfoOfPlant();
         })
-        .catch(function(error){
+        .catch(function(error) {
           console.log(error)
         });
     };
     that.getPlant();
 
-    that.getSpecieInfoOfPlant = function(){
+    that.getSpecieInfoOfPlant = function() {
       Plants.getSpecieById(that.data)
         .then(function(results){
-          console.log('Result', results);
           that.data.botanicalName = results.data.botanicalName;
           that.data.careGuide = results.data.careGuide;
           that.data.commonName = results.data.commonName;
@@ -32,9 +29,8 @@ plantProfile.controller('plantProfileController',['Plants', '$state', '$statePar
           that.data.plantPic = results.data.plantPic;
           that.data.wateringInformation = results.data.wateringInformation;
           that.data.typeOf = results.data.typeOf;
-          console.log('This thang is getting fired', that.data);
         })
-        .catch(function(error){
+        .catch(function(error) {
           console.log(error);
         });
     };

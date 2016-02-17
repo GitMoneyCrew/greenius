@@ -37,7 +37,6 @@ var helpers = {
 
   //plant is an object with username, commonName, nickname, plantStatus
   addPlant : function(plant) {
-    console.log('momma i made it')
     var plantObj = {};
     //Check for username in Users Table
     return db.Users.findOne({

@@ -1,16 +1,16 @@
-<section style='padding: 0px;' id="directives-calendar" ng-controller="calendarController">
-  <div class="well">
-    <div class="row-fluid">
-      <div class="span6">
+<section style='padding: 0px;' id='directives-calendar'>
+  <div class='well'>
+    <div class='row-fluid'>
+      <div class='span6'>
         <tabset>
-          <div class="btn-toolbar">
-            <p class="pull-right lead">Garden Calendar</p>
-            <div class="btn-group">
-                <button class="btn btn-success" ng-click="clp.changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
-                <button class="btn btn-success" ng-click="clp.changeView('month', 'myCalendar1')">Month</button>
+          <div class='btn-toolbar'>
+            <p class='pull-right lead'>Garden Calendar</p>
+            <div class='btn-group'>
+                <button class='btn btn-success' ng-click='clp.changeView("agendaWeek", "myCalendar1")'>AgendaWeek</button>
+                <button class='btn btn-success' ng-click='clp.changeView("month", "myCalendar1")'>Month</button>
             </div>
           </div>
-          <div class="calendar" ng-model="clp.eventSources" calendar="myCalendar1" ui-calendar="clp.uiConfig.calendar"></div>
+          <div class='calendar' ng-model='clp.eventSources' calendar='myCalendar1' ui-calendar='clp.uiConfig.calendar'></div>
         </tabset>
       </div>
     </div>
