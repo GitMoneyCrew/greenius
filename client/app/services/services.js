@@ -162,7 +162,7 @@ services.factory('Plants', ['$http', function($http) {
 
 }]);
 
-services.factory('Users', ['$http', function($http){
+services.factory('Users', ['$http', function($http) {
 
   var addUser = function(user) {
     return $http({

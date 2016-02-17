@@ -16,7 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
         // angular source
-        'client/lib/auth0.js',
+        'client/lib/auth0.js/build/auth0.js',
         'client/lib/angular/angular.js',
         'client/lib/angular-mocks/angular-mocks.js',
         'client/lib/angular-route/angular-route.js',
@@ -26,6 +26,7 @@ module.exports = function(config) {
         'client/lib/angular-bootstrap/ui-bootstrap.js',
         'client/lib/angular-cookies/angular-cookies.js',
         'client/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
+        'client/lib/angular-ui-calendar/src/calendar.js',
         'client/lib/angular-jwt/dist/angular-jwt.js',
         'client/lib/jquery/dist/jquery.js',
         'client/lib/auth0-angular/build/auth0-angular.js',

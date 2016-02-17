@@ -1,20 +1,16 @@
 var calendar = angular.module('calendar', []);
-calendar.controller('calendarController', ['auth', '$window', 'Events', 'Plants','$compile', '$timeout', 'uiCalendarConfig','$q', function(auth, $window, Events, Plants, $compile, $timeout, uiCalendarConfig, $q) {
+calendar.controller('calendarController', ['auth', '$window', 'Events', 'Plants', '$compile', '$timeout', 'uiCalendarConfig', '$q', function(auth, $window, Events, Plants, $compile, $timeout, uiCalendarConfig, $q) {
   var that = this;
-  var date = new Date();
-  var d = date.getDate();
-  var m = date.getMonth();
-  var y = date.getFullYear();
   that.data = {};
   that.data.username = $window.localStorage.getItem('username');
   var tempEvents = [];
   var plantPromises = [];
 
-  that.getEvents = function(){
+  that.getEvents = function() {
     Events.getUserEvents(that.data)
-      .then(function(results){
-          for(var key in results.data){
-            for(var i = 0; i < results.data[key].events.length; i++){
+      .then(function(results) {
+          for(var key in results.data) {
+            for(var i = 0; i < results.data[key].events.length; i++) {
               var name = results.data[key].nickname;
               that.data.eventDate = results.data[key].events[i];
                 var year = moment(that.data.eventDate).format('YYYY');
@@ -32,28 +28,28 @@ calendar.controller('calendarController', ['auth', '$window', 'Events', 'Plants'
 
         })
       .catch(function(error){
-        console.log(error, 'ERROR INSIDE GETUSEREVENTS CONTROLLER');
-      })
+        console.log(error);
+      });
   };
   that.getEvents();
   that.events = [];
 
 
-  /* Change View */
+  // Change View
   that.changeView = function(view,calendar) {
     uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
   };
 
-  /* Change View */
+  //Change View
   that.renderCalender = function(calendar) {
     $timeout(function() {
-     if(uiCalendarConfig.calendars[calendar]){
+     if(uiCalendarConfig.calendars[calendar]) {
        uiCalendarConfig.calendars[calendar].fullCalendar('render');
      }
    });
   };
 
-  /* Configure calendar */
+  // Configure calendar 
   that.uiConfig = {
       calendar:{
         height: 450,

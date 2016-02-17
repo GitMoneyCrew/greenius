@@ -24,33 +24,33 @@ browsePlant.controller('browsePlantController', ['Plants', '$state', '$window', 
                     'Black-eyed Susans', 'Okra', 'Dahlias', 'Parsnips', 'Aloe Vera', 'Sedum', 'Impatiens', 'Broccoli', 'Cauliflower', 'Asparagus', 'Petunias','Sweet Potato', 'Spinach',
                     'Gladiolus', 'Butterfly Bush', 'Oregano', 'Eggplant', 'Roses', 'Raspberries', 'Morning Glories', 'Delphiniums', 'Coneflowers', 'Apples', 'Garlic', 'Pumpkins', 'Hyacinths', 'Squash & Zucchini'];
 
-    that.goToPlant = function(name){
+    that.goToPlant = function(name) {
       $state.go('navbar.plantProfile', {nickname: name});
     };
 
-    that.getExistingGardens = function(){
+    that.getExistingGardens = function() {
       var gardenArray = [];
         Plants.getUserGardens(that.data)
           .then(function(results){
-            for(var j = 0; j< results.length; j++){
+            for(var j = 0; j< results.length; j++) {
               var garden = results[j].gardenName;
-              if(gardenArray.indexOf(garden) === -1){
+              if(gardenArray.indexOf(garden) === -1) {
                 gardenArray.push(garden);
               }
             }
             that.usersGardenArray = gardenArray;
           })
-          .catch(function(error){
+          .catch(function(error) {
             console.log(error);
           });
     };
     that.getExistingGardens();
 
-    var changeToPlantProfile = function(name){
+    var changeToPlantProfile = function(name) {
       $state.go('navbar.plantProfile', {nickname: name});
     };
 
-    that.goToPlant = function(name){
+    that.goToPlant = function(name) {
       that.data.nickname = name;
       changeToPlantProfile(that.data.nickname);
     };
@@ -59,49 +59,47 @@ browsePlant.controller('browsePlantController', ['Plants', '$state', '$window', 
       that.data.commonName = plant;
       that.browse();
     }
-    
-    that.browse = function(){
-      console.log('browse got heard!!');
-      if(that.data.commonName){
+
+    that.browse = function() {
+      if(that.data.commonName) {
         Plants.getSpecieInfo(that.data)
-          .then(function(data){
+          .then(function(data) {
             that.data.commonName = data.commonName;
             that.data.botanicalName = data.botanicalName;
             that.data.plantPic = data.plantPic;
-            console.log(that.data.plantPic)
             that.userWantsToAddPlant();
           })
-          .catch(function(error){
+          .catch(function(error) {
             console.log(error);
             alert('Plant not found');
           });
        }
     };
 
-    that.userWantsToAddPlant = function(){
+    that.userWantsToAddPlant = function() {
       that.promptToAddPlant = !(that.promptToAddPlant);
     };
 
-    that.userChoseGarden = function(){
+    that.userChoseGarden = function() {
       that.gardenPrompt = !(that.gardenPrompt);
     };
 
-    that.specificPlantInfoPrompts = function(){
+    that.specificPlantInfoPrompts = function() {
       that.plantInfoPrompts = !(that.plantInfoPrompts);
     };
 
-    that.plantsInGardenTracker = function(){
+    that.plantsInGardenTracker = function() {
       that.tracker = true;
     };
 
-    that.selectGarden = function(){
-      if(that.data.gardenName){
-        if(that.data.usersGarden !== that.data.gardenName){
+    that.selectGarden = function() {
+      if(that.data.gardenName) {
+        if(that.data.usersGarden !== that.data.gardenName) {
           Plants.addGarden(that.data)
-            .then(function(results){
+            .then(function(results) {
               that.getGardenPlants();
             })
-            .catch(function(error){
+            .catch(function(error) {
               console.log(error);
             });
           }
@@ -109,17 +107,17 @@ browsePlant.controller('browsePlantController', ['Plants', '$state', '$window', 
        }
     };
 
-    that.addPlant = function(){
-      if(that.data.nickname){
+    that.addPlant = function() {
+      if(that.data.nickname) {
         Plants.addPlant(that.data)
-          .then(function(results){
+          .then(function(results) {
             that.specificPlantInfoPrompts();
             that.userChoseGarden();
             that.userWantsToAddPlant();
             that.getExistingGardens();
             that.addedPlants.push({nickname: that.data.nickname, commonName: that.data.commonName});
           })
-          .catch(function(error){
+          .catch(function(error) {
             console.log(error);
           });
       } else{

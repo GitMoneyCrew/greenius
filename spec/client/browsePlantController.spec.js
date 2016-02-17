@@ -1,50 +1,89 @@
-// describe('browsePlantController', function() {
-// 	var bpp, $rootScope, createController, $httpBackend, Plants, ProfileInfo;
+"use strict";
 
-	
-// 	beforeEach( module ('greeniusApp'));
-// 	// beforeEach( module ('auth0'));
-// 	beforeEach(inject(function($injector) {
+// run test in command line with: $gulp tdd
+describe('browsePlantController', function() {
+	var $scope;
+	var Plants;
+	var $state;
+	var $window;
+	var $httpBackend;
+	var ctrl;
+	var $controller;
 
-// 		$rootScope = $injector.get('$rootScope');
-// 		$httpBackend = $injector.get('$httpBackend');
-// 		Plants = $injector.get('Plants');
-// 		ProfileInfo = $injector.get('ProfileInfo');
+	beforeEach(module('greeniusApp'));
+	beforeEach(inject(function($injector, $rootScope) {
 
-// 		bpp = $rootScope.$new();
+		$scope = $rootScope.$new();
+		Plants = $injector.get('Plants');
+		$state = $injector.get('$state');
+		$window = $injector.get('$window');
+		$httpBackend = $injector.get('$httpBackend');
 
-// 		var $controller = $injector.get('$controller');
+		$controller = $injector.get('$controller');
 
-// 		createController = function() {
-// 			return $controller('browsePlantController', {
-// 				bpp: bpp,
-// 				Plant: Plants,
-// 				ProfileInfo: ProfileInfo
-// 			});
-// 		};
+		ctrl = $controller('browsePlantController', {
+		  $scope: $scope,
+		  Plants: Plants,
+		  $state: $state,
+		  $window: $window
+		});
 
-// 		var fakeData = [{},{},{},{}];
-// 		$httpBackend.whenPOST('/api/plants/loadUserGardens').respond(fakeData);
-// 		$httpBackend.whenPOST('/api/plants/').respond(fakeData); //TODO: Maybe unnecessary
-// 		$httpBackend.whenGET('app/landingPage/landingPageView.html').respond(fakeData);
+	}));
 
-// 		createController();
-// 		$httpBackend.flush();
+	it('contains spec with an expectation', function() {
+		expect(true).toBe(true);
+	});
 
-// 	}));
+	it('data should be a property on the scope', function() {
+		expect(ctrl.data).toBeDefined();
+	});
 
-// 	afterEach(function () {
-//     $httpBackend.verifyNoOutstandingExpectation();
-//     $httpBackend.verifyNoOutstandingRequest();
-//   });
+	// it('data.specieResults should be a property on the scope', function() {
+	// 	expect(ctrl.data.specieResults).toBeDefined();
+	// });
 
-// 	describe('Factories in browsPlant', function() {
-// 		it('should be a factory used by browsePlantController', function() {
-// 			expect(Plants).toBeDefined();
-// 		});
-// 		it('should be a factory used by browsePlantController', function  () {
-// 			expect(ProfileInfo).toBeDefined();
-// 		});
-// 	});
+	it('data.nickname should be a property on the scope', function() {
+		expect(ctrl.data.nickname).toBeDefined();
+	});
 
-// });
+	it('data.username should be a property on the scope', function() {
+		expect(ctrl.data.username).toBeDefined();
+	});
+
+	it('data.botanicalName should be a property on the scope', function() {
+		expect(ctrl.data.botanicalName).toBeDefined();
+	});
+
+	it('data.gardenName should be a property on the scope', function() {
+		expect(ctrl.data.gardenName).toBeDefined();
+	});
+
+	it('data.plantArray should be a property on the scope', function() {
+		expect(ctrl.data.plantArray).toBeDefined();
+	});
+
+	it('addedPlants should be a property on the scope', function() {
+		expect(ctrl.addedPlants).toBeDefined();
+	});
+
+	it('usersGardenArray should be a property on the scope', function() {
+		expect(ctrl.usersGardenArray).toBeDefined();
+	});
+
+	it('plantInfoPrompts should be a property on the scope', function() {
+		expect(ctrl.plantInfoPrompts).toBeDefined();
+	});
+
+	it('gardenPrompt should be a property on the scope', function() {
+		expect(ctrl.gardenPrompt).toBeDefined();
+	});
+
+	it('showModal should be a property on the scope', function() {
+		expect(ctrl.showModal).toBeDefined();
+	});
+
+	it('tracker should be a property on the scope', function() {
+		expect(ctrl.tracker).toBeDefined();
+	});
+
+});

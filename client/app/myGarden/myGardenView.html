@@ -8,55 +8,42 @@
       </h1>
     </div>
   </div>
-  <div class="row">
+  <div class='row'>
     <div class='col-md-4' style='margin-bottom: 20px;'>
       <h3>Create a Garden? </h3>
-      <form name="addForm" ng-submit='mgp.addGarden()' novalidate>
-        <div class="input-group">
-          <input type="text" class="form-control" ng-pristine ng-untouched ng-valid placeholder='Add Garden' ng-model='mgp.data.gardenAdded'>
-          <span class="input-group-btn">
-            <button class="btn btn-secondary" type="submit" value='Add' style='color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6;'>Add Garden</button>
+      <form name='addForm' ng-submit='mgp.addGarden()' novalidate>
+        <div class='input-group'>
+          <input type='text' class='form-control' ng-pristine ng-untouched ng-valid placeholder='Add Garden' ng-model='mgp.data.gardenAdded'>
+          <span class='input-group-btn'>
+            <button class='btn btn-secondary' type='submit' value='Add' style='color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6;'>Add Garden</button>
           </span>
         </div>
       </form>
     </div>
-<!--     <div class='col-md-4'>
-      <h3>Delete a Garden? </h3>
-      <form name="deleteForm" ng-submit='mgp.deleteGarden()' novalidate>
-          <div class="form-group">
-              <select placeholder='Delete Garden' ng-model='mgp.data.gardenDelete'>
-                <option value='' disabled selected></option>
-                <option ng-repeat='(key, value) in mgp.gardens'>{{value}}</option>
-              </select>
-              <button class='btn btn-success' type='submit' value='Delete'>Delete Garden</button>
-          </div>
-          <button type="submit" class="btn btn-danger btn-block" ng-click="mgp.deleteGarden()" ng-disabled="addForm.$invalid">Submit</button>
-      </form>
-    </div> -->
   </div>
   <div class='row myGarden'>
     <div class='col-md-8'>
-      <div ng-repeat="list in mgp.lists" id={{list.label}}>
-        <div class="panel panel-info" style='border-color: #d6e9c6;'>
-          <div class="panel-heading" style='color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6;'>
-              <h3 class="panel-title">{{list.label}}</h3>
+      <div ng-repeat='list in mgp.lists' id={{list.label}}>
+        <div class='panel panel-info' style='border-color: #d6e9c6;'>
+          <div class='panel-heading' style='color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6;'>
+              <h3 class='panel-title'>{{list.label}}</h3>
           </div>
-          <ul dnd-list="list.plants"
-              dnd-inserted="mgp.dropCallback(event, index, item, external, type)" >
+          <ul dnd-list='list.plants'
+              dnd-inserted='mgp.dropCallback(event, index, item, external, type)' >
             <!-- Make dnd moved call a function that plants the plant -->
-            <li ng-repeat="plant in list.plants"
-                dnd-draggable="plant"
+            <li ng-repeat='plant in list.plants'
+                dnd-draggable='plant'
                 dnd-disable-if="plant.gardenId !== ''"
-                dnd-type="plant.type"
-                dnd-moved="mgp.confirm(); list.plants.splice($index, 1)"
-                dnd-canceled="list.plants.splice($index, 1)"
-                ng-init="plant.bucket = list.label">
-                <div class="handle" >:::</div> <!--different handle based on type?-->
-                <div class="name" dnd-nodrag>{{plant.name}}</div>
+                dnd-type='plant.type'
+                dnd-moved='mgp.confirm(); list.plants.splice($index, 1)'
+                dnd-canceled='list.plants.splice($index, 1)'
+                ng-init='plant.bucket = list.label'>
+                <div class='handle' >:::</div> 
+                <div class='name' dnd-nodrag>{{plant.name}}</div>
             </li>
           </ul>
         </div>
-      </div>  
+      </div>
     </div>
-  </div> 
+  </div>
 </div>
